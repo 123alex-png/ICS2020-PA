@@ -31,7 +31,7 @@ typedef struct {
   /* In NEMU, rtlreg_t is exactly uint32_t. This makes RTL instructions
   * in PA2 able to directly access these registers.
    */
-    struct{
+    union{
       rtlreg_t eax;
       union{
         uint16_t ax;
@@ -42,7 +42,7 @@ typedef struct {
       };
     };
 
-    struct{
+    union{
       rtlreg_t ecx;
       union{
         uint16_t cx;
@@ -53,7 +53,7 @@ typedef struct {
       };
     };
 
-    struct{
+    union{
       rtlreg_t edx;
       union{
         uint16_t dx;
@@ -64,7 +64,7 @@ typedef struct {
       };
     };
 
-    struct{
+    union{
       rtlreg_t ebx;
       union{
         uint16_t bx;
@@ -75,22 +75,22 @@ typedef struct {
       };
     };
 
-    struct{
+    union{
       rtlreg_t esp;
       uint16_t sp;
     };
 
-    struct{
+    union{
       rtlreg_t ebp;
       uint16_t bp;
     };
 
-    struct{
+    union{
       rtlreg_t esi;
       uint16_t si;
     };
 
-    struct{
+    union{
       rtlreg_t edi;
       uint16_t di;
     };
