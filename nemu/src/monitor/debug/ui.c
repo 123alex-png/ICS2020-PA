@@ -317,7 +317,6 @@ static int cmd_x(char* args){
     printf("0x%x: ",input_addr+offset);
     for(k=0;k<left;k++){
         printf("0x%-15x      ",paddr_read(input_addr+offset,4));
-        printf("        ");
         offset+=4;
     }
       printf("\n");
