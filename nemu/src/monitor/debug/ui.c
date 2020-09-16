@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <memory/paddr.h>
+#include <memory/vaddr.h>
 
 void cpu_exec(uint64_t);
 int is_batch_mode();
@@ -147,7 +149,7 @@ static int cmd_x(char* args){
     printf("0x%p: ",&(cpu.eax)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.eax)+offset));
-      offset+=4;
+      offset+=left;
     }
       printf("\n");
   }
@@ -166,7 +168,7 @@ static int cmd_x(char* args){
     printf("0x%p: ",&(cpu.ecx)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.ecx)+offset));
-      offset+=4;
+      offset+=left;
     }
       printf("\n");
   }
@@ -185,7 +187,7 @@ static int cmd_x(char* args){
     printf("0x%p: ",&(cpu.edx)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.edx)+offset));
-      offset+=4;
+      offset+=left;
     }
       printf("\n");
   }
@@ -197,14 +199,14 @@ static int cmd_x(char* args){
       printf("0x%p: ",&(cpu.ebx)+offset);
       for(k=0;k<4;k++){
         printf("0x%-15x      ",*(&(cpu.ebx)+offset));
-        offset+=4;
+        offset+=left;
       }
       printf("\n");
     }
     printf("0x%p: ",&(cpu.ebx)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.ebx)+offset));
-      offset+=4;
+      offset+=left;
     }
       printf("\n");
   }
@@ -223,7 +225,7 @@ static int cmd_x(char* args){
     printf("0x%p: ",&(cpu.esp)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.esp)+offset));
-      offset+=4;
+      offset+=left;
     }
       printf("\n");
   }
@@ -242,7 +244,7 @@ static int cmd_x(char* args){
     printf("0x%p: ",&(cpu.ebp)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.ebp)+offset));
-      offset+=4;
+      offset+=left;
     }
       printf("\n");
   }
@@ -254,7 +256,7 @@ static int cmd_x(char* args){
       printf("0x%p: ",&(cpu.esi)+offset);
       for(k=0;k<4;k++){
         printf("0x%-15x      ",*(&(cpu.esi)+offset));
-        offset+=4;
+        offset+=left;
       }
       printf("\n");
     }
@@ -280,9 +282,38 @@ static int cmd_x(char* args){
     printf("0x%p: ",&(cpu.edi)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.edi)+offset));
-      offset+=4;
+      offset+=left;
     }
       printf("\n");
+  }
+  else{
+    if(arg2[0]=='0'&&arg2[1]=='x'){
+      int input_addr=0,base16=1;
+    for(j=strlen(arg2)-1;j>=2;j--){
+      input_addr+=base16*(arg2[j]-'0');
+      base16*=16;
+    }
+    //如何读取内存中的数据？？
+    int k;
+    int cnt=n/4,left=n%4;
+    int offset=0;
+    for(j=0;j<cnt;j++){
+      printf("0x%x: ",input_addr+offset);
+      for(k=0;k<4;k++){
+        printf("0x%-15x      ",paddr_read(input_addr+offset,4));
+        offset+=4;
+      }
+      printf("\n");
+    }
+    printf("0x%p: ",&(cpu.ebp)+offset);
+    for(k=0;k<left;k++){
+        printf("0x%-15x      ",paddr_read(input_addr+offset,4));
+        printf("        ");
+        offset+=left;
+    }
+      printf("\n");
+    }
+  
   }
   return 0;
 }
