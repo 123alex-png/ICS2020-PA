@@ -139,14 +139,14 @@ static int cmd_x(char* args){
     for(j=0;j<cnt;j++){
       printf("0x%p: ",&(cpu.eax)+offset);
       for(k=0;k<4;k++){
-        printf("0x%15x      ",*(&(cpu.eax)+offset));
+        printf("0x%-15x      ",*(&(cpu.eax)+offset));
         offset+=4;
       }
       printf("\n");
     }
     printf("0x%p: ",&(cpu.eax)+offset);
     for(k=0;k<left;k++){
-      printf("0x%15x      ",*(&(cpu.eax)+offset));
+      printf("0x%-15x      ",*(&(cpu.eax)+offset));
       offset+=4;
     }
       printf("\n");
@@ -158,14 +158,14 @@ static int cmd_x(char* args){
     for(j=0;j<cnt;j++){
       printf("0x%p: ",&(cpu.ecx)+offset);
       for(k=0;k<4;k++){
-        printf("0x%15x      ",*(&(cpu.ecx)+offset));
+        printf("0x%-15x      ",*(&(cpu.ecx)+offset));
         offset+=4;
       }
       printf("\n");
     }
     printf("0x%p: ",&(cpu.ecx)+offset);
     for(k=0;k<left;k++){
-      printf("0x%15x      ",*(&(cpu.ecx)+offset));
+      printf("0x%-15x      ",*(&(cpu.ecx)+offset));
       offset+=4;
     }
       printf("\n");
@@ -177,14 +177,14 @@ static int cmd_x(char* args){
     for(j=0;j<cnt;j++){
       printf("0x%p: ",&(cpu.edx)+offset);
       for(k=0;k<4;k++){
-        printf("0x%15x      ",*(&(cpu.edx)+offset));
+        printf("0x%-15x      ",*(&(cpu.edx)+offset));
         offset+=4;
       }
       printf("\n");
     }
     printf("0x%p: ",&(cpu.edx)+offset);
     for(k=0;k<left;k++){
-      printf("0x%15x      ",*(&(cpu.edx)+offset));
+      printf("0x%-15x      ",*(&(cpu.edx)+offset));
       offset+=4;
     }
       printf("\n");
@@ -196,14 +196,14 @@ static int cmd_x(char* args){
     for(j=0;j<cnt;j++){
       printf("0x%p: ",&(cpu.ebx)+offset);
       for(k=0;k<4;k++){
-        printf("0x%15x      ",*(&(cpu.ebx)+offset));
+        printf("0x%-15x      ",*(&(cpu.ebx)+offset));
         offset+=4;
       }
       printf("\n");
     }
     printf("0x%p: ",&(cpu.ebx)+offset);
     for(k=0;k<left;k++){
-      printf("0x%15x      ",*(&(cpu.ebx)+offset));
+      printf("0x%-15x      ",*(&(cpu.ebx)+offset));
       offset+=4;
     }
       printf("\n");
@@ -215,14 +215,14 @@ static int cmd_x(char* args){
     for(j=0;j<cnt;j++){
       printf("0x%p: ",&(cpu.esp)+offset);
       for(k=0;k<4;k++){
-        printf("0x%15x      ",*(&(cpu.esp)+offset));
+        printf("0x%-15x      ",*(&(cpu.esp)+offset));
         offset+=4;
       }
       printf("\n");
     }
     printf("0x%p: ",&(cpu.esp)+offset);
     for(k=0;k<left;k++){
-      printf("0x%15x      ",*(&(cpu.esp)+offset));
+      printf("0x%-15x      ",*(&(cpu.esp)+offset));
       offset+=4;
     }
       printf("\n");
@@ -234,14 +234,14 @@ static int cmd_x(char* args){
     for(j=0;j<cnt;j++){
       printf("0x%p: ",&(cpu.ebp)+offset);
       for(k=0;k<4;k++){
-        printf("0x%15x      ",*(&(cpu.ebp)+offset));
+        printf("0x%-15x      ",*(&(cpu.ebp)+offset));
         offset+=4;
       }
       printf("\n");
     }
     printf("0x%p: ",&(cpu.ebp)+offset);
     for(k=0;k<left;k++){
-      printf("0x%15x      ",*(&(cpu.ebp)+offset));
+      printf("0x%-15x      ",*(&(cpu.ebp)+offset));
       offset+=4;
     }
       printf("\n");
@@ -253,14 +253,14 @@ static int cmd_x(char* args){
     for(j=0;j<cnt;j++){
       printf("0x%p: ",&(cpu.esi)+offset);
       for(k=0;k<4;k++){
-        printf("0x%15x      ",*(&(cpu.esi)+offset));
+        printf("0x%-15x      ",*(&(cpu.esi)+offset));
         offset+=4;
       }
       printf("\n");
     }
     printf("0x%p: ",&(cpu.esi)+offset);
     for(k=0;k<left;k++){
-      printf("0x%15x      ",*(&(cpu.esi)+offset));
+      printf("0x%-15x      ",*(&(cpu.esi)+offset));
       offset+=4;
     }
       printf("\n");
@@ -272,14 +272,14 @@ static int cmd_x(char* args){
     for(j=0;j<cnt;j++){
       printf("0x%p: ",&(cpu.edi)+offset);
       for(k=0;k<4;k++){
-        printf("0x%15x      ",*(&(cpu.edi)+offset));
+        printf("0x%-15x      ",*(&(cpu.edi)+offset));
         offset+=4;
       }
       printf("\n");
     }
     printf("0x%p: ",&(cpu.edi)+offset);
     for(k=0;k<left;k++){
-      printf("0x%15x      ",*(&(cpu.edi)+offset));
+      printf("0x%-15x      ",*(&(cpu.edi)+offset));
       offset+=4;
     }
       printf("\n");
