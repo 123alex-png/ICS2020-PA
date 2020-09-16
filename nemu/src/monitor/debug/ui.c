@@ -146,6 +146,7 @@ static int cmd_x(char* args){
       }
       printf("\n");
     }
+    if(left)
     printf("0x%p: ",&(cpu.eax)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.eax)+offset));
@@ -165,6 +166,7 @@ static int cmd_x(char* args){
       }
       printf("\n");
     }
+    if(left)
     printf("0x%p: ",&(cpu.ecx)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.ecx)+offset));
@@ -184,6 +186,7 @@ static int cmd_x(char* args){
       }
       printf("\n");
     }
+    if(left)
     printf("0x%p: ",&(cpu.edx)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.edx)+offset));
@@ -203,6 +206,7 @@ static int cmd_x(char* args){
       }
       printf("\n");
     }
+    if(left)
     printf("0x%p: ",&(cpu.ebx)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.ebx)+offset));
@@ -222,6 +226,7 @@ static int cmd_x(char* args){
       }
       printf("\n");
     }
+    if(left)
     printf("0x%p: ",&(cpu.esp)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.esp)+offset));
@@ -241,6 +246,7 @@ static int cmd_x(char* args){
       }
       printf("\n");
     }
+    if(left)
     printf("0x%p: ",&(cpu.ebp)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.ebp)+offset));
@@ -260,6 +266,7 @@ static int cmd_x(char* args){
       }
       printf("\n");
     }
+    if(left)
     printf("0x%p: ",&(cpu.esi)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.esi)+offset));
@@ -279,6 +286,7 @@ static int cmd_x(char* args){
       }
       printf("\n");
     }
+    if(left)
     printf("0x%p: ",&(cpu.edi)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.edi)+offset));
@@ -305,6 +313,7 @@ static int cmd_x(char* args){
       }
       printf("\n");
     }
+    if(left)
     printf("0x%x: ",input_addr+offset);
     for(k=0;k<left;k++){
         printf("0x%-15x      ",paddr_read(input_addr+offset,4));
