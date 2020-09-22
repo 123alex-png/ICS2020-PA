@@ -22,15 +22,15 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
-  {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
-  {"==", TK_EQ},        // equafl
-  {"-",'-'},          //minus
-  {"\\*",'*'},          //mulitply
-  {"/",'/'},          //divide
-  {"\\d",TK_NUM},     //number
-  {"\\(",'('},           //left brackets
-  {"\\)",')'}           //right brackets
+  {" +", TK_NOTYPE},   // spaces
+  {"\\+", '+'},        // plus
+  {"==", TK_EQ},       // equafl
+  {"-",'-'},           //minus
+  {"\\*",'*'},         //mulitply
+  {"/",'/'},           //divide
+  {"\\d+",TK_NUM},     //number
+  {"\\(",'('},         //left brackets
+  {"\\)",')'}          //right brackets
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
