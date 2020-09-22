@@ -129,7 +129,7 @@ static word_t eval(int p,int q,bool *success){
       *success=false;
       return 1;
     }
-    return atoi(tokens->str);
+    return atoi(tokens[p].str);
   }
   else if(check_parenthese(p,q)){
     return eval(p+1,q-1,success);
