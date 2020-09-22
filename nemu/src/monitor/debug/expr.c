@@ -28,7 +28,7 @@ static struct rule {
   {"\\-",'-'},          //minus
   {"\\*",'*'},          //mulitply
   {"\\/",'/'},          //divide
-  {"^\\d+",TK_NUM},     //number
+  {"\\d+",TK_NUM},     //number
   {"\\(",'('},           //left brackets
   {"\\)",')'}           //right brackets
 };
