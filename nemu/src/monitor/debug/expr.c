@@ -28,7 +28,7 @@ static struct rule {
   {"-",'-'},           //minus
   {"\\*",'*'},         //mulitply
   {"/",'/'},           //divide
-  {"[0-9]+",TK_NUM},     //number
+  {"\\[0-9]+",TK_NUM},     //number
   {"\\(",'('},         //left brackets
   {"\\)",')'}          //right brackets
 };
@@ -103,7 +103,7 @@ static bool make_token(char *e) {
   return true;
 }
 
-static bool check_parenthese(char *e,int p,int q){
+static bool check_parenthese(int p,int q){
   if(tokens[p].type!='('||tokens[q].type!=')'){
     return false;
   }
@@ -116,7 +116,7 @@ static bool check_parenthese(char *e,int p,int q){
   return true;
 }
 
-static word_t eval(char *e,int p,int q,bool *success){
+static word_t eval(int p,int q,bool *success){
   if(*success==false){
     return 1;
   }
@@ -131,8 +131,8 @@ static word_t eval(char *e,int p,int q,bool *success){
     }
     return atoi(tokens->str);
   }
-  else if(check_parenthese(e,p,q)){
-    return eval(e,p+1,q-1,success);
+  else if(check_parenthese(p,q)){
+    return eval(p+1,q-1,success);
   }
   else{
     int i;
@@ -169,8 +169,8 @@ static word_t eval(char *e,int p,int q,bool *success){
       return 1;
     }
     else{
-      int val1=eval(e,p,op-1,success);
-      int val2=eval(e,op+1,q,success);
+      int val1=eval(p,op-1,success);
+      int val2=eval(op+1,q,success);
       switch (tokens[op].type)
       {
       case '+':{
@@ -224,6 +224,6 @@ word_t expr(char *e, bool *success) {
     *success=false;
     return 0;
   }
-  word_t ans=eval(e,0,nr_token,success);
+  word_t ans=eval(0,nr_token,success);
   return ans;
 }
