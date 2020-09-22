@@ -46,6 +46,9 @@ static int cmd_execute_once(char* args);
 static int cmd_info(char* args);
 
 static int cmd_x(char* args);
+
+static int cmd_p(char* args);
+
 static struct {
   char *name;
   char *description;
@@ -57,6 +60,7 @@ static struct {
   { "si", "Execute one instruction", cmd_execute_once },
   { "info", "Print the information of the registers or the watchpoints", cmd_info},
   { "x", "Examine memory: x/FMT ADDRESS",cmd_x},
+  { "p", "print the value of the expression", cmd_p}
   /* TODO: Add more commands */
 
 };
@@ -325,6 +329,25 @@ static int cmd_x(char* args){
   }
   return 0;
 }
+
+static int cmd_p(char* args){
+  char *arg=strtok(NULL," ");
+  if(arg==NULL){
+    printf("Please type the expressions");
+  }
+  else{
+    bool *success=(bool*)malloc(sizeof(bool));
+    word_t ans=expr(arg,success);
+    if(*success==false){
+      printf("Invalid expression\n");
+    }
+    else{
+      printf("%d\n",ans);
+    }
+  }
+  return 0;
+}
+
 void ui_mainloop() {
   if (is_batch_mode()) {
     cmd_c(NULL);
