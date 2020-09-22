@@ -220,7 +220,7 @@ word_t expr(char *e, bool *success) {
       }
     }
   }
-  if(!head){
+  if(head){
     *success=false;
     return 0;
   }
