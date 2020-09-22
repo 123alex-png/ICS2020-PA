@@ -24,11 +24,11 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-  {"==", TK_EQ},        // equal
+  {"==", TK_EQ},        // equafl
   {"-",'-'},          //minus
   {"\\*",'*'},          //mulitply
   {"/",'/'},          //divide
-  {"\\d+",TK_NUM},     //number
+  {"\\d",TK_NUM},     //number
   {"\\(",'('},           //left brackets
   {"\\)",')'}           //right brackets
 };
