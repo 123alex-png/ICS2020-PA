@@ -105,6 +105,7 @@ static bool make_token(char *e) {
 }
 
 static bool judge(int p,int q,bool *success){
+  if(tokens[p].type!='('||tokens[q].type!=')')return false;
   int head=0;
   for(int i=p;i<q;i++){
     if(tokens[i].type=='('){
