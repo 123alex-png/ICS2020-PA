@@ -343,7 +343,8 @@ static int cmd_p(char* args){
     }
     else{
       printf("%d\n",ans);
-    }
+    };
+    free(success);  
   }
   return 0;
 }
