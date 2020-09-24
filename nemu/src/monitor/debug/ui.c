@@ -331,14 +331,13 @@ static int cmd_x(char* args){
 }
 
 static int cmd_p(char* args){
-  char *arg=strtok(NULL," ");
-  if(arg==NULL){
+  if(args==NULL){
     printf("Please type the expressions");
   }
   else{
     bool *success=(bool*)malloc(sizeof(bool));
     *success=true;
-    word_t ans=expr(arg,success);
+    word_t ans=expr(args,success);
     if(*success==false){
       printf("Invalid expression\n");
     }
