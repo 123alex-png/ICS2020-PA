@@ -226,7 +226,7 @@ word_t expr(char *e, bool *success) {
       }
     }
   }
-  if(judge(0,nr_token-1,success)){
+  if(!judge(0,nr_token-1,success)){
     *success=false;
     return 0;
   }
