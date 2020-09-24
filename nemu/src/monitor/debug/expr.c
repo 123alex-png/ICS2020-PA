@@ -104,19 +104,24 @@ static bool make_token(char *e) {
   return true;
 }
 
-static bool check_parenthese(int p,int q){
-  if(tokens[p].type!='('||tokens[q].type!=')'){
-    return false;
-  }
-  int i;
-  for(i=p+1;i<q;i++){
-    if(tokens[i].type=='('||tokens[i].type==')'){
-      return false;
+static bool judge(int p,int q,bool *success){
+  int head=0;
+  for(int i=p;i<q;i++){
+    if(tokens[i].type=='('){
+      head++;
+    }
+    if(tokens[i].type==')'){
+      if(head==0){
+        *success=false;
+        return 0;
+      }
+      else{
+        head--;
+      }
     }
   }
-  return true;
+  return !head;
 }
-
 static word_t eval(int p,int q,bool *success){
   if(*success==false){
     return 1;
@@ -132,7 +137,7 @@ static word_t eval(int p,int q,bool *success){
     }
     return atoi(tokens[p].str);
   }
-  else if(check_parenthese(p,q)){
+  else if(judge(p+1,q-1,success)){
     return eval(p+1,q-1,success);
   }
   else{
@@ -221,7 +226,7 @@ word_t expr(char *e, bool *success) {
       }
     }
   }
-  if(head){
+  if(judge(0,nr_token-1,success)){
     *success=false;
     return 0;
   }
