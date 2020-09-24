@@ -211,21 +211,6 @@ word_t expr(char *e, bool *success) {
   }
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-  int head=0;
-  for(int i=0;i<nr_token;i++){
-    if(tokens[i].type=='('){
-      head++;
-    }
-    if(tokens[i].type==')'){
-      if(head==0){
-        *success=false;
-        return 0;
-      }
-      else{
-        head--;
-      }
-    }
-  }
   if(!judge(0,nr_token-1,success)){
     *success=false;
     return 0;
