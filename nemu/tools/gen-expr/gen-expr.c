@@ -4,7 +4,7 @@
 #include <time.h>
 #include <assert.h>
 #include <string.h>
-#define MAXSPN 5
+#define MAXSPN 2
 // this should be enough
 static char buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
@@ -27,7 +27,7 @@ static inline void gen_num(){
   for(int i=0;i<choose(MAXSPN);i++){
     buf[cnt++]=' ';
   }
-  char tmp[32];
+  char tmp[40];
   sprintf(tmp,"%u",choose(0x3f3f3f3f));
   for(int i=0;i<strlen(tmp);i++){
     buf[cnt++]=tmp[i];
@@ -75,6 +75,7 @@ static inline void gen_rstoken(){
 
 static inline void gen_rand_expr() {
   //buf[0] = '\0';
+  if(cnt>6553)return;
   switch(choose(3)){
     case 0: {
       gen_num();
@@ -105,7 +106,8 @@ int main(int argc, char *argv[]) {
   int i;
   for (i = 0; i < loop; i ++) {
     cnt=0;
-    
+    memset(buf,0,sizeof(buf));
+    memset(code_buf,0,sizeof(code_buf));
     gen_rand_expr();
 
     sprintf(code_buf, code_format, buf);
@@ -115,7 +117,7 @@ int main(int argc, char *argv[]) {
     fputs(code_buf, fp);
     fclose(fp);
 
-    int ret = system("gcc /tmp/.code.c -o /tmp/.expr");
+    int ret = system("gcc /tmp/.code.c -Werror -o /tmp/.expr");
     if (ret != 0) continue;
 
     fp = popen("/tmp/.expr", "r");
