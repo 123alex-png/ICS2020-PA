@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
   FILE *fp;
   fp=fopen("tools/gen-expr/input","r");
   char buf[65536];
+  int cnt=0;
   while(fgets(buf,65536,fp)!=NULL){
     char *arg1=strtok(buf," ");
     bool *success1=(bool*)malloc(sizeof(bool));
@@ -19,10 +20,10 @@ int main(int argc, char *argv[]) {
     *flag1=true;
     unsigned int ans1=expr(buf,success1,flag1);
     if(atoi(arg1)==ans1){
-      printf("correct! %u\n",ans1);
+      printf("%d:correct! %u\n",cnt++,ans1);
     }
     else{
-      printf("wrong! the answer is %u, gets %u",atoi(arg1),ans1);
+      printf("%d:wrong! the answer is %u, gets %u",cnt++,atoi(arg1),ans1);
     }
   }
   /* Start engine. */
