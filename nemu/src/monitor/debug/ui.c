@@ -342,7 +342,7 @@ static int cmd_p(char* args){
       printf("Invalid expression\n");
     }
     else{
-      printf("%d\n",ans);
+      printf("%u\n",ans);
     };
     free(success);  
   }
