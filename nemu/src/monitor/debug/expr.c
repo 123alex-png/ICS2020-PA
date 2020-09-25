@@ -194,6 +194,7 @@ static word_t eval(int p,int q,bool *success,bool *flag){
         if(val2==0){
           printf("Division by zero\n");
           *flag=false;
+          return 0;
         }
         return val1/val2;
         break;
