@@ -18,8 +18,8 @@ static char *code_format =
 
 int cnt;
 
-int choose(int n){
-  int ret=rand()%n;
+uint32_t choose(uint32_t n){
+  uint32_t ret=rand()%n;
   return ret;
 }
 
