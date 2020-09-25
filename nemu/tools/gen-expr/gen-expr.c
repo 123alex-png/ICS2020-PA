@@ -28,7 +28,7 @@ static inline void gen_num(){
     buf[cnt++]=' ';
   }
   char tmp[32];
-  sprintf(tmp,"%u",(unsigned int)choose(0x3f3f3f3f));
+  sprintf(tmp,"%u",choose(0x3f3f3f3f));
   for(int i=0;i<strlen(tmp);i++){
     buf[cnt++]=tmp[i];
   }
