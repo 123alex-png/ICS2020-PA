@@ -134,7 +134,7 @@ static word_t eval(int p,int q,bool *success){
       *success=false;
       return 1;
     }
-    return atoi(tokens[p].str);
+    return (word_t)atoi(tokens[p].str);
   }
   else if(tokens[p].type=='('&&tokens[q].type==')'&&judge(p+1,q-1)){
     return eval(p+1,q-1,success);
@@ -174,7 +174,6 @@ static word_t eval(int p,int q,bool *success){
       return 1;
     }
     else{
-      assert(*success);
       word_t val1=eval(p,op-1,success);
       word_t val2=eval(op+1,q,success);
       switch (tokens[op].type)
