@@ -339,7 +339,7 @@ static int cmd_p(char* args){
     *success=true;
     bool *flag=(bool*)malloc(sizeof(bool));
     *flag=true;
-    word_t ans=expr(args,success);
+    word_t ans=expr(args,success,flag);
     if(*flag){
       if(*success==false){
         printf("Invalid expression\n");
