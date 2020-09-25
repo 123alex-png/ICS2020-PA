@@ -335,6 +335,7 @@ static int cmd_p(char* args){
     printf("Please type the expressions");
   }
   else{
+    char *ans0=strtok(args," ");
     bool *success=(bool*)malloc(sizeof(bool));
     *success=true;
     bool *flag=(bool*)malloc(sizeof(bool));
@@ -346,7 +347,8 @@ static int cmd_p(char* args){
       }
       else{
         printf("%u\n",ans);
-      };
+        assert((word_t)atoi(ans0)==ans);
+      }
       free(success);  
     }
   }
@@ -377,6 +379,10 @@ void ui_mainloop() {
     extern void sdl_clear_event_queue();
     sdl_clear_event_queue();
 #endif
+    //begin test
+    cmd_p(args);break;
+
+
 
     int i;
     for (i = 0; i < NR_CMD; i ++) {
