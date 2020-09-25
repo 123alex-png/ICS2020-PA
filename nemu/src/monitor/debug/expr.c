@@ -212,7 +212,6 @@ static word_t eval(int p,int q,bool *success,bool *flag){
 }
 
 word_t expr(char *e, bool *success,bool *flag) {
-  /**begin test, after test, replace "er" and "el" with "e"*/
   if (!make_token(e)) {
     *success = false;
     return 0;
