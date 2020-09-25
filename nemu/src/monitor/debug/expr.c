@@ -30,7 +30,8 @@ static struct rule {
   {"/",'/'},           //divide
   {"[0-9]+",TK_NUM},     //number
   {"\\(",'('},         //left brackets
-  {"\\)",')'}          //right brackets
+  {"\\)",')'} ,
+  {"\\u",'u'}         //right brackets
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -89,6 +90,7 @@ static bool make_token(char *e) {
         
          switch (rules[i].token_type) {
           case 256:break;
+          case 'u':break;
           default: strncpy(tokens[nr_token].str,substr_start,substr_len);
                     tokens[nr_token++].type=rules[i].token_type;
          }
