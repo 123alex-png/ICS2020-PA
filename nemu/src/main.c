@@ -11,7 +11,6 @@ int main(int argc, char *argv[]) {
   FILE *fp;
   fp=fopen("/tools/gen-expr/input","r");
   char buf[65536];
-  fscanf(fp,"%s",buf);
   while(fgets(buf,65536,fp)!=NULL){
     char *arg1=strtok(buf," ");
     bool *success1=(bool*)malloc(sizeof(bool));
