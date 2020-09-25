@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
   init_monitor(argc, argv);
   //begin test
   FILE *fp;
-  fp=fopen("/tools/gen-expr/input","r");
+  fp=fopen("tools/gen-expr/input","r");
   char buf[65536];
   while(fgets(buf,65536,fp)!=NULL){
     char *arg1=strtok(buf," ");
