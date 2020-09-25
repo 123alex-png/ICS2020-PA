@@ -361,6 +361,14 @@ void ui_mainloop() {
 
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
+    /***delete the text below after the test****/
+    cmd_p(str);
+    break;
+
+
+
+
+
 
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");

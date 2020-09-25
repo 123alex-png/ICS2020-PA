@@ -212,7 +212,12 @@ static word_t eval(int p,int q,bool *success,bool *flag){
 }
 
 word_t expr(char *e, bool *success,bool *flag) {
-  if (!make_token(e)) {
+  /**begin test, after test, replace "er" and "el" with "e"*/
+  char *el=strtok(e," ");
+  char *er=el+strlen(el)+1;
+
+
+  if (!make_token(er)) {
     *success = false;
     return 0;
   }
@@ -223,5 +228,7 @@ word_t expr(char *e, bool *success,bool *flag) {
     return 0;
   }
   word_t ans=eval(0,nr_token-1,success,flag);
+  assert((word_t)atoi(el)==ans);
+
   return ans;
 }
