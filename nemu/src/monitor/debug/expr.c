@@ -104,7 +104,7 @@ static bool make_token(char *e) {
   return true;
 }
 
-static bool judge(int p,int q,bool *success){
+static bool judge(int p,int q){
   int head=0;
   for(int i=p;i<=q;i++){
     if(tokens[i].type=='('){
@@ -112,7 +112,6 @@ static bool judge(int p,int q,bool *success){
     }
     if(tokens[i].type==')'){
       if(head==0){
-        *success=false;
         return 0;
       }
       else{
@@ -137,7 +136,7 @@ static word_t eval(int p,int q,bool *success){
     }
     return atoi(tokens[p].str);
   }
-  else if(tokens[p].type=='('&&tokens[q].type==')'&&judge(p+1,q-1,success)){
+  else if(tokens[p].type=='('&&tokens[q].type==')'&&judge(p+1,q-1)){
     return eval(p+1,q-1,success);
   }
   else{
@@ -175,6 +174,7 @@ static word_t eval(int p,int q,bool *success){
       return 1;
     }
     else{
+      assert(*success);
       word_t val1=eval(p,op-1,success);
       word_t val2=eval(op+1,q,success);
       switch (tokens[op].type)
@@ -211,7 +211,7 @@ word_t expr(char *e, bool *success) {
   }
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-  if(!judge(0,nr_token-1,success)){
+  if(!judge(0,nr_token-1)){
     *success=false;
     return 0;
   }
