@@ -75,7 +75,7 @@ static inline void gen_rstoken(){
 
 static inline void gen_rand_expr() {
   //buf[0] = '\0';
-  if(cnt>6553)return;
+  if(cnt>60000)return;
   switch(choose(3)){
     case 0: {
       gen_num();
