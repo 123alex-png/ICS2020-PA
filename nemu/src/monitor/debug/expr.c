@@ -124,7 +124,7 @@ static bool judge(int p,int q){
   }
   return !head;
 }
-static word_t eval(int p,int q,bool *success,bool *flag){
+static word_t eval(int p,int q,bool *success){
   if(*success==false){
     return 1;
   }
@@ -140,7 +140,7 @@ static word_t eval(int p,int q,bool *success,bool *flag){
     return (word_t)atoi(tokens[p].str);
   }
   else if(tokens[p].type=='('&&tokens[q].type==')'&&judge(p+1,q-1)){
-    return eval(p+1,q-1,success,flag);
+    return eval(p+1,q-1,success);
   }
   else{
     int i;
@@ -177,8 +177,8 @@ static word_t eval(int p,int q,bool *success,bool *flag){
       return 1;
     }
     else{
-      word_t val1=eval(p,op-1,success,flag);
-      word_t val2=eval(op+1,q,success,flag);
+      word_t val1=eval(p,op-1,success);
+      word_t val2=eval(op+1,q,success);
       switch (tokens[op].type)
       {
       case '+':{
@@ -196,7 +196,7 @@ static word_t eval(int p,int q,bool *success,bool *flag){
       case '/':{
         if(val2==0){
           printf("Division by zero\n");
-          *flag=false;
+          *success=false;
           return 0;
         }
         return val1/val2;
@@ -211,7 +211,7 @@ static word_t eval(int p,int q,bool *success,bool *flag){
   }
 }
 
-word_t expr(char *e, bool *success,bool *flag) {
+word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
@@ -222,7 +222,7 @@ word_t expr(char *e, bool *success,bool *flag) {
     *success=false;
     return 0;
   }
-  word_t ans=eval(0,nr_token-1,success,flag);
+  word_t ans=eval(0,nr_token-1,success);
 
   return ans;
 }
