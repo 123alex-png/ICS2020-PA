@@ -7,8 +7,8 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ=257,
-  TK_NUM=258
+  TK_NOTYPE = 256, TK_EQ,TK_UNEQ,
+  TK_NUM, TK_REG, TK_16, TK_AND
   /* TODO: Add more token types */
 
 };
@@ -26,12 +26,16 @@ static struct rule {
   {"\\+", '+'},        // plus
   {"==", TK_EQ},       // equafl
   {"-",'-'},           //minus
-  {"\\*",'*'},         //mulitply
+  {"\\*",'*'},         //mulitply or dereference
   {"/",'/'},           //divide
-  {"[0-9]+",TK_NUM},     //number
+  {"0x",TK_16},        //hexadecimal number
+  {"[0-9]+",TK_NUM},   //number
   {"\\(",'('},         //left brackets
-  {"\\)",')'} ,
-  {"\\u",'u'}         //right brackets
+  {"\\)",')'},         //right brackets
+  {"\\u",'u'},        
+  {"\\$",TK_REG},      //regs
+  {"!=",TK_UNEQ},      // unequafl
+  {"&&", TK_AND},      //and       
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -146,16 +150,31 @@ static word_t eval(int p,int q,bool *success){
     int i;
     int flag1=0,head=0,op=-1;
     for(i=q;i>=p;i--){
-      if(tokens[i].type=='('){
-        head++;
+        if(tokens[i].type=='('){
+          head++;
+        }
+        if(tokens[i].type==')'){
+          head--;
+        }
+        if(!head&&(tokens[i].type==TK_EQ||tokens[i].type==TK_UNEQ||tokens[i].type==TK_AND)){
+          op=i;
+          flag1=1;
+          break;
+        }
       }
-      if(tokens[i].type==')'){
-        head--;
-      }
-      if(!head&&(tokens[i].type=='+'||tokens[i].type=='-')){
-        op=i;
-        flag1=1;
-        break;
+    if(!flag1){
+      for(i=q;i>=p;i--){
+        if(tokens[i].type=='('){
+          head++;
+        }
+        if(tokens[i].type==')'){
+          head--;
+        }
+        if(!head&&(tokens[i].type=='+'||tokens[i].type=='-')){
+          op=i;
+          flag1=1;
+          break;
+        }
       }
     }
     if(!flag1){
@@ -200,6 +219,18 @@ static word_t eval(int p,int q,bool *success){
           return 0;
         }
         return val1/val2;
+        break;
+      }
+      case TK_EQ:{
+        return val1==val2;
+        break;
+      }
+      case TK_UNEQ:{
+        return val1!=val2;
+        break;
+      }
+      case TK_AND:{
+        return val1&&val2;
         break;
       }
       default:{
