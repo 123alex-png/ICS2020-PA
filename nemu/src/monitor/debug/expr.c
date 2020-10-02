@@ -158,6 +158,7 @@ static bool make_token(char *e) {
             else if(tokens[nr_token-1].type==TK_16){
               strncpy(tokens[nr_token].str,substr_start,substr_len);
               tokens[nr_token++].type=rules[i].token_type;
+              flag=1;
               break;
             }
             else{
