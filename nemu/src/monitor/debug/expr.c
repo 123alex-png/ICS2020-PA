@@ -143,30 +143,30 @@ static bool make_token(char *e) {
           case 256:break;
           case 'u':break;
           case TK_NUM:{
-            if(tokens[nr_token-1].type==TK_HEX){
+            if(tokens[nr_token-1].type==TK_HEX){//already a hexadecimal number , just connect to it
               strncat(tokens[nr_token-1].str,substr_start,substr_len);
             }
-            else if(tokens[nr_token-1].type==TK_16){
+            else if(tokens[nr_token-1].type==TK_16){//before is a "0x"
               strncpy(tokens[--nr_token].str,substr_start,substr_len);
               tokens[nr_token].type=TK_HEX;
               break;
             }
-            else{
+            else{//just a number
               strncpy(tokens[nr_token].str,substr_start,substr_len);
               tokens[nr_token++].type=rules[i].token_type;
             }
             break;
           }
           case TK_STRING:{
-            if(tokens[nr_token-1].type==TK_HEX){
+            if(tokens[nr_token-1].type==TK_HEX){//already a hexadecimal number , just connect to it
               strncat(tokens[nr_token-1].str,substr_start,substr_len);
             }
-            else if(tokens[nr_token-1].type==TK_16){
+            else if(tokens[nr_token-1].type==TK_16){//before is a "0x"
               strncpy(tokens[--nr_token].str,substr_start,substr_len);
               tokens[nr_token].type=TK_HEX;
               break;
             }
-            else{
+            else{//before is a "$",replace it
               strncpy(tokens[--nr_token].str,substr_start,substr_len);
               tokens[nr_token].type=TK_REG;
             }
