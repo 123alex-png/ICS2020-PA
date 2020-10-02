@@ -143,7 +143,7 @@ static int cmd_x(char* args){
     int cnt=n/4,left=n%4;
     int offset=0;
     for(j=0;j<cnt;j++){
-      printf("0x%p: ",&(cpu.eax)+offset);
+      printf("%p: ",&(cpu.eax)+offset);
       for(k=0;k<4;k++){
         printf("0x%-15x      ",*(&(cpu.eax)+offset));
         offset+=4;
@@ -151,7 +151,7 @@ static int cmd_x(char* args){
       printf("\n");
     }
     if(left)
-    printf("0x%p: ",&(cpu.eax)+offset);
+    printf("%p: ",&(cpu.eax)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.eax)+offset));
       offset+=4;
@@ -163,7 +163,7 @@ static int cmd_x(char* args){
     int cnt=n/4,left=n%4;
     int offset=0;
     for(j=0;j<cnt;j++){
-      printf("0x%p: ",&(cpu.ecx)+offset);
+      printf("%p: ",&(cpu.ecx)+offset);
       for(k=0;k<4;k++){
         printf("0x%-15x      ",*(&(cpu.ecx)+offset));
         offset+=4;
@@ -171,7 +171,7 @@ static int cmd_x(char* args){
       printf("\n");
     }
     if(left)
-    printf("0x%p: ",&(cpu.ecx)+offset);
+    printf("%p: ",&(cpu.ecx)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.ecx)+offset));
       offset+=4;
@@ -183,7 +183,7 @@ static int cmd_x(char* args){
     int cnt=n/4,left=n%4;
     int offset=0;
     for(j=0;j<cnt;j++){
-      printf("0x%p: ",&(cpu.edx)+offset);
+      printf("%p: ",&(cpu.edx)+offset);
       for(k=0;k<4;k++){
         printf("0x%-15x      ",*(&(cpu.edx)+offset));
         offset+=4;
@@ -191,7 +191,7 @@ static int cmd_x(char* args){
       printf("\n");
     }
     if(left)
-    printf("0x%p: ",&(cpu.edx)+offset);
+    printf("%p: ",&(cpu.edx)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.edx)+offset));
       offset+=4;
@@ -203,7 +203,7 @@ static int cmd_x(char* args){
     int cnt=n/4,left=n%4;
     int offset=0;
     for(j=0;j<cnt;j++){
-      printf("0x%p: ",&(cpu.ebx)+offset);
+      printf("%p: ",&(cpu.ebx)+offset);
       for(k=0;k<4;k++){
         printf("0x%-15x      ",*(&(cpu.ebx)+offset));
         offset+=4;
@@ -211,7 +211,7 @@ static int cmd_x(char* args){
       printf("\n");
     }
     if(left)
-    printf("0x%p: ",&(cpu.ebx)+offset);
+    printf("%p: ",&(cpu.ebx)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.ebx)+offset));
       offset+=4;
@@ -223,7 +223,7 @@ static int cmd_x(char* args){
     int cnt=n/4,left=n%4;
     int offset=0;
     for(j=0;j<cnt;j++){
-      printf("0x%p: ",&(cpu.esp)+offset);
+      printf("%p: ",&(cpu.esp)+offset);
       for(k=0;k<4;k++){
         printf("0x%-15x      ",*(&(cpu.esp)+offset));
         offset+=4;
@@ -231,7 +231,7 @@ static int cmd_x(char* args){
       printf("\n");
     }
     if(left)
-    printf("0x%p: ",&(cpu.esp)+offset);
+    printf("%p: ",&(cpu.esp)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.esp)+offset));
       offset+=4;
@@ -243,7 +243,7 @@ static int cmd_x(char* args){
     int cnt=n/4,left=n%4;
     int offset=0;
     for(j=0;j<cnt;j++){
-      printf("0x%p: ",&(cpu.ebp)+offset);
+      printf("%p: ",&(cpu.ebp)+offset);
       for(k=0;k<4;k++){
         printf("0x%-15x      ",*(&(cpu.ebp)+offset));
         offset+=4;
@@ -251,7 +251,7 @@ static int cmd_x(char* args){
       printf("\n");
     }
     if(left)
-    printf("0x%p: ",&(cpu.ebp)+offset);
+    printf("%p: ",&(cpu.ebp)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.ebp)+offset));
       offset+=4;
@@ -263,7 +263,7 @@ static int cmd_x(char* args){
     int cnt=n/4,left=n%4;
     int offset=0;
     for(j=0;j<cnt;j++){
-      printf("0x%p: ",&(cpu.esi)+offset);
+      printf("%p: ",&(cpu.esi)+offset);
       for(k=0;k<4;k++){
         printf("0x%-15x      ",*(&(cpu.esi)+offset));
         offset+=4;
@@ -271,7 +271,7 @@ static int cmd_x(char* args){
       printf("\n");
     }
     if(left)
-    printf("0x%p: ",&(cpu.esi)+offset);
+    printf("%p: ",&(cpu.esi)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.esi)+offset));
       offset+=4;
@@ -283,7 +283,7 @@ static int cmd_x(char* args){
     int offset=0;
     int cnt=n/4,left=n%4;
     for(j=0;j<cnt;j++){
-      printf("0x%p: ",&(cpu.edi)+offset);
+      printf("%p: ",&(cpu.edi)+offset);
       for(k=0;k<4;k++){
         printf("0x%-15x      ",*(&(cpu.edi)+offset));
         offset+=4;
@@ -291,7 +291,7 @@ static int cmd_x(char* args){
       printf("\n");
     }
     if(left)
-    printf("0x%p: ",&(cpu.edi)+offset);
+    printf("%p: ",&(cpu.edi)+offset);
     for(k=0;k<left;k++){
       printf("0x%-15x      ",*(&(cpu.edi)+offset));
       offset+=4;
