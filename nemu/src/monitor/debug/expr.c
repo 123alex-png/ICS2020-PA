@@ -316,14 +316,14 @@ static word_t eval(int p,int q,bool *success){
       *success=false;
       return 1;
     }
+    else if(tokens[op].type==TK_DEREF){
+      return paddr_read(eval(op+1,q,success),4);
+    }
     else{
       word_t val1=eval(p,op-1,success);
       word_t val2=eval(op+1,q,success);
       switch (tokens[op].type)
       {
-      case TK_DEREF:{
-        return paddr_read(eval(op+1,q,success),4);
-      }
       case '+':{
         return val1+val2;
         break;
