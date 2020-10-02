@@ -122,7 +122,7 @@ static bool make_token(char *e) {
   regmatch_t pmatch;
 
   nr_token = 0;
-
+  int flag=0;
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
@@ -139,7 +139,15 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-         int flag=0;
+         if(!flag&&tokens[nr_token-2].type==TK_16){
+           char buf[50];
+           word_t num=string16tonum(tokens[nr_token-1].str);
+           sprintf(buf,"%u",num);
+           strcpy(tokens[nr_token-2].str,buf);
+           tokens[nr_token-2].type=TK_NUM;
+           nr_token--;
+         }
+         flag=0;
          switch (rules[i].token_type) {
           case 256:break;
           case 'u':break;
@@ -183,14 +191,7 @@ static bool make_token(char *e) {
                    tokens[nr_token++].type=rules[i].token_type;
                    break;
          }
-         if(!flag&&tokens[nr_token-2].type==TK_16){
-           char buf[50];
-           word_t num=string16tonum(tokens[nr_token-1].str);
-           sprintf(buf,"%u",num);
-           strcpy(tokens[nr_token-2].str,buf);
-           tokens[nr_token-2].type=TK_NUM;
-           nr_token--;
-         }
+         
         break;
       }
     }
