@@ -144,7 +144,7 @@ static bool make_token(char *e) {
           case 256:break;
           case 'u':break;
           case TK_NUM:{
-            if(tokens[nr_token-1].type==TK_16||tokens[nr_token-1].type==TK_HEX){
+            if(tokens[nr_token-1].type==TK_HEX){
               strncat(tokens[nr_token-1].str,substr_start,substr_len);
               tokens[nr_token-1].type=TK_HEX;
               flag=1;
@@ -155,7 +155,7 @@ static bool make_token(char *e) {
               // sprintf(tokens[nr_token-1].str,"%d",num_10);
               // tokens[nr_token-1].type=TK_NUM;
             }
-            else{
+            else if(tokens[nr_token-1].type!=TK_16){
               strncpy(tokens[nr_token].str,substr_start,substr_len);
               tokens[nr_token++].type=rules[i].token_type;
             }
