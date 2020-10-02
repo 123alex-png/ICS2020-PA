@@ -8,7 +8,8 @@
 
 enum {
   TK_NOTYPE = 256, TK_EQ,TK_UNEQ,
-  TK_NUM, TK_REG, TK_16, TK_AND, TK_STRING
+  TK_NUM, TK_REG, TK_16, TK_AND, TK_STRING,
+  TK_LE,TK_GE
   /* TODO: Add more token types */
 
 };
@@ -25,12 +26,14 @@ static struct rule {
   {" +", TK_NOTYPE},   // spaces
   {"\\+", '+'},        // plus
   {"==", TK_EQ},       // equafl
+  {"<=", TK_LE},       //le
+  {">=", TK_GE},       //ge
   {"-",'-'},           //minus
   {"\\*",'*'},         //mulitply or dereference
   {"/",'/'},           //divide
   {"0x",TK_16},        //hexadecimal number
   {"[0-9]+",TK_NUM},   //number
-  {"[a-z]",TK_STRING},  //which reg
+  {"[a-z]+",TK_STRING},  //which reg
   {"\\(",'('},         //left brackets
   {"\\)",')'},         //right brackets
   {"\\u",'u'},        
@@ -111,6 +114,17 @@ static bool make_token(char *e) {
             }
             break;
           }
+          case TK_STRING:{
+            if(nr_token&&tokens[nr_token-1].type==TK_REG){
+              strncpy(tokens[nr_token-1].str,substr_start,substr_len);
+              tokens[nr_token-1].type=rules[i].token_type;
+            }
+            else{
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+            }
+            break;
+          }
           default: strncpy(tokens[nr_token].str,substr_start,substr_len);
                    tokens[nr_token++].type=rules[i].token_type;
          }
@@ -154,8 +168,13 @@ static word_t eval(int p,int q,bool *success){
   }
   else if(p==q){
     if(tokens[p].type!=TK_NUM){
+      if(tokens[p].type!=TK_STRING){
       *success=false;
       return 1;
+      }
+      else{
+        return isa_reg_str2val(tokens[p].str,success);
+      }
     }
     return (word_t)atoi(tokens[p].str);
   }
@@ -247,6 +266,14 @@ static word_t eval(int p,int q,bool *success){
       }
       case TK_AND:{
         return val1&&val2;
+        break;
+      }
+      case TK_LE:{
+        return val1<=val2;
+        break;
+      }
+      case TK_GE:{
+        return val1>=val2;
         break;
       }
       default:{

@@ -1,4 +1,5 @@
 #include <isa.h>
+#include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include "local-include/reg.h"
@@ -53,5 +54,32 @@ void isa_reg_display() {
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
-  return 0;
+  if(!strcmp(s,"eax")){
+    return cpu.eax;
+  }
+  else if(!strcmp(s,"ecx")){
+    return cpu.ecx;
+  }
+  else if(!strcmp(s,"edx")){
+    return cpu.edx;
+  }
+  else if(!strcmp(s,"ebx")){
+    return cpu.ebx;
+  }
+  else if(!strcmp(s,"esp")){
+    return cpu.esp;
+  }
+  else if(!strcmp(s,"ebp")){
+    return cpu.ebp;
+  }
+  else if(!strcmp(s,"esi")){
+    return cpu.esi;
+  }
+  else if(!strcmp(s,"edi")){
+    return cpu.edi;
+  }
+  else{
+    *success=false;
+    return 0;
+  }
 }
