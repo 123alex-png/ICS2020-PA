@@ -1,6 +1,8 @@
 #include <isa.h>
 #include<string.h>
 #include<stdlib.h>
+#include <memory/paddr.h>
+#include <memory/vaddr.h>
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -9,7 +11,7 @@
 enum {
   TK_NOTYPE = 256, TK_EQ,TK_UNEQ,
   TK_NUM, TK_REG, TK_16, TK_AND, TK_STRING,
-  TK_LE,TK_GE
+  TK_LE, TK_GE, TK_DEREF
   /* TODO: Add more token types */
 
 };
@@ -187,18 +189,33 @@ static word_t eval(int p,int q,bool *success){
     int i;
     int flag1=0,head=0,op=-1;
     for(i=q;i>=p;i--){
+      if(tokens[i].type=='('){
+        head++;
+      }
+      if(tokens[i].type==')'){
+        head--;
+      }
+      if(!head&&tokens[i].type==TK_DEREF){
+        op=i;
+        flag1=1;
+        break;
+      }
+    }
+    if(!flag1){
+      for(i=q;i>=p;i--){
         if(tokens[i].type=='('){
           head++;
         }
         if(tokens[i].type==')'){
           head--;
         }
-        if(!head&&(tokens[i].type==TK_EQ||tokens[i].type==TK_UNEQ||tokens[i].type==TK_AND||tokens[i].type==TK_LE||tokens[i].type==TK_GE||tokens[i].type=='<'||tokens[i].type=='>')){
+          if(!head&&(tokens[i].type==TK_EQ||tokens[i].type==TK_UNEQ||tokens[i].type==TK_AND||tokens[i].type==TK_LE||tokens[i].type==TK_GE||tokens[i].type=='<'||tokens[i].type=='>')){
           op=i;
           flag1=1;
           break;
         }
       }
+    }
     if(!flag1){
       for(i=q;i>=p;i--){
         if(tokens[i].type=='('){
@@ -237,6 +254,9 @@ static word_t eval(int p,int q,bool *success){
       word_t val2=eval(op+1,q,success);
       switch (tokens[op].type)
       {
+      case TK_DEREF:{
+        return paddr_read(eval(op+1,q,success),4);
+      }
       case '+':{
         return val1+val2;
         break;
@@ -302,6 +322,11 @@ word_t expr(char *e, bool *success) {
   }
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
+  for (int i = 0; i < nr_token; i ++) {
+    if (tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i -1].type != TK_STRING) ) ) {
+      tokens[i].type = TK_DEREF;
+    }
+  }
   if(!judge(0,nr_token-1)){
     *success=false;
     return 0;
