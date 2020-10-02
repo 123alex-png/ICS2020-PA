@@ -8,7 +8,7 @@
 
 enum {
   TK_NOTYPE = 256, TK_EQ,TK_UNEQ,
-  TK_NUM, TK_REG, TK_16, TK_AND
+  TK_NUM, TK_REG, TK_16, TK_AND, TK_STRING
   /* TODO: Add more token types */
 
 };
@@ -30,6 +30,7 @@ static struct rule {
   {"/",'/'},           //divide
   {"0x",TK_16},        //hexadecimal number
   {"[0-9]+",TK_NUM},   //number
+  {"[a-z]",TK_STRING},  //which reg
   {"\\(",'('},         //left brackets
   {"\\)",')'},         //right brackets
   {"\\u",'u'},        
@@ -95,8 +96,22 @@ static bool make_token(char *e) {
          switch (rules[i].token_type) {
           case 256:break;
           case 'u':break;
+          case TK_NUM:{
+            if(tokens[nr_token-1].type==TK_16){
+              int num_10=0;
+              for(char *i=substr_start;i<substr_len+substr_start;i++){
+                num_10=16*num_10+(*i-'0');
+              }
+              sprintf(tokens[nr_token-1].str,"%d",num_10);
+              tokens[nr_token-1].type=TK_NUM;
+            }
+            else{
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+            }
+          }
           default: strncpy(tokens[nr_token].str,substr_start,substr_len);
-                    tokens[nr_token++].type=rules[i].token_type;
+                   tokens[nr_token++].type=rules[i].token_type;
          }
         break;
       }
