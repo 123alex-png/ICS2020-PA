@@ -227,8 +227,14 @@ static word_t eval(int p,int q,bool *success){
   else if(p==q){
     if(tokens[p].type!=TK_NUM){
       if(tokens[p].type!=TK_REG){
-      *success=false;
-      return 1;
+        if(tokens[p].type!=TK_HEX){
+        *success=false;
+        return 1;
+        }
+        else{
+           word_t num=string16tonum(tokens[nr_token-1].str);
+           return num;
+        }
       }
       else{
         return isa_reg_str2val(tokens[p].str,success);
