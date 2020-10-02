@@ -97,7 +97,7 @@ static bool make_token(char *e) {
           case 256:break;
           case 'u':break;
           case TK_NUM:{
-            if(tokens[nr_token-1].type==TK_16){
+            if(nr_token&&tokens[nr_token-1].type==TK_16){
               int num_10=0;
               for(char *i=substr_start;i<substr_len+substr_start;i++){
                 num_10=16*num_10+(*i-'0');
