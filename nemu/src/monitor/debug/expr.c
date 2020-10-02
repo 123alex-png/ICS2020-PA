@@ -155,7 +155,12 @@ static bool make_token(char *e) {
               // sprintf(tokens[nr_token-1].str,"%d",num_10);
               // tokens[nr_token-1].type=TK_NUM;
             }
-            else if(tokens[nr_token-1].type!=TK_16){
+            else if(tokens[nr_token-1].type==TK_16){
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              break;
+            }
+            else{
               strncpy(tokens[nr_token].str,substr_start,substr_len);
               tokens[nr_token++].type=rules[i].token_type;
             }
