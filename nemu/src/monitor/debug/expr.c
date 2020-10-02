@@ -185,14 +185,6 @@ static bool make_token(char *e) {
                    tokens[nr_token++].type=rules[i].token_type;
                    break;
          }
-        //  if(!flag&&tokens[nr_token-2].type==TK_16){
-        //    char buf[50];
-        //    word_t num=string16tonum(tokens[nr_token-1].str);
-        //    sprintf(buf,"%u",num);
-        //    strcpy(tokens[nr_token-2].str,buf);
-        //    tokens[nr_token-2].type=TK_NUM;
-        //    nr_token--;
-        //  }
         break;
       }
     }
