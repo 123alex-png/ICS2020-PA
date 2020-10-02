@@ -382,7 +382,7 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
   for (int i = 0; i < nr_token; i ++) {
-    if (tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i -1].type != TK_STRING) ) ) {
+    if (tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i -1].type != TK_HEX && tokens[i -1].type != TK_REG && tokens[i -1].type != ')') ) ) {
       tokens[i].type = TK_DEREF;
     }
   }
