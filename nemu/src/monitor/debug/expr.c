@@ -147,9 +147,9 @@ static bool make_token(char *e) {
               strncat(tokens[nr_token-1].str,substr_start,substr_len);
             }
             else if(tokens[nr_token-1].type==TK_16){//before is a "0x"
-              memset(tokens[--nr_token].str,0,sizeof(tokens[nr_token].str));
-              strncpy(tokens[nr_token].str,substr_start,substr_len);
-              tokens[nr_token].type=TK_HEX;
+              memset(tokens[nr_token-1].str,0,sizeof(tokens[nr_token].str));
+              strncpy(tokens[nr_token-1].str,substr_start,substr_len);
+              tokens[nr_token-1].type=TK_HEX;
               break;
             }
             else{//just a number
@@ -163,14 +163,14 @@ static bool make_token(char *e) {
               strncat(tokens[nr_token-1].str,substr_start,substr_len);
             }
             else if(tokens[nr_token-1].type==TK_16){//before is a "0x"
-              memset(tokens[--nr_token].str,0,sizeof(tokens[nr_token].str));
-              strncpy(tokens[nr_token].str,substr_start,substr_len);
-              tokens[nr_token].type=TK_HEX;
+              memset(tokens[nr_token-1].str,0,sizeof(tokens[nr_token].str));
+              strncpy(tokens[nr_token-1].str,substr_start,substr_len);
+              tokens[nr_token-1].type=TK_HEX;
               break;
             }
             else{//before is a "$",replace it
-              strncpy(tokens[--nr_token].str,substr_start,substr_len);
-              tokens[nr_token].type=TK_REG;
+              strncpy(tokens[nr_token-1].str,substr_start,substr_len);
+              tokens[nr_token-1].type=TK_REG;
             }
             break;
           }
