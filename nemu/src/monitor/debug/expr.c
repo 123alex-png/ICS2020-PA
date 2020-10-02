@@ -36,7 +36,7 @@ static struct rule {
   {"0x",TK_16},        //hexadecimal number
 
   {"[0-9]+",TK_NUM},   //number
-  {"[a-z]+",TK_STRING},//which reg
+  {"[a-zA-Z]+",TK_STRING},//which reg
   {"\\(",'('},         //left brackets
   {"\\)",')'},         //right brackets
   {"\\u",'u'},        
