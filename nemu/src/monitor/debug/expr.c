@@ -89,6 +89,7 @@ word_t string16tonum(char *a){
     case 'f':
     case 'F':{
       tmp=15u;
+      break;
     }
     default:
       tmp=(word_t)(a[i]-'0');
