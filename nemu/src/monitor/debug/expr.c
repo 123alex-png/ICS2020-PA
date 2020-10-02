@@ -39,7 +39,9 @@ static struct rule {
   {"\\u",'u'},        
   {"\\$",TK_REG},      //regs
   {"!=",TK_UNEQ},      // unequafl
-  {"&&", TK_AND},      //and       
+  {"&&", TK_AND},      //and  
+  {"<",'<'},           //<
+  {">",'>'}            //>    
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -191,7 +193,7 @@ static word_t eval(int p,int q,bool *success){
         if(tokens[i].type==')'){
           head--;
         }
-        if(!head&&(tokens[i].type==TK_EQ||tokens[i].type==TK_UNEQ||tokens[i].type==TK_AND)){
+        if(!head&&(tokens[i].type==TK_EQ||tokens[i].type==TK_UNEQ||tokens[i].type==TK_AND||tokens[i].type==TK_LE||tokens[i].type==TK_GE||tokens[i].type=='<'||tokens[i].type=='>')){
           op=i;
           flag1=1;
           break;
@@ -274,6 +276,14 @@ static word_t eval(int p,int q,bool *success){
       }
       case TK_GE:{
         return val1>=val2;
+        break;
+      }
+      case '<':{
+        return val1<val2;
+        break;
+      }
+      case '>':{
+        return val1>val2;
         break;
       }
       default:{
