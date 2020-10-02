@@ -11,7 +11,7 @@
 enum {
   TK_NOTYPE = 256, TK_EQ,TK_UNEQ,
   TK_NUM, TK_REG, TK_16, TK_AND, TK_STRING,
-  TK_LE, TK_GE, TK_DEREF
+  TK_LE, TK_GE, TK_DEREF, TK_HEX
   /* TODO: Add more token types */
 
 };
@@ -34,8 +34,9 @@ static struct rule {
   {"\\*",'*'},         //mulitply or dereference
   {"/",'/'},           //divide
   {"0x",TK_16},        //hexadecimal number
+
   {"[0-9]+",TK_NUM},   //number
-  {"[a-z]+",TK_STRING},  //which reg
+  {"[a-z]+",TK_STRING},//which reg
   {"\\(",'('},         //left brackets
   {"\\)",')'},         //right brackets
   {"\\u",'u'},        
@@ -53,6 +54,45 @@ static regex_t re[NR_REGEX] = {};
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
  */
+
+word_t string16tonum(char *a){
+  word_t ret=0;
+  for(int i=0;i<strlen(a);i++){
+    word_t tmp;
+    switch (a[i])
+    {
+    case 'a':case 'A':{
+      tmp=10;
+      break;
+    }
+    case 'b':case 'B':{
+      tmp=11;
+      break;
+    }
+    case 'c':case 'C':{
+      tmp=12;
+      break;
+    }
+    case 'd':case 'D':{
+      tmp=13;
+      break;
+    }
+    case 'e':case 'E':{
+      tmp=14;
+      break;
+    }
+    case 'f':case 'F':{
+      tmp=15;
+    }
+    default:
+      tmp=(word_t)(a[i]-'0');
+      break;
+    }
+    ret=16*ret+tmp;
+  }
+  return ret;
+}
+
 void init_regex() {
   int i;
   char error_msg[128];
@@ -99,18 +139,21 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        
+         int flag=0;
          switch (rules[i].token_type) {
           case 256:break;
           case 'u':break;
           case TK_NUM:{
-            if(nr_token&&tokens[nr_token-1].type==TK_16){
-              int num_10=0;
-              for(char *i=substr_start;i<substr_len+substr_start;i++){
-                num_10=16*num_10+(*i-'0');
-              }
-              sprintf(tokens[nr_token-1].str,"%d",num_10);
-              tokens[nr_token-1].type=TK_NUM;
+            if(tokens[nr_token-1].type==TK_16||tokens[nr_token-1].type==TK_HEX){
+              strncat(tokens[nr_token-1].str,substr_start,substr_len);
+              tokens[nr_token-1].type=TK_HEX;
+              flag=1;
+              // int num_10=0;
+              // for(char *i=substr_start;i<substr_len+substr_start;i++){
+              //   num_10=16*num_10+(*i-'0');
+              // }
+              // sprintf(tokens[nr_token-1].str,"%d",num_10);
+              // tokens[nr_token-1].type=TK_NUM;
             }
             else{
               strncpy(tokens[nr_token].str,substr_start,substr_len);
@@ -119,18 +162,28 @@ static bool make_token(char *e) {
             break;
           }
           case TK_STRING:{
-            if(nr_token&&tokens[nr_token-1].type==TK_REG){
+            if(tokens[nr_token-1].type==TK_REG){
               strncpy(tokens[nr_token-1].str,substr_start,substr_len);
               tokens[nr_token-1].type=rules[i].token_type;
             }
             else{
-              strncpy(tokens[nr_token].str,substr_start,substr_len);
-              tokens[nr_token++].type=rules[i].token_type;
+              strncat(tokens[nr_token-1].str,substr_start,substr_len);
+              tokens[nr_token-1].type=TK_HEX;
+              flag=1;
             }
             break;
           }
           default: strncpy(tokens[nr_token].str,substr_start,substr_len);
                    tokens[nr_token++].type=rules[i].token_type;
+                   break;
+         }
+         if(!flag&&tokens[nr_token-2].type==TK_16){
+           char buf[50];
+           word_t num=string16tonum(tokens[nr_token-1].str);
+           sprintf(buf,"%u",num);
+           strcpy(tokens[nr_token-2].str,buf);
+           tokens[nr_token-2].type=TK_NUM;
+           nr_token--;
          }
         break;
       }
