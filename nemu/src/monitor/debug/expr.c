@@ -63,32 +63,32 @@ word_t string16tonum(char *a){
     {
     case 'a':
     case 'A':{
-      tmp=10;
+      tmp=10u;
       break;
     }
     case 'b':
     case 'B':{
-      tmp=11;
+      tmp=11u;
       break;
     }
     case 'c':
     case 'C':{
-      tmp=12;
+      tmp=12u;
       break;
     }
     case 'd':
     case 'D':{
-      tmp=13;
+      tmp=13u;
       break;
     }
     case 'e':
     case 'E':{
-      tmp=14;
+      tmp=14u;
       break;
     }
     case 'f':
     case 'F':{
-      tmp=15;
+      tmp=15u;
     }
     default:
       tmp=(word_t)(a[i]-'0');
