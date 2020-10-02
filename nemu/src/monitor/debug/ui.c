@@ -310,7 +310,7 @@ static int cmd_x(char* args){
     int cnt=n/4,left=n%4;
     int offset=0;
     for(j=0;j<cnt;j++){
-      printf("0x%x: ",input_addr+offset);
+      printf("%x: ",input_addr+offset);
       for(k=0;k<4;k++){
         printf("0x%-15x      ",paddr_read(input_addr+offset,4));
         offset+=4;
@@ -318,7 +318,7 @@ static int cmd_x(char* args){
       printf("\n");
     }
     if(left)
-    printf("0x%x: ",input_addr+offset);
+    printf("%x: ",input_addr+offset);
     for(k=0;k<left;k++){
         printf("0x%-15x      ",paddr_read(input_addr+offset,4));
         offset+=4;
