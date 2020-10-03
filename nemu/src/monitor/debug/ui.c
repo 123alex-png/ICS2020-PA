@@ -374,7 +374,7 @@ static int cmd_w(char *args){
   WP *wp=new_pool();
   wp->expr=args;
   wp->val=value;
-  printf("Watchpoint number %d : %s",wp->NO,args);
+  printf("Watchpoint number %d : %s\n",wp->NO,args);
   return 0;
 }
 
