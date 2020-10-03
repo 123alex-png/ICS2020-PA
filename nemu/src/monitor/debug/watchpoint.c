@@ -69,7 +69,7 @@ void wp_display(){
     printf("No watchpoints\n");
   }
   while(tmp){
-    printf("%d                    %s                 breakpoint already hit %d times\n",tmp->NO,tmp->expr,tmp->hit);
+    printf("%d                   %s                 breakpoint already hit %d times\n",tmp->NO,tmp->expr,tmp->hit);
     tmp=tmp->prev;
   }
 }

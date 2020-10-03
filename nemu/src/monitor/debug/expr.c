@@ -11,7 +11,7 @@
 enum {
   TK_NOTYPE = 256, TK_EQ,TK_UNEQ,
   TK_NUM, TK_REG, TK_16, TK_AND, TK_STRING,
-  TK_LE, TK_GE, TK_DEREF, TK_HEX
+  TK_LE, TK_GE, TK_DEREF, TK_HEX, TK_PC
   /* TODO: Add more token types */
 
 };
@@ -24,7 +24,7 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
-
+  {"cpu.pc", TK_PC},
   {" +", TK_NOTYPE},   // spaces
   {"\\+", '+'},        // plus
   {"==", TK_EQ},       // equafl
@@ -381,6 +381,9 @@ word_t expr(char *e, bool *success) {
   }
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
+  if(tokens[0].type==TK_PC){
+    return cpu.pc==eval(2,nr_token-1,success);
+  }
   for (int i = 0; i < nr_token; i ++) {
     if (tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i -1].type != TK_HEX && tokens[i -1].type != TK_REG && tokens[i -1].type != ')') ) ) {
       tokens[i].type = TK_DEREF;
