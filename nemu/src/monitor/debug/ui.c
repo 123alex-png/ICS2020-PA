@@ -59,6 +59,8 @@ static int cmd_d(char *args){
   return 0;
 }
 
+static int cmd_b(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -72,7 +74,8 @@ static struct {
   { "x", "Examine memory: x/FMT ADDRESS",cmd_x},
   { "p", "print the value of the expression", cmd_p},
   { "w", "add a watchpoint", cmd_w},
-  { "d", "delete a watchpoint", cmd_d}
+  { "d", "delete a watchpoint", cmd_d},
+  { "b", "set a breakpoint", cmd_b}
   /* TODO: Add more commands */
 
 };
@@ -372,12 +375,25 @@ static int cmd_w(char *args){
     return 0;
   }
   WP *wp=new_pool();
-  wp->expr=args;
+  strcpy(wp->expr,args);
   wp->val=value;
   printf("Watchpoint number %d : %s\n",wp->NO,args);
   return 0;
 }
 
+static int cmd_b(char *args){
+  bool success=true;
+  expr(args,&success);
+  if(!success){
+    printf("Invalid expreesion\n");
+  }
+  else{
+    char arg[50]="cpu.pc==";
+    strcat(arg,args);
+    cmd_w(arg);
+  }
+  return 0;
+}
 void ui_mainloop() {
   if (is_batch_mode()) {
     cmd_c(NULL);
