@@ -109,6 +109,8 @@ run: run-env
 gdb: run-env
 	$(call git_commit, "gdb")
 	gdb -s $(BINARY) --args $(NEMU_EXEC)
+count: run-env
+	find . -regex '.*\.c\|.*\.h' | xargs cat|wc -l
 
 $(DIFF_REF_SO):
 	$(MAKE) -C $(DIFF_REF_PATH) $(MKFLAGS)
