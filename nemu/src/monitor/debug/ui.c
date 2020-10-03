@@ -9,6 +9,9 @@
 #include <memory/vaddr.h>
 
 void cpu_exec(uint64_t);
+void wp_display();
+void delete_wp(char *args);
+WP *new_pool();
 int is_batch_mode();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -49,6 +52,13 @@ static int cmd_x(char* args);
 
 static int cmd_p(char* args);
 
+static int cmd_w(char *args);
+
+static int cmd_d(char *args){
+  delete_wp(args);
+  return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -60,7 +70,9 @@ static struct {
   { "si", "Execute one instruction", cmd_execute_once },
   { "info", "Print the information of the registers or the watchpoints", cmd_info},
   { "x", "Examine memory: x/FMT ADDRESS",cmd_x},
-  { "p", "print the value of the expression", cmd_p}
+  { "p", "print the value of the expression", cmd_p},
+  { "w", "add a watchpoint", cmd_w},
+  { "d", "delete a watchpoint", cmd_d}
   /* TODO: Add more commands */
 
 };
@@ -117,6 +129,9 @@ static int cmd_info(char* args){
   }
   else if(!strcmp(arg,"r")){
     isa_reg_display();
+  }
+  else if(!strcmp(arg,"w")){
+    wp_display();
   }
   return 0;
 }
@@ -346,6 +361,20 @@ static int cmd_p(char* args){
       }
       free(success);  
   }
+  return 0;
+}
+
+static int cmd_w(char *args){
+  bool success=true;
+  word_t value=expr(args,&success);
+  if(!success){
+    printf("Invalid expreesion\n");
+    return 0;
+  }
+  WP *wp=new_pool();
+  wp->expr=args;
+  wp->val=value;
+  printf("Watchpoint number %d : %s",wp->NO,args);
   return 0;
 }
 

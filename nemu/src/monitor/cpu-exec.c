@@ -3,7 +3,8 @@
 #include <monitor/difftest.h>
 #include <stdlib.h>
 #include <sys/time.h>
-
+// #include "debug/watchpoint.h"
+// #include "debug/expr.h"
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
  * This is useful when you use the `si' command.
@@ -23,6 +24,7 @@ static uint64_t g_timer = 0; // unit: ms
 const rtlreg_t rzero = 0;
 
 void asm_print(vaddr_t this_pc, int instr_len, bool print_flag);
+bool check_wp();
 
 int is_exit_status_bad() {
   int good = (nemu_state.state == NEMU_END && nemu_state.halt_ret == 0) ||
@@ -87,8 +89,12 @@ void cpu_exec(uint64_t n) {
 
 #ifdef DEBUG
     asm_print(this_pc, seq_pc - this_pc, n < MAX_INSTR_TO_PRINT);
-
     /* TODO: check watchpoints here. */
+    bool changed=check_wp();
+    if(changed){
+      nemu_state.state=NEMU_STOP;
+    }
+
 #endif
 
 #ifdef HAS_IOE
