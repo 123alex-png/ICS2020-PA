@@ -52,6 +52,7 @@ bool check_wp(){
       tmp->hit++;
       printf("%s : Old value = %u\n",tmp->expr,tmp->val);
       printf("%s : New value = %u\n",tmp->expr,curval);
+      tmp->val=curval;
       flag=true;
     }
     tmp=tmp->prev;
