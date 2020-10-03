@@ -24,9 +24,9 @@ void init_wp_pool() {
 
 WP *new_pool(){
   assert(free_);
-  free_->prev=head;
   head=free_;
   free_=free_->next;
+  free_->prev=head;
   return head;
 }
 
@@ -84,6 +84,6 @@ void delete_wp(char *args){
     }
   }
   if(!flag){
-    printf("NO watchpoint number %d",num);
+    printf("NO watchpoint number %d\n",num);
   }
 }
