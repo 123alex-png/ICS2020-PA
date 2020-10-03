@@ -50,8 +50,8 @@ bool check_wp(){
     word_t curval=expr(tmp->expr,&success);
     if(curval!=tmp->val){
       tmp->hit++;
-      printf("Old value = %u\n",tmp->val);
-      printf("New value = %u\n",curval);
+      printf("%s : Old value = %u\n",tmp->expr,tmp->val);
+      printf("%s : New value = %u\n",tmp->expr,curval);
       flag=true;
     }
     tmp=tmp->prev;
@@ -68,7 +68,7 @@ void wp_display(){
     printf("No watchpoints\n");
   }
   while(tmp){
-    printf("%d                 %s                 breakpoint already hit %d times\n",tmp->NO,tmp->expr,tmp->hit);
+    printf("%d                    %s                 breakpoint already hit %d times\n",tmp->NO,tmp->expr,tmp->hit);
     tmp=tmp->prev;
   }
 }
