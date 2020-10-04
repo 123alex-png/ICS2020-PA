@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     }
     else{
       printf("%d:wrong! the answer is %u, gets %u\n",cnt++,atoi(arg1),ans1);
-      exit(0);
+      // exit(0);
     }
     memset(buf,0,sizeof(buf));
   }
