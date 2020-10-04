@@ -11,7 +11,8 @@
 enum {
   TK_NOTYPE = 256, TK_EQ,TK_UNEQ,
   TK_NUM, TK_REG, TK_16, TK_AND, TK_STRING,
-  TK_LE, TK_GE, TK_DEREF, TK_HEX, TK_PC
+  TK_LE, TK_GE, TK_DEREF, TK_HEX, TK_PC, 
+  TK_REV
   /* TODO: Add more token types */
 
 };
@@ -311,6 +312,9 @@ static word_t eval(int p,int q,bool *success){
     else if(tokens[op].type==TK_DEREF){
       return paddr_read(eval(op+1,q,success),4);
     }
+    else if(tokens[op].type==TK_REV){
+      return (word_t)(-eval(op+1,q,success));
+    }
     else{
       word_t val1=eval(p,op-1,success);
       word_t val2=eval(op+1,q,success);
@@ -383,6 +387,11 @@ word_t expr(char *e, bool *success) {
   //TODO();
   if(tokens[0].type==TK_PC){
     return cpu.pc==eval(2,nr_token-1,success);
+  }
+for (int i = 0; i < nr_token; i ++) {
+    if (tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i -1].type != TK_HEX && tokens[i -1].type != TK_REG && tokens[i -1].type != ')') ) ) {
+      tokens[i].type = TK_REV;
+    }
   }
   for (int i = 0; i < nr_token; i ++) {
     if (tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i -1].type != TK_HEX && tokens[i -1].type != TK_REG && tokens[i -1].type != ')') ) ) {
