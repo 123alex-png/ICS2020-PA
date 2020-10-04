@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
   char buf[65536];
   int cnt=0;
   while(fgets(buf,65536,fp)!=NULL){
-    memset(buf,0,sizeof(buf));
+    
     char *arg1=strtok(buf," ");
     char *arg2=arg1+strlen(arg1)+1;
     bool *success1=(bool*)malloc(sizeof(bool));
@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
     else{
       printf("%d:wrong! the answer is %u, gets %u\n",cnt++,atoi(arg1),ans1);
     }
+    memset(buf,0,sizeof(buf));
   }
   /***************end test***************/
   /* Start engine. */
