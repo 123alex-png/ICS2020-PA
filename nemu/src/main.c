@@ -7,7 +7,7 @@ int is_exit_status_bad();
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
   init_monitor(argc, argv);
-  /**begin test*
+  /**begin test*/
   FILE *fp;
   fp=fopen("tools/gen-expr/input","r");
   char buf[65536];
@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
       printf("%d:wrong! the answer is %u, gets %u",cnt++,atoi(arg1),ans1);
     }
   }
-  ***************end test***************/
+  /***************end test***************/
   /* Start engine. */
   engine_start();
 
