@@ -119,7 +119,7 @@ typedef struct token {
   int type;
   char str[32];
 } Token;
-//- 450470954u  + -( 28239951u *-278062535u )
+
 static Token tokens[65] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
@@ -261,7 +261,7 @@ static word_t eval(int p,int q,bool *success){
           flag1=1;
           break;
         }
-      }
+      }//- 450470954u  + -( 28239951u *-278062535u )
     if(!flag1){
       for(i=q;i>=p;i--){
         if(tokens[i].type=='('){
@@ -287,6 +287,7 @@ static word_t eval(int p,int q,bool *success){
         }
         if(!head&&(tokens[i].type=='*'||tokens[i].type=='/')){
           op=i;
+          flag1=1;
           break;
         }
       }
