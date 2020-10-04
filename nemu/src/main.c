@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
     
     char *arg1=strtok(buf," ");
     char *arg2=arg1+strlen(arg1)+1;
-    arg2[strlen(arg2)]='\0';
+    arg2[strlen(arg2)-1]='\0';
     bool *success1=(bool*)malloc(sizeof(bool));
     *success1=true;
     unsigned int ans1=expr(arg2,success1);
