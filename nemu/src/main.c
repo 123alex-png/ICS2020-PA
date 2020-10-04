@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
   /**begin test*/
   FILE *fp;
   fp=fopen("tools/gen-expr/input","r");
-  char buf[65536];
+  char buf[65];
   int cnt=0;
   while(fgets(buf,65536,fp)!=NULL){
     
