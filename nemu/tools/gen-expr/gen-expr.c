@@ -23,6 +23,14 @@ uint32_t choose(uint32_t n){
   return ret;
 }
 
+static inline void gen_minus(){
+  if(buf[cnt-1]!='-'){
+    for(int i=0;i<choose(MAXSPN);i++){
+      buf[cnt++]='-';
+    }
+  }
+}
+
 static inline void gen_num(){
   for(int i=0;i<choose(MAXSPN);i++){
     buf[cnt++]=' ';
@@ -78,18 +86,23 @@ static inline void gen_rand_expr() {
   if(cnt>60000)return;
   switch(choose(3)){
     case 0: {
+      gen_minus();
       gen_num();
       break;
     }
     case 1: {
+      gen_minus();
       gen_lstoken();
+      gen_minus();
       gen_rand_expr();
       gen_rstoken();
       break;
     }
     default: {
+      gen_minus();
       gen_rand_expr();
       gen_rand_op();
+      gen_minus();
       gen_rand_expr();
       break;
     }
