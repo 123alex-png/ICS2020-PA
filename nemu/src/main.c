@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
   /**begin test*/
   FILE *fp;
   fp=fopen("tools/gen-expr/input","r");
-  char buf[65];
+  char buf[65536];
   int cnt=0;
   while(fgets(buf,65536,fp)!=NULL){
     
@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
     }
     else{
       printf("%d:wrong! the answer is %u, gets %u\n",cnt++,atoi(arg1),ans1);
+      exit(0);
     }
     memset(buf,0,sizeof(buf));
   }
