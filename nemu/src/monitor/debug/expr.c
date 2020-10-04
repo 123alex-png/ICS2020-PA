@@ -248,7 +248,7 @@ static word_t eval(int p,int q,bool *success){
   else{
     int i;
     int flag1=0,head=0,op=-1;
-    for(i=q;i>=p;i--){
+    for(i=p;i<=p;i++){
       if(tokens[i].type=='('){
         head++;
       }
