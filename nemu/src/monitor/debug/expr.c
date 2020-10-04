@@ -175,7 +175,7 @@ static bool make_token(char *e) {
               tokens[nr_token-1].type=TK_HEX;
               break;
             }
-            else{//before is a "$",replace it
+            else if(tokens[nr_token-1].type==TK_REG){//before is a "$",replace it
               strncpy(tokens[nr_token-1].str,substr_start,substr_len);
               tokens[nr_token-1].type=TK_REG;
             }
