@@ -22,8 +22,7 @@ int main(int argc, char *argv[]) {
       printf("%d:correct! %u\n",cnt++,ans1);
     }
     else{
-      printf("%d:wrong! the answer is %u, gets %u",cnt++,atoi(arg1),ans1);
-      exit(0);
+      printf("%d:wrong! the answer is %u, gets %u\n",cnt++,atoi(arg1),ans1);
     }
   }
   /***************end test***************/
