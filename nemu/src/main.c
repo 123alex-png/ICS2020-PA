@@ -14,9 +14,10 @@ int main(int argc, char *argv[]) {
   int cnt=0;
   while(fgets(buf,65536,fp)!=NULL){
     char *arg1=strtok(buf," ");
+    char *arg2=arg1+strlen(arg1)+1;
     bool *success1=(bool*)malloc(sizeof(bool));
     *success1=true;
-    unsigned int ans1=expr(buf,success1);
+    unsigned int ans1=expr(arg2,success1);
     if(atoi(arg1)==ans1){
       printf("%d:correct! %u\n",cnt++,ans1);
     }
