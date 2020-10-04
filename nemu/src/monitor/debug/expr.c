@@ -119,7 +119,7 @@ typedef struct token {
   int type;
   char str[32];
 } Token;
-
+//- 450470954u  + -( 28239951u *-278062535u )
 static Token tokens[65] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
@@ -248,21 +248,8 @@ static word_t eval(int p,int q,bool *success){
   else{
     int i;
     int flag1=0,head=0,op=-1;
-    for(i=p;i<=q;i++){
-      if(tokens[i].type=='('){
-        head++;
-      }
-      if(tokens[i].type==')'){
-        head--;
-      }
-      if(!head&&(tokens[i].type==TK_DEREF||tokens[i].type==TK_REV)){
-        op=i;
-        flag1=1;
-        break;
-      }
-    }
-    if(!flag1){
-      for(i=q;i>=p;i--){
+    
+    for(i=q;i>=p;i--){
         if(tokens[i].type=='('){
           head++;
         }
@@ -275,7 +262,6 @@ static word_t eval(int p,int q,bool *success){
           break;
         }
       }
-    }
     if(!flag1){
       for(i=q;i>=p;i--){
         if(tokens[i].type=='('){
@@ -293,14 +279,29 @@ static word_t eval(int p,int q,bool *success){
     }
     if(!flag1){
       for(i=q;i>=p;i--){
+        if(tokens[i].type=='('){
+          head++;
+        }
+        if(tokens[i].type==')'){
+          head--;
+        }
+        if(!head&&(tokens[i].type=='*'||tokens[i].type=='/')){
+          op=i;
+          break;
+        }
+      }
+    }
+    if(!flag1){
+      for(i=p;i<=q;i++){
       if(tokens[i].type=='('){
         head++;
       }
       if(tokens[i].type==')'){
         head--;
       }
-      if(!head&&(tokens[i].type=='*'||tokens[i].type=='/')){
+      if(!head&&(tokens[i].type==TK_DEREF||tokens[i].type==TK_REV)){
         op=i;
+        flag1=1;
         break;
       }
     }
