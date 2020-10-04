@@ -255,7 +255,7 @@ static word_t eval(int p,int q,bool *success){
       if(tokens[i].type==')'){
         head--;
       }
-      if(!head&&tokens[i].type==TK_DEREF){
+      if(!head&&(tokens[i].type==TK_DEREF||tokens[i].type==TK_REV)){
         op=i;
         flag1=1;
         break;
