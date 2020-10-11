@@ -14,7 +14,7 @@
 #define IDEXW(idx, id, ex, w) CASE_ENTRY(idx, concat(decode_, id), concat(exec_, ex), w)
 #define IDEX(idx, id, ex)     IDEXW(idx, id, ex, 0)
 #define EXW(idx, ex, w)       IDEXW(idx, empty, ex, w)
-#define EX(idx, ex)           EXW(idx, ex, 0)
+#define EX(idx, ex)           EXW(idx, ex, 0)//=IDEXW(idx,empty,ex,0)=case idx: set_width(s, 0); empty(s); ex(s); break
 #define EMPTY(idx)            EX(idx, inv)
 
 // set_width() is defined in src/isa/$isa/exec/exec.c
