@@ -12,10 +12,11 @@ static inline void set_width(DecodeExecState *s, int width) {
 
 /* 0x80, 0x81, 0x83 */
 static inline def_EHelper(gp1) {
-  switch (s->isa.ext_opcode) {
-    EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-    EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
-  }
+  // switch (s->isa.ext_opcode) {
+  //   EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
+  //   EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
+  // }
+
 }
 
 /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
@@ -125,6 +126,9 @@ again:
     IDEX (0x55, r, push)
     IDEX (0x56, r, push)
     IDEX (0x57, r, push)
+    IDEXW(0x68, I, push,1)
+    IDEX (0x31, G2E, xor)
+    IDEX (0xc3, I, ret)
   default: exec_inv(s);
   }
 }
