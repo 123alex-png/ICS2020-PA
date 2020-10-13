@@ -54,7 +54,7 @@ static inline def_DopHelper(SI) {
    *
    operand_imm(s, op, load_val, ???, op->width);
    */
-  TODO();
+  //TODO();
 }
 
 /* I386 manual does not contain this abbreviation.
