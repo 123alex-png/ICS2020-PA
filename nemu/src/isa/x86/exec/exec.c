@@ -112,14 +112,19 @@ again:
     IDEXW(0xd2, gp2_cl2E, gp2, 1)
     IDEX (0xd3, gp2_cl2E, gp2)
     EX   (0xd6, nemu_trap)
-    
-
     IDEXW(0xf6, E, gp3, 1)
     IDEX (0xf7, E, gp3)
     IDEXW(0xfe, E, gp4, 1)
     IDEX (0xff, E, gp5)
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
-  IDEX (0xe8, I, call)//
+    IDEX (0xe8, I, call)//
+    IDEX (0x51, r, push)
+    IDEX (0x52, r, push)
+    IDEX (0x53, r, push)
+    IDEX (0x54, r, push)
+    IDEX (0x55, r, push)
+    IDEX (0x56, r, push)
+    IDEX (0x57, r, push)
   default: exec_inv(s);
   }
 }
