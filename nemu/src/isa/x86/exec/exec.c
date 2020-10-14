@@ -126,7 +126,7 @@ again:
     IDEX (0x55, r, push)
     IDEX (0x56, r, push)
     IDEX (0x57, r, push)
-    IDEX(0x68, I, push)
+    IDEX (0x68, I, push)
     IDEX (0x31, G2E, xor)
     IDEX (0xc3, I, ret)
   default: exec_inv(s);
