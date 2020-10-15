@@ -118,17 +118,17 @@ again:
     IDEXW(0xfe, E, gp4, 1)
     IDEX (0xff, E, gp5)
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
-    // IDEX (0xe8, I, call)//
-    // IDEX (0x51, r, push)
-    // IDEX (0x52, r, push)
-    // IDEX (0x53, r, push)
-    // IDEX (0x54, r, push)
-    // IDEX (0x55, r, push)
-    // IDEX (0x56, r, push)
-    // IDEX (0x57, r, push)
-    // IDEX (0x68, I, push)
-    // IDEX (0x31, G2E, xor)
-    // IDEX (0xc3, I, ret)
+    IDEX (0xe8, I, call)//
+    IDEX (0x51, r, push)
+    IDEX (0x52, r, push)
+    IDEX (0x53, r, push)
+    IDEX (0x54, r, push)
+    IDEX (0x55, r, push)
+    IDEX (0x56, r, push)
+    IDEX (0x57, r, push)
+    IDEX (0x68, I, push)
+    IDEX (0x31, G2E, xor)
+    IDEX (0xc3, I, ret)
   default: exec_inv(s);
   }
 }
