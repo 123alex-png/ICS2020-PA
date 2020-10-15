@@ -103,7 +103,7 @@ void init_monitor(int argc, char *argv[]) {
   init_isa();
 
   /* Load the image to memory. This will overwrite the built-in image. */
-  long img_size = load_img("ics2020/am-kernels/tests/cpu-tests/tests/dummy.c");
+  long img_size = load_img("../am-kernels/tests/cpu-tests/tests/dummy.c");
 
   /* Compile the regular expressions. */
   init_regex();
