@@ -366,7 +366,7 @@ static int cmd_p(char* args){
       }
       else{
         printf("%u\n",ans);
-        if(ans>1)
+        if(ans>16)
         printf("0x%x\n",ans);
       }
       free(success);  
