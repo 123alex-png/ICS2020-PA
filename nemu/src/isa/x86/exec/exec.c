@@ -14,7 +14,7 @@ static inline void set_width(DecodeExecState *s, int width) {
 static inline def_EHelper(gp1) {
   switch (s->isa.ext_opcode) {
     case 4:rtl_and(s,s->dest.preg,s->dest.preg,s->src1.preg);break;
-    case 5:rtl_sub(s,s->dest.preg,s->dest.preg,s->dest.preg);break;
+    case 5:rtl_sub(s,s->dest.preg,s->dest.preg,s->src1.preg);break;
   }
   
 }
