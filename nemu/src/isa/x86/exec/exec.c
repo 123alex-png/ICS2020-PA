@@ -129,7 +129,7 @@ again:
     IDEX (0x68, I, push)
     IDEX (0x8d, lea_M2G, lea)
     IDEX (0xc3, I, ret)
-    IDEX (0xe8, I, call)
+    IDEX (0xe8, J, call)
   default: exec_inv(s);
   }
 }
