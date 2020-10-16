@@ -325,10 +325,10 @@ static int cmd_x(char* args){
     if(arg2[0]=='0'&&arg2[1]=='x'){
       int input_addr=0,base16=1;
     for(j=strlen(arg2)-1;j>=2;j--){
-      if(arg1[j]<='9'&&arg1[j]>='0')
-        n+=base16*(arg1[j]-'0');
+      if(arg2[j]<='9'&&arg2[j]>='0')
+        n+=base16*(arg2[j]-'0');
       else
-        n+=base16*(arg1[j]-'a'+10);
+        n+=base16*(arg2[j]-'a'+10);
       base16*=16;
     }
     //如何读取内存中的数据？？
