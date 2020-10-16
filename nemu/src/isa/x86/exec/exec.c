@@ -75,7 +75,6 @@ again:
   s->opcode = opcode;
   switch (opcode) {
     EX   (0x0f, 2byte_esc)
-    //IDEX (0x50, )/
     IDEXW(0x80, I2E, gp1, 1)
     IDEX (0x81, I2E, gp1)
     IDEX (0x83, SI2E, gp1)
@@ -117,7 +116,8 @@ again:
     IDEXW(0xfe, E, gp4, 1)
     IDEX (0xff, E, gp5)
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
-    IDEX (0x31, G2E, xor)
+    IDEX (0x01, G2E, add)
+    IDEX (0x31, G2E, add)
     IDEX (0x51, r, push)
     IDEX (0x52, r, push)
     IDEX (0x53, r, push)
