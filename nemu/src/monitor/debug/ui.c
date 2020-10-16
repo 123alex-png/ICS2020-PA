@@ -155,7 +155,10 @@ static int cmd_x(char* args){
     int j;
     int n=0,base=1;
     for(j=strlen(arg1)-1;j>=0;j--){
-      n+=base*(arg1[j]-'0');
+      if(arg1[j]<='9'&&arg1[j]>='0')
+        n+=base*(arg1[j]-'0');
+      else
+        n+=base*(arg1[j]-'a'+10);
       base*=10;
     }
   if(!strcmp(arg2,"$eax")){
