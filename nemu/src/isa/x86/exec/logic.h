@@ -7,13 +7,12 @@ static inline def_EHelper(test) {
 }
 
 static inline def_EHelper(and) {
-  rtl_and(s,s->dest.preg,s->dest.preg,s->src1.preg);
-  operand_write(s,id_dest,ddest);
+  rtl_and(s,ddest,ddest,dsrc1);
   print_asm_template2(and);
 }
 
 static inline def_EHelper(xor) {
-  rtl_xor(s,s->dest.preg,s->src1.preg,s->dest.preg);
+  rtl_xor(s,ddest,ddest,dsrc1);
   print_asm_template2(xor);
 }
 
