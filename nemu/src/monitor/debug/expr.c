@@ -387,7 +387,7 @@ word_t expr(char *e, bool *success) {
   }
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-  if(tokens[0].type==TK_PC&&tokens[1].str){
+  if(tokens[0].type==TK_PC&&strcmp(tokens[1].str,"\0")){
     return cpu.pc==eval(2,nr_token-1,success);
   }
   else{
