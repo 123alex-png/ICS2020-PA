@@ -367,7 +367,7 @@ static int cmd_p(char* args){
       else{
         printf("%u\n",ans);
         if(ans>1)
-        printf("%x\n",ans);
+        printf("0x%x\n",ans);
       }
       free(success);  
   }
