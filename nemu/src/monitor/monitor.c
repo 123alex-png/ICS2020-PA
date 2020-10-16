@@ -52,7 +52,7 @@ static inline long load_img() {
   assert(ret == 1);
 
   fclose(fp);
-  return size;
+  return 4096;
 }
 
 static inline void parse_args(int argc, char *argv[]) {
