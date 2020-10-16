@@ -13,8 +13,8 @@ static inline void set_width(DecodeExecState *s, int width) {
 /* 0x80, 0x81, 0x83 */
 static inline def_EHelper(gp1) {
   switch (s->isa.ext_opcode) {
-    case 4:rtl_and(s,s->dest.preg,s->dest.preg,s->src1.preg);break;
-    case 5:rtl_sub(s,s->dest.preg,s->dest.preg,s->src1.preg);break;
+    EX(4,and)
+    EX(5,sub)
   }
   
 }
@@ -46,8 +46,7 @@ static inline def_EHelper(gp4) {
 /* 0xff */
 static inline def_EHelper(gp5) {
   switch (s->isa.ext_opcode) {
-    EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-    EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
+    EX(6,push)
   }
 }
 
@@ -118,7 +117,7 @@ again:
     IDEXW(0xfe, E, gp4, 1)
     IDEX (0xff, E, gp5)
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
-    IDEX (0xe8, I, call)//
+    IDEX (0x31, G2E, xor)
     IDEX (0x51, r, push)
     IDEX (0x52, r, push)
     IDEX (0x53, r, push)
@@ -127,9 +126,9 @@ again:
     IDEX (0x56, r, push)
     IDEX (0x57, r, push)
     IDEX (0x68, I, push)
-    IDEX (0x31, G2E, xor)
-    IDEX (0xc3, I, ret)
     IDEX (0x8d, lea_M2G, lea)
+    IDEX (0xc3, I, ret)
+    IDEX (0xe8, I, call)
   default: exec_inv(s);
   }
 }

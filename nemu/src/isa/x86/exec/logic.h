@@ -7,7 +7,7 @@ static inline def_EHelper(test) {
 }
 
 static inline def_EHelper(and) {
-  TODO();
+  rtl_and(s,s->dest.preg,s->dest.preg,s->src1.preg);
   print_asm_template2(and);
 }
 
