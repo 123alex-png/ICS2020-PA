@@ -12,7 +12,7 @@ void init_difftest(char *ref_so_file, long img_size, int port);
 
 static char *log_file = NULL;
 static char *diff_so_file = NULL;
-static char *img_file = "/home/quli/ics2020/am-kernels/tests/cpu-tests/tests/dummy.c"/*NULL*/;
+static char *img_file = NULL;
 static int batch_mode = false;
 static int difftest_port = 1234;
 
@@ -103,7 +103,7 @@ void init_monitor(int argc, char *argv[]) {
   init_isa();
 
   /* Load the image to memory. This will overwrite the built-in image. */
-   ;
+  img_file="/home/quli/ics2020/am-kernels/tests/cpu-tests/tests/dummy.c";
   long img_size = load_img();
 
   /* Compile the regular expressions. */
