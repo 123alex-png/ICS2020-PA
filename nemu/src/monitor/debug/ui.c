@@ -366,6 +366,7 @@ static int cmd_p(char* args){
       }
       else{
         printf("%u\n",ans);
+        printf("%x\n",ans);
       }
       free(success);  
   }
