@@ -323,9 +323,9 @@ static int cmd_x(char* args){
       int input_addr=0,base16=1;
     for(j=strlen(arg2)-1;j>=2;j--){
       if(arg2[j]<='9'&&arg2[j]>='0')
-        n+=base16*(arg2[j]-'0');
+        input_addr+=base16*(arg2[j]-'0');
       else
-        n+=base16*(arg2[j]-'a'+10);
+        input_addr+=base16*(arg2[j]-'a'+10);
       base16*=16;
     }
     //如何读取内存中的数据？？
