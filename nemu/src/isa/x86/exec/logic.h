@@ -8,6 +8,7 @@ static inline def_EHelper(test) {
 
 static inline def_EHelper(and) {
   rtl_and(s,s->dest.preg,s->dest.preg,s->src1.preg);
+  operand_write(s,id_dest,ddest);
   print_asm_template2(and);
 }
 
