@@ -12,11 +12,11 @@ static inline void set_width(DecodeExecState *s, int width) {
 
 /* 0x80, 0x81, 0x83 */
 static inline def_EHelper(gp1) {
-  // switch (s->isa.ext_opcode) {
-  //   EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-  //   EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
-  // }
-  rtl_sub(s,s->dest.preg,s->dest.preg,s->src1.preg);
+  switch (s->isa.ext_opcode) {
+    case 4:rtl_and(s,s->dest.preg,s->dest.preg,s->src1.preg);break;
+    case 5:rtl_sub(s,s->dest.preg,s->dest.preg,s->src1.preg);break;
+  }
+  
 }
 
 /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
