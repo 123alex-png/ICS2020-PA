@@ -97,11 +97,14 @@ typedef struct {
     };
   };
   };
-  bool CF;
-  bool ZF;
-  bool SF;
-  bool IF;
-  bool OF;
+  
+  // struct{
+    rtlreg_t CF:1;
+    rtlreg_t ZF:1;
+    rtlreg_t SF:1;
+    rtlreg_t IF:1;
+    rtlreg_t OF:1;
+  // }eflag;
   vaddr_t pc;
 } x86_CPU_state;
 
