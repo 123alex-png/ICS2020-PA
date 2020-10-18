@@ -17,27 +17,43 @@ static inline def_rtl(mv, rtlreg_t* dest, const rtlreg_t *src1) {
 
 static inline def_rtl(not, rtlreg_t *dest, const rtlreg_t* src1) {
   // dest <- ~src1
-  TODO();
+  rtl_li(s,dest,~(*src1));
 }
 
 static inline def_rtl(neg, rtlreg_t *dest, const rtlreg_t* src1) {
   // dest <- -src1
-  TODO();
+  rtl_li(s,dest,-(*src1));
 }
 
 static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
-  TODO();
+  switch(width){
+    case 4:rtl_li(s,dest,(int32_t)(*src1));break;
+    case 2:rtl_li(s,dest,(int16_t)(*src1));break;
+    case 1:rtl_li(s,dest,(int8_t)(*src1));break;
+    default:assert(0);
+  }
 }
+
 
 static inline def_rtl(zext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- zeroext(src1[(width * 8 - 1) .. 0])
-  TODO();
+  switch(width){
+    case 4:rtl_li(s,dest,(uint32_t)(*src1));break;
+    case 2:rtl_li(s,dest,(uint16_t)(*src1));break;
+    case 1:rtl_li(s,dest,(uint8_t)(*src1));break;
+    default:assert(0);
+  }
 }
 
 static inline def_rtl(msb, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
-  TODO();
+  switch(width){
+    case 4:rtl_li(s,dest,c_shr((*src1),31));break;
+    case 2:rtl_li(s,dest,c_shr((*src1),15));break;
+    case 1:rtl_li(s,dest,c_shr((*src1),7));break;
+    default:assert(0);
+  }
 }
 
 #endif
