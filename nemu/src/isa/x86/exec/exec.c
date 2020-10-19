@@ -147,7 +147,7 @@ again:
     IDEX (0x57, r, push)
     IDEX (0x68, I, push)
     IDEXW (0x74, J, jcc, 1)
-    IDEX (0x75, J, jcc)
+    IDEXW (0x75, J, jcc, 1)
     IDEX (0x8d, lea_M2G, lea)
     EX (0xc3, ret)
     EX (0xc9, leave)
