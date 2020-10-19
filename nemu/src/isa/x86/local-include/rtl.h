@@ -96,7 +96,14 @@ def_rtl_setget_eflags(SF)
 
 static inline def_rtl(update_ZF, const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
-  rtl_li(s,t0,interpret_relop(RELOP_EQ,*result,0));
+
+  if(*result==0)
+    *t0=1;
+  else
+  {
+    *t0=0;
+  }
+  
   // switch (width)
   // {
   // case 4:rtl_li(s,t0,interpret_relop(RELOP_EQ,*result,(uint32_t)0));break;
