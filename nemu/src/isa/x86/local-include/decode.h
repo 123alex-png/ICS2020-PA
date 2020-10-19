@@ -56,8 +56,8 @@ static inline def_DopHelper(SI) {
    */
   sword_t simm= (sword_t)instr_fetch(&s->seq_pc, op->width);
   if(op->width==1){
-    simm = simm << 24;
-    simm = simm >> 24;
+    simm = simm << 23;
+    simm = simm >> 23;
   }
   operand_imm(s,op,load_val,simm,op->width);
 }
