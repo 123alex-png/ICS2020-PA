@@ -9,7 +9,7 @@ static inline def_EHelper(push) {
 }
 
 static inline def_EHelper(pop) {
-  rtl_pop(s,t0);
+  rtl_pop(s,ddest);
 
   print_asm_template1(pop);
 }
@@ -28,7 +28,7 @@ static inline def_EHelper(popa) {
 
 static inline def_EHelper(leave) {
   rtl_mv(s,&cpu.esp,&cpu.ebp);
-  rtl_pop(s,t0);
+  rtl_pop(s,ddest);
   print_asm("leave");
 }
 
