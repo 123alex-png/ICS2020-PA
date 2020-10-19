@@ -151,7 +151,7 @@ again:
     IDEX (0x8d, lea_M2G, lea)
     EX (0xc3, ret)
     EX (0xc9, leave)
-    IDEX (0xe8, J, call)
+    IDEX (0xe8, I, call)
   default: exec_inv(s);
   }
 }
