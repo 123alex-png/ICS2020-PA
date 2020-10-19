@@ -37,8 +37,8 @@ typedef struct {
       union{
         uint16_t ax;
         struct{
-          uint8_t ah;
           uint8_t al;
+          uint8_t ah;
         };
       };
     };
@@ -48,8 +48,8 @@ typedef struct {
       union{
         uint16_t cx;
         struct{
-          uint8_t ch;
           uint8_t cl;
+          uint8_t ch;
         };
       };
     };
@@ -70,8 +70,8 @@ typedef struct {
       union{
         uint16_t bx;
         struct{
-          uint8_t bh;
           uint8_t bl;
+          uint8_t bh;
         };
       };
     };
