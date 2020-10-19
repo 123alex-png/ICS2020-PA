@@ -59,8 +59,8 @@ typedef struct {
       union{
         uint16_t dx;
         struct{
-          uint8_t dh;
           uint8_t dl;
+          uint8_t dh;
         };
       };
     };
