@@ -15,6 +15,7 @@ static inline def_EHelper(gp1) {
   switch (s->isa.ext_opcode) {
     EX(4,and)
     EX(5,sub)
+    EX(7,cmp)
   }
   
 }
@@ -144,6 +145,7 @@ again:
     IDEX (0x56, r, push)
     IDEX (0x57, r, push)
     IDEX (0x68, I, push)
+    IDEX (0x74, J, jcc)
     IDEX (0x8d, lea_M2G, lea)
     EX (0xc3, ret)
     IDEX (0xe8, J, call)
