@@ -96,27 +96,17 @@ def_rtl_setget_eflags(SF)
 
 static inline def_rtl(update_ZF, const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
-
-  if(*result==0)
-    *t0=1;
-  else
-  {
-    *t0=0;
-  }
-  
-  // switch (width)
-  // {
-  // case 4:rtl_li(s,t0,interpret_relop(RELOP_EQ,*result,(uint32_t)0));break;
-  // case 2:rtl_li(s,t0,interpret_relop(RELOP_EQ,*result,(uint16_t)0));break;
-  // case 1:rtl_li(s,t0,interpret_relop(RELOP_EQ,*result,(uint8_t)0));break;
-  // default:assert(0);break;
-  // }
+  rtl_li(s,t0,c_sub(4,width));
+  rtl_li(s,t0,c_mul_lo(*t0,4));
+  rtl_li(s,t0,c_shr(0xffffffff,*t0));
+  rtl_li(s,t0,!c_and(*result,*t0));
+  rtl_set_ZF(s,t0);
 }
 
 static inline def_rtl(update_SF, const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
   rtl_msb(s,t0,result,width);
-  rtl_get_SF(s,t0);
+  rtl_set_SF(s,t0);
 }
 
 static inline def_rtl(update_ZFSF, const rtlreg_t* result, int width) {
