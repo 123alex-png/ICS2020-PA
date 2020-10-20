@@ -36,13 +36,13 @@ static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcod
     case CC_S:rtl_li(s,dest,cpu.SF);break;
     case CC_L:rtl_li(s,dest,interpret_relop(RELOP_NE,cpu.SF,cpu.OF));break;
     case CC_LE:rtl_li(s,dest,c_or(cpu.ZF,interpret_relop(RELOP_NE,cpu.SF,cpu.OF)));break;
-    case CC_NO:rtl_li(s,dest,!cpu.OF);break;
-    case CC_NB:rtl_li(s,dest,!cpu.CF);break;
-    case CC_NE:rtl_li(s,dest,!cpu.ZF);break;
-    case CC_NBE:rtl_li(s,dest,!c_and(cpu.CF,cpu.ZF));break;
-    case CC_NS:rtl_li(s,dest,!cpu.SF);break;
-    case CC_NL:rtl_li(s,dest,interpret_relop(RELOP_EQ,cpu.SF,cpu.OF));break;
-    case CC_NLE:rtl_li(s,dest,c_and(!cpu.ZF,interpret_relop(RELOP_EQ,cpu.SF,cpu.OF)));break;
+    // case CC_NO:rtl_li(s,dest,!cpu.OF);break;
+    // case CC_NB:rtl_li(s,dest,!cpu.CF);break;
+    // case CC_NE:rtl_li(s,dest,!cpu.ZF);break;
+    // case CC_NBE:rtl_li(s,dest,!c_and(cpu.CF,cpu.ZF));break;
+    // case CC_NS:rtl_li(s,dest,!cpu.SF);break;
+    // case CC_NL:rtl_li(s,dest,interpret_relop(RELOP_EQ,cpu.SF,cpu.OF));break;
+    // case CC_NLE:rtl_li(s,dest,c_and(!cpu.ZF,interpret_relop(RELOP_EQ,cpu.SF,cpu.OF)));break;
     default: panic("should not reach here");
     case CC_P:case CC_NP: panic("PF is not supported");
   }
