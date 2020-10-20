@@ -142,6 +142,7 @@ again:
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
     IDEX (0x01, G2E, add)
     IDEX (0x03, E2G, add)
+    IDEX (0x13, E2G, adc)
     IDEX (0x31, G2E, xor)
     IDEX (0x3b, E2G, cmp)//not sure, how to calculate the eflags?
     IDEX (0x47, r, inc)
