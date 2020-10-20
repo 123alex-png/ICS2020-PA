@@ -164,7 +164,7 @@ again:
     IDEXW(0x74, J, jcc, 1)
     IDEXW(0x75, J, jcc, 1)
     IDEX (0x8d, lea_M2G, lea)
-    // IDEX (0x90, r, xchg)
+    EX   (0x90, nop)
     // IDEX (0x91, r, xchg)
     // IDEX (0x92, r, xchg)
     // IDEX (0x93, r, xchg)
