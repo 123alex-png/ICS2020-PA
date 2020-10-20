@@ -73,3 +73,15 @@ static inline def_EHelper(lea) {
   print_asm_template2(lea);
 }
 
+// static inline def_EHelper(xchg){
+//   if(s->isa.is_operand_size_16){
+//     rtl_li(s,s0,cpu.ax);
+//     rtl_li(s,&cpu.ax,*(uint16_t*)ddest);
+//     rtl_li(s,ddest,s0);
+//   }
+//   else{
+//     rtl_mv(s,s0,&(cpu.eax));
+//     rtl_mv(s,&(cpu.eax),ddest);
+//     rtl_mv(s,ddest,s0);
+//   }
+// }
