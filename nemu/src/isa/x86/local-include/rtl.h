@@ -42,8 +42,8 @@ static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 - src2)
   rtl_msb(s,t0,src1,width);//src1的符号
-  rtl_msb(s,t1,src2,width);
-  rtl_not(s,t1,t1);//src2的符号
+  rtl_not(s,t1,src2);
+  rtl_msb(s,t1,t1,width);//src2的符号
   rtl_msb(s,t2,res,width);//res的符号
   rtl_li(s,t0,interpret_relop(RELOP_EQ,*t0,*t1));//src1,src2是否符号相同
   rtl_li(s,t1,interpret_relop(RELOP_EQ,*t1,*t2));//src2,res是否符号相同
@@ -55,15 +55,7 @@ static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
 static inline def_rtl(is_sub_carry, rtlreg_t* dest,
     const rtlreg_t* src1, const rtlreg_t* src2) {
   // dest <- is_carry(src1 - src2)
-  rtl_mv(s,s0,src2);
-  rtl_not(s,s0,s0);
-  rtl_li(s,s0,*s0+1);
-  if(interpret_relop(RELOP_NE,*src2,*s0)){
-    rtl_li(s,dest,interpret_relop(RELOP_LTU,*src1,*s0));
-  }
-  else{
-    rtl_li(s,dest,0);
-  }
+  rtl_li(s,dest,interpret_relop(RELOP_LTU,*src1,*src2));
 }
 
 static inline def_rtl(is_add_overflow, rtlreg_t* dest,
