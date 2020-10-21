@@ -168,6 +168,8 @@ again:
     IDEX (0x23, E2G, and)
     IDEX (0x28, G2E, sub)
     IDEX (0x29, G2E, sub)
+    IDEX (0x2a, E2G, sub)
+    IDEX (0x2b, E2G, sub)
     IDEX (0x31, G2E, xor)
     IDEX (0x38, G2E, cmp)
     IDEX (0x39, G2E, cmp)
