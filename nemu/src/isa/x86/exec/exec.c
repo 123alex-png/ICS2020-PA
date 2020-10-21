@@ -218,6 +218,7 @@ again:
     EX   (0xc3, ret)
     EX   (0xc9, leave)
     IDEX (0xe8, J, call)
+    IDEXW(0xeb, J, cmp, 1)
   default: exec_inv(s);
   }
 }
