@@ -145,6 +145,7 @@ again:
     IDEX (0x01, G2E, add)
     IDEX (0x03, E2G, add)
     IDEX (0x09, G2E, or)
+    IDEXW(0x0a, E2G, or, 1)
     IDEX (0x13, E2G, adc)
     IDEX (0x31, G2E, xor)
     IDEX (0x3b, E2G, cmp)//not sure, how to calculate the eflags?
