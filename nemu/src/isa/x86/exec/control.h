@@ -36,13 +36,14 @@ static inline def_EHelper(ret) {
 }
 
 static inline def_EHelper(ret_imm) {
-  rtl_lm(s,&(s->jmp_pc),ddest,0,s->width);
-  rtl_j(s,s->jmp_pc);
+  TODO();
+
   print_asm("ret %s", id_dest->str);
 }
 
 static inline def_EHelper(call_rm) {
-  rtl_push(s,&(s->jmp_pc));
-
+  rtl_push(s,&(s->seq_pc));
+  rtl_lm(s,&(s->jmp_pc),ddest,0,id_dest->width);
+  rtl_j(s,s->jmp_pc);
   print_asm("call *%s", id_dest->str);
 }
