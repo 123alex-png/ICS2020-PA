@@ -213,6 +213,7 @@ again:
     IDEXW(0x84, G2E, test, 1)//
     IDEX (0x8d, lea_M2G, lea)
     EX   (0x90, nop)
+    EX   (0x99, cltd)
     EX   (0xc3, ret)
     EX   (0xc9, leave)
     IDEX (0xe8, J, call)
