@@ -215,6 +215,7 @@ again:
     IDEXW(0x7e, J, jcc, 1)
     IDEXW(0x7f, J, jcc, 1)
     IDEXW(0x84, G2E, test, 1)//
+    IDEXW(0x85, G2E, test, 1)
     IDEX (0x8d, lea_M2G, lea)
     EX   (0x90, nop)
     EX   (0x99, cltd)
