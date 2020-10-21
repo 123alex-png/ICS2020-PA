@@ -176,6 +176,7 @@ again:
     IDEX (0x68, I, push)
     IDEXW(0x74, J, jcc, 1)
     IDEXW(0x75, J, jcc, 1)
+    IDEXW(0x84, G2E, test, 1)
     IDEX (0x8d, lea_M2G, lea)
     EX   (0x90, nop)
     // IDEX (0x91, r, xchg)
