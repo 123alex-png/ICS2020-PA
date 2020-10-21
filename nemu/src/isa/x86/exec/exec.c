@@ -95,10 +95,10 @@ static inline def_EHelper(2byte_esc) {
     IDEX (0x9e, setcc_E, setcc)
     IDEX (0x9f, setcc_E, setcc)
     IDEX (0xaf, E2G, imul2)
-    IDEXW (0xb6, E2G, movzx, 1)
-    IDEXW (0xb7, E2G, movzx, 2)
-    IDEXW (0xbe, E2G, movsx, 1)
-    IDEXW (0xbf, E2G, movsx, 2)
+    IDEXW(0xb6, E2G, movzx, 1)
+    IDEXW(0xb7, E2G, movzx, 2)
+    IDEXW(0xbe, E2G, movsx, 1)
+    IDEXW(0xbf, E2G, movsx, 2)
     default: exec_inv(s);
   }
 }
