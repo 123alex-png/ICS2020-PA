@@ -61,7 +61,7 @@ static inline def_EHelper(gp5) {
     EMPTY(1) EMPTY(3) 
     EMPTY(4) EMPTY(5) EMPTY(7)
     EX(0, inc)
-    IDEX(2, O2a, call)
+    IDEX(2, E2G, call)
     EX(6, push)
   }
 }
