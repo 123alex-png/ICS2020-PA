@@ -34,12 +34,13 @@ static inline def_EHelper(sub) {//s1:减出结果 s2:OF s0:CF
 }
 //OF, SF, ZF, AF, PF, and CF 
 static inline def_EHelper(cmp) {
-  rtl_sub(s,s1,ddest,dsrc1);
-  rtl_update_ZFSF(s, s1, id_dest->width);
-  rtl_is_sub_overflow(s, s2, s1, ddest, dsrc1, id_dest->width);
-  rtl_set_OF(s, s2);
-  rtl_is_sub_carry(s, s0, ddest, dsrc1);
-  rtl_set_CF(s, s0);
+  // rtl_sub(s,s1,ddest,dsrc1);
+  // rtl_update_ZFSF(s, s1, id_dest->width);
+  // rtl_is_sub_overflow(s, s2, s1, ddest, dsrc1, id_dest->width);
+  // rtl_set_OF(s, s2);
+  // rtl_is_sub_carry(s, s0, ddest, dsrc1);
+  // rtl_set_CF(s, s0);
+  cmp_internal(s);
 }
 
 static inline def_EHelper(inc) {
