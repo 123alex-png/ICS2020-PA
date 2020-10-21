@@ -162,6 +162,8 @@ again:
     IDEX (0x09, G2E, or)
     IDEXW(0x0a, E2G, or, 1)//
     IDEX (0x13, E2G, adc)
+    IDEX (0x1a, E2G, sbb)
+    IDEX (0x1b, E2G, sbb)
     IDEX (0x20 ,G2E, and)
     IDEX (0x21 ,G2E, and)
     IDEX (0x22 ,E2G, and)
