@@ -146,7 +146,7 @@ again:
     IDEX (0x01, G2E, add)
     IDEX (0x03, E2G, add)
     IDEX (0x09, G2E, or)
-    IDEXW(0x0a, E2G, or, 1)
+    IDEXW(0x0a, E2G, or, 1)//
     IDEX (0x13, E2G, adc)
     IDEX (0x20 ,G2E, and)
     IDEX (0x21 ,G2E, and)
@@ -182,7 +182,7 @@ again:
     IDEX (0x68, I, push)
     IDEXW(0x74, J, jcc, 1)
     IDEXW(0x75, J, jcc, 1)
-    IDEXW(0x84, G2E, test, 1)
+    IDEXW(0x84, G2E, test, 1)//
     IDEX (0x8d, lea_M2G, lea)
     EX   (0x90, nop)
     // IDEX (0x91, r, xchg)
