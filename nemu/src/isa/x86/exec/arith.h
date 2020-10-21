@@ -43,16 +43,6 @@ static inline def_EHelper(cmp) {
   cmp_internal(s);
 }
 
-static inline def_EHelper(cmp1){
-  if(s->isa.is_operand_size_16){
-    rtl_li(s,dsrc1,cpu.ax);
-  }
-  else{
-    rtl_li(s,dsrc1,cpu.eax);
-  }
-  cmp_internal(s);
-}
-
 static inline def_EHelper(inc) {
   rtl_li(s,s1,c_add(*ddest,1));
   rtl_update_ZFSF(s, s1, id_dest->width);
