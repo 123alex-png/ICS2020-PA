@@ -58,12 +58,12 @@ static inline def_rtl(is_sub_carry, rtlreg_t* dest,
   rtl_mv(s,s0,src2);
   rtl_not(s,s0,s0);
   rtl_li(s,s0,*s0+1);
-  // if(interpret_relop(RELOP_NE,*src2,*s0)){
+  if(interpret_relop(RELOP_NE,*src2,*s0)){
     rtl_li(s,dest,interpret_relop(RELOP_LTU,*src1,*s0));
-  // }
-  // else{
-
-  // }
+  }
+  else{
+    rtl_li(s,dest,0);
+  }
 }
 
 static inline def_rtl(is_add_overflow, rtlreg_t* dest,
