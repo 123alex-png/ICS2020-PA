@@ -41,9 +41,9 @@ static inline def_EHelper(gp3) {
     EMPTY(1) EMPTY(3)
     EMPTY(4) EMPTY(6)
     IDEXW(0, test_I, test, 1)
-    EX(2, not)
-    EX(5, imul1)
-    EX(7, idiv)
+    EX   (2, not)
+    EX   (5, imul1)
+    EX   (7, idiv)
   }
 }
 
@@ -60,9 +60,9 @@ static inline def_EHelper(gp5) {
   switch (s->isa.ext_opcode) {
     EMPTY(1) EMPTY(3) 
     EMPTY(4) EMPTY(5) EMPTY(7)
-    EX(0, inc)
-    IDEX(2, E2G, call)
-    EX(6, push)
+    EX   (0, inc)
+    IDEX (2, I, call_rm)
+    EX   (6, push)
   }
 }
 
