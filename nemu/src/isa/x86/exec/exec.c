@@ -63,7 +63,7 @@ static inline def_EHelper(gp5) {
     EMPTY(1) EMPTY(3) 
     EMPTY(5) EMPTY(7)
     EX   (0, inc)
-    EX   (2, call_rm)
+    EXW  (2, call_rm, 1)
     EX   (4, jmp_rm)
     EX   (6, push)
   }
