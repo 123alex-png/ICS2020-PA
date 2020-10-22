@@ -63,7 +63,6 @@ static inline def_rtl(is_sub_carry, rtlreg_t* dest,
   default:
     break;
   }
-  rtl_li(s,dest,interpret_relop(RELOP_LTU,*src1,*src2));
 }
 
 static inline def_rtl(is_add_overflow, rtlreg_t* dest,
