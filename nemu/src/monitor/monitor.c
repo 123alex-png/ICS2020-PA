@@ -95,7 +95,7 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Open the log file. */
   init_log(log_file);
-
+  img_file="/home/quli/ics2020/am-kernels/tests/cpu-tests/build/add.bin";
   /* Fill the memory with garbage content. */
   init_mem();
 
