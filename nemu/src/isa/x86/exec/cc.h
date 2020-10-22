@@ -32,7 +32,7 @@ static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcod
     case CC_O:rtl_li(s,dest,cpu.OF);break;
     case CC_B:rtl_li(s,dest,cpu.CF);break;
     case CC_E:rtl_li(s,dest,cpu.ZF);break;
-    case CC_BE:rtl_li(s,dest,c_or(cpu.CF,cpu.ZF));
+    case CC_BE:rtl_li(s,dest,c_or(cpu.CF,cpu.ZF));break;
     case CC_S:rtl_li(s,dest,cpu.SF);break;
     case CC_L:rtl_li(s,dest,interpret_relop(RELOP_NE,cpu.SF,cpu.OF));break;
     case CC_LE:rtl_li(s,dest,c_or(cpu.ZF,interpret_relop(RELOP_NE,cpu.SF,cpu.OF)));break;
