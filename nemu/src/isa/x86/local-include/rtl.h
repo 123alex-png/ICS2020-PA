@@ -55,6 +55,14 @@ static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
 static inline def_rtl(is_sub_carry, rtlreg_t* dest,
     const rtlreg_t* src1, const rtlreg_t* src2) {
   // dest <- is_carry(src1 - src2)
+  switch (id_dest->width)
+  {
+  case 4:rtl_li(s,dest,interpret_relop(RELOP_LTU,(sword_t)*src1,(sword_t)*src2));break;
+  case 2:rtl_li(s,dest,interpret_relop(RELOP_LTU,(int16_t)*src1,(int16_t)*src2));break;
+  case 1:rtl_li(s,dest,interpret_relop(RELOP_LTU,(int8_t)*src1, (int8_t)*src2));break;
+  default:
+    break;
+  }
   rtl_li(s,dest,interpret_relop(RELOP_LTU,*src1,*src2));
 }
 
