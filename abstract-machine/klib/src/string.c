@@ -44,14 +44,14 @@ char* strcat(char* dst, const char* src) {
 }
 
 int strcmp(const char* s1, const char* s2) {
-  if(strlen(s1)!=strlen(s2))return 1;
-  const char *p1=s1, *p2=s2;
-  while(*p1!='\0'){
-    if(*p1!=*p2){
+  size_t i;
+  for(i=0;i<strlen(s1);i++){
+    if(*(s1+i)!=*(s2+i)){
       return 1;
     }
-    p1++;
-    p2++;
+  }
+  if(*(s1+i)!=*(s2+i)){
+    return 1;
   }
   return 0;
 }
