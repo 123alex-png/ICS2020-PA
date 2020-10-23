@@ -4,10 +4,10 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 size_t strlen(const char *s) {
-  const char *p;
-  for(p=s;;p++){
-    if(*p=='\0'){
-      return p-s;
+  size_t i;
+  for(i=0;;i++){
+    if(*(s+i)=='\0'){
+      return i;
     }
   }
   return 0;
