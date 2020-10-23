@@ -46,12 +46,15 @@ char* strcat(char* dst, const char* src) {
 int strcmp(const char* s1, const char* s2) {
   size_t i;
   for(i=0;i<strlen(s1);i++){
-    if(*(s1+i)!=*(s2+i)){
+    if(*(s1+i)<*(s2+i)){
+      return -1;
+    }
+    else if(*(s1+i)>*(s2+i)){
       return 1;
     }
   }
-  if(*(s1+i)!=*(s2+i)){
-    return 1;
+  if(*(s2+i)!='\0'){
+    return -1;
   }
   return 0;
 }
