@@ -14,15 +14,33 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char* dst,const char* src) {
-  return NULL;
+    char *dest=(char*)dst;
+  const char *srcc=(char*)src;
+  do{
+    *dest++=*srcc++;
+  }while(*srcc!='\0');
+  return dst;
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
-  return NULL;
+  size_t i;
+  for(i=0;i<n&&src[i]!='\0';i++){
+    *(dst+i)=*(src+i);
+  }
+  for(;i<n;i++){
+    *(dst+i)='\0';
+  }
+  return dst;
 }
 
 char* strcat(char* dst, const char* src) {
-  return NULL;
+  size_t len=strlen(dst);
+  size_t i;
+  for(i=0;src[i]!='\0';i++){
+    *(dst+len+i)=*(src+i);
+  }
+  *(dst+len+i)='\0';
+  return dst;
 }
 
 int strcmp(const char* s1, const char* s2) {
@@ -56,7 +74,7 @@ void* memcpy(void* out, const void* in, size_t n) {
   do{
     *dest++=*src++;
   }while(--n>0);
-  return NULL;
+  return out;
 }
 
 int memcmp(const void* s1, const void* s2, size_t n) {
