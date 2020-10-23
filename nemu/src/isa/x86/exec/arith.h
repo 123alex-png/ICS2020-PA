@@ -62,7 +62,8 @@ static inline def_EHelper(dec) {
 }
 
 static inline def_EHelper(neg) {
-  TODO();
+  cpu.CF=*ddest;
+  rtl_neg(s,ddest,ddest);
   print_asm_template1(neg);
 }
 
