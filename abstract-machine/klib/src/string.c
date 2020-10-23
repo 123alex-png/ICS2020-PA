@@ -60,6 +60,12 @@ void* memcpy(void* out, const void* in, size_t n) {
 }
 
 int memcmp(const void* s1, const void* s2, size_t n) {
+  const char *p1=(char *)s1,*p2=(char *)s2;
+  do{
+    if(*p1++!=*p2++){
+      return 1;
+    }
+  }while(--n>0);
   return 0;
 }
 
