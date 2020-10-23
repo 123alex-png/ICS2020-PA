@@ -64,7 +64,13 @@ int strncmp(const char* s1, const char* s2, size_t n) {
 }
 
 void* memset(void* v,int c,size_t n) {
-  return NULL;
+  size_t i;
+  char *p=(char*)v;
+  char cc=(char)c;
+  for(i=0;i<n;i++){
+    *(p+i)=cc;
+  }
+  return v;
 }
 
 void* memmove(void* dst,const void* src,size_t n) {
