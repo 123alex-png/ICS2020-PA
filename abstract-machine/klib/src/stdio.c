@@ -42,11 +42,12 @@ int sprintf(char *out, const char *fmt, ...) {
           for(size_t i=0;*(tmp+i)!='\0';i++){
             out[cnt++]=*(tmp+i);
           }
+          break;
         }
       }
     }
   }
-  // out[cnt++]='\0';
+  out[cnt++]='\0';
   va_end(arg);
   return cnt;
 }
