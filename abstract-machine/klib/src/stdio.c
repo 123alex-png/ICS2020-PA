@@ -32,7 +32,7 @@ int sprintf(char *out, const char *fmt, ...) {
             digit[pos++]=tmp%10+'0';
             tmp/=10;
           }
-          while(pos>=0){
+          while(pos>0){
             --pos;
             out[cnt++]=digit[pos];
           }break;
