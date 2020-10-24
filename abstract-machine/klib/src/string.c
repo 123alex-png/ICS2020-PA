@@ -100,12 +100,18 @@ void* memmove(void* dst,const void* src,size_t n) {
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
-  char *dest=(char*)out;
-  const char *src=(char*)in;
-  do{
-    *dest++=*src++;
-  }while(--n>0);
-  return out;
+  // char *dest=(char*)out;
+  // const char *src=(char*)in;
+  // do{
+  //   *dest++=*src++;
+  // }while(--n>0);
+  // return out;
+  char *dst=(char*)out;
+  char *src=(char*)in;
+  for(size_t i=0;i<n;i++){
+    *(dst+i)=*(src+i);
+  }
+  return dst;
 }
 
 int memcmp(const void* s1, const void* s2, size_t n) {
