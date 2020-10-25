@@ -143,7 +143,7 @@ again:
     IDEX (0xba, mov_I2r, mov)
     IDEX (0xbb, mov_I2r, mov)
     IDEX (0xbc, mov_I2r, mov)
-    IDEX (0xbd, mov_I2r, mov)
+    //IDEX (0xbd, mov_I2r, mov)
     IDEX (0xbe, mov_I2r, mov)
     IDEX (0xbf, mov_I2r, mov)
     IDEXW(0xc0, gp2_Ib2E, gp2, 1)
