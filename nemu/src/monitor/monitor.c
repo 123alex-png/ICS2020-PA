@@ -10,7 +10,7 @@ void init_regex();
 void init_wp_pool();
 void init_difftest(char *ref_so_file, long img_size, int port);
 
-static char *log_file = NULL;
+static char *log_file = "/home/quli/ics2020/am-kernels/tests/cpu-tests/build/dummy-x86-nemu.bin";
 static char *diff_so_file = "/home/quli/ics2020/am-kernels/tests/cpu-tests/build/dummy-x86-nemu.bin";
 static char *img_file = NULL;
 static int batch_mode = false;
