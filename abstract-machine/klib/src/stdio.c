@@ -34,22 +34,29 @@ int sprintf(char *out, const char *fmt, ...) {
             tmp=(unsigned)tmp;
           }
           char digit[15];//from low to high
-          int pos=0;
-          do{
-            digit[pos++]=tmp%10+'0';
+          //int pos=0;
+          // do{
+            // digit[pos++]=tmp%10+'0';
+            // tmp/=10;
+            digit[0]='0';
+            digit[1]='1';
             tmp/=10;
-          }while(tmp!=0);
-          while(pos>0){
-            --pos;
-            out[cnt++]=digit[pos];
-          }break;
-        }
-        case 's':{
-          char *tmp=va_arg(arg,char *);
-          for(size_t i=0;*(tmp+i)!='\0';i++){
-            out[cnt++]=*(tmp+i);
-          }
+            digit[2]=tmp+'0';
+          // }while(tmp!=0);
+          out[cnt++]=digit[1];
+          out[cnt++]=digit[0];
           break;
+        //   while(pos>0){
+        //     --pos;
+        //     out[cnt++]=digit[pos];
+        //   }break;
+        // }
+        // case 's':{
+        //   char *tmp=va_arg(arg,char *);
+        //   for(size_t i=0;*(tmp+i)!='\0';i++){
+        //     out[cnt++]=*(tmp+i);
+        //   }
+        //   break;
         }
       }
     }
