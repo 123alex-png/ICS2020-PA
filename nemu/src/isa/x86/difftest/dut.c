@@ -4,7 +4,7 @@
 #include "difftest.h"
 
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
-  if(ref_r->eax!=cpu.edx)return false;
+  if(ref_r->eax!=cpu.eax)return false;
   if(ref_r->edx!=cpu.edx)return false;
   if(ref_r->ecx!=cpu.ecx)return false;
   if(ref_r->ebx!=cpu.ebx)return false;
