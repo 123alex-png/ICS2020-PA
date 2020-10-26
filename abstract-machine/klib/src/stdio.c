@@ -34,17 +34,16 @@ int sprintf(char *out, const char *fmt, ...) {
             tmp=(unsigned)tmp;
           }
           char digit[15];//from low to high
-          int pos=0;
-          do{
-            digit[pos++]=tmp%10+'0';
-            tmp/=10;
-
-            // digit[0]='0';
-            // digit[1]='1';
+          //int pos=0;
+          // do{
+            // digit[pos++]=tmp%10+'0';
             // tmp/=10;
-            // digit[2]=tmp+'0';
-
-          }while(tmp!=0);
+            digit[0]=tmp%10+'0';
+            tmp/=10;
+            digit[1]=tmp%10+'1';
+            tmp/=10;
+            
+          // }while(tmp!=0);
           out[cnt++]=digit[1];
           out[cnt++]=digit[0];
           break;
