@@ -49,9 +49,9 @@ static inline def_rtl(zext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
 static inline def_rtl(msb, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
   switch(width){
-    case 4:rtl_li(s,dest,c_and(*src1,0x80000000)>>31);break;
-    case 2:rtl_li(s,dest,c_and(*src1,0x8000)>>15);break;
-    case 1:rtl_li(s,dest,c_and(*src1,0x80)>>7);break;
+    case 4:rtl_li(s,dest,c_shr(*src1,31));break;
+    case 2:rtl_li(s,dest,c_shr(*src1,15));break;
+    case 1:rtl_li(s,dest,c_shr(*src1,7));break;
     default:assert(0);
   }
 }
