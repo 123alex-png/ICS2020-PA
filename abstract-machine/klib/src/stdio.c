@@ -45,13 +45,13 @@ int sprintf(char *out, const char *fmt, ...) {
             // tmp/=10;
             
           }while(tmp!=0);
-          out[cnt++]=digit[1];
-          out[cnt++]=digit[0];
+          // out[cnt++]=digit[1];
+          // out[cnt++]=digit[0];
           // break;
-        //   while(pos>0){
-        //     --pos;
-        //     out[cnt++]=digit[pos];
-        //   }break;
+          while(pos>0){
+            --pos;
+            out[cnt++]=digit[pos];
+          }//break;
         // }
         // case 's':{
         //   char *tmp=va_arg(arg,char *);
