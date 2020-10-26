@@ -22,7 +22,7 @@ int sprintf(char *out, const char *fmt, ...) {
       out[cnt++]=fmt[i];
     }
     else{
-      int i=1;
+      i++;
       switch(fmt[i]){
         case 'd':{
           int tmp=va_arg(arg,int);
