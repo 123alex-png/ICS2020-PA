@@ -17,14 +17,14 @@ int sprintf(char *out, const char *fmt, ...) {
   // va_list arg;
   int cnt=0;
   // va_start(arg,fmt);
-  for(size_t i=0;fmt[i]!='\0';i++){
-    if(fmt[i]!='%'){
-      out[cnt++]=fmt[i];
-    }
-    else{
-      i++;
-      switch(fmt[i]){
-        case 'd':{
+  // for(size_t i=0;fmt[i]!='\0';i++){
+    // if(fmt[i]!='%'){
+    //   out[cnt++]=fmt[i];
+    // }
+    // else{
+      // int i=1;
+      // switch(fmt[i]){
+      //   case 'd':{
           int tmp=/*va_arg(arg,int)*/10;
           if(tmp<0){
             out[cnt++]='-';
@@ -46,7 +46,7 @@ int sprintf(char *out, const char *fmt, ...) {
           // }while(tmp!=0);
           out[cnt++]=digit[1];
           out[cnt++]=digit[0];
-          break;
+          // break;
         //   while(pos>0){
         //     --pos;
         //     out[cnt++]=digit[pos];
@@ -58,10 +58,10 @@ int sprintf(char *out, const char *fmt, ...) {
         //     out[cnt++]=*(tmp+i);
         //   }
         //   break;
-        }
-      }
-    }
-  }
+        // }
+      // }
+  //   }
+  // }
   out[cnt++]='\0';
   // va_end(arg);
   return cnt;
