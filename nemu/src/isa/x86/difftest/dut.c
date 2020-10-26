@@ -15,6 +15,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   if(ref_r->ebp!=cpu.ebp){flag=false;type=5;}
   if(ref_r->esi!=cpu.esi){flag=false;type=6;}
   if(ref_r->edi!=cpu.edi){flag=false;type=7;}
+  if(ref_r->pc!=cpu.pc){flag=false;type=8;}
   if(!flag){
     char *name=(char*)malloc(sizeof(char));
     rtlreg_t ref,dut;
@@ -59,6 +60,11 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
       name="edi";
       ref=ref_r->edi;
       dut=cpu.edi;
+      break;
+    case 8:
+      name="pc";
+      ref=ref_r->pc;
+      dut=cpu.pc;
       break;
     default:
       break;
