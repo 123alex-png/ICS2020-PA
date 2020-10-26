@@ -13,6 +13,9 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   if(ref_r->esi!=cpu.esi)return false;
   if(ref_r->edi!=cpu.edi)return false;
   if(ref_r->eflags.CF!=cpu.eflags.CF)return false;
+  if(ref_r->eflags.SF!=cpu.eflags.SF)return false;
+  if(ref_r->eflags.ZF!=cpu.eflags.ZF)return false;
+  if(ref_r->eflags.OF!=cpu.eflags.OF)return false;
   if(ref_r->pc!=cpu.pc)return false;
   return true;
 }
