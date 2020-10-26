@@ -14,9 +14,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-  va_list arg;
+  // va_list arg;
   int cnt=0;
-  va_start(arg,fmt);
+  // va_start(arg,fmt);
   for(size_t i=0;fmt[i]!='\0';i++){
     if(fmt[i]!='%'){
       out[cnt++]=fmt[i];
@@ -25,7 +25,7 @@ int sprintf(char *out, const char *fmt, ...) {
       i++;
       switch(fmt[i]){
         case 'd':{
-          int tmp=va_arg(arg,int);
+          int tmp=/*va_arg(arg,int)*/10;
           if(tmp<0){
             out[cnt++]='-';
             tmp=(unsigned)(-tmp);
@@ -63,7 +63,7 @@ int sprintf(char *out, const char *fmt, ...) {
     }
   }
   out[cnt++]='\0';
-  va_end(arg);
+  // va_end(arg);
   return cnt;
 }
 
