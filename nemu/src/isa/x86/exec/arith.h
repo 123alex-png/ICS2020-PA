@@ -44,9 +44,10 @@ static inline def_EHelper(cmp) {
 }
 
 static inline def_EHelper(inc) {
-  rtl_li(s,s1,c_add(*ddest,1));
+  rtl_li(s,s0,1);
+  rtl_li(s,s1,c_add(*ddest,*s0));
   rtl_update_ZFSF(s, s1, id_dest->width);
-  rtl_is_add_overflow(s, s2, s1, ddest, dsrc1, id_dest->width);
+  rtl_is_add_overflow(s, s2, s1, ddest, s0, id_dest->width);
   rtl_set_OF(s, s2);
   operand_write(s, id_dest, s1);
   print_asm_template1(inc);
