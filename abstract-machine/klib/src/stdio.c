@@ -26,10 +26,10 @@ int sprintf(char *out, const char *fmt, ...) {
       switch(fmt[i]){
         case 'd':{
           int tmp=va_arg(arg,int);
-          // if(tmp<0){
-          //   out[cnt++]='-';
-          //   tmp=(unsigned)(-tmp);
-          // }
+          if(tmp<0){
+            out[cnt++]='-';
+            tmp=(unsigned)(-tmp);
+          }
           char digit[15];//from low to high
           int pos=0;
           do{
