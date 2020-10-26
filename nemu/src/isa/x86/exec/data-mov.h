@@ -48,7 +48,7 @@ static inline def_EHelper(cltd) {
       rtl_li(s,&cpu.edx,0x0);
     }
     else{
-      rtl_li(s,&cpu.edx,0xffff);
+      rtl_li(s,&cpu.edx,0xffffffff);
     }
   }
 
