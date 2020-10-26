@@ -100,9 +100,12 @@ typedef struct {
   vaddr_t pc;
   struct{
     rtlreg_t CF:1;
+    rtlreg_t useless1:5;
     rtlreg_t ZF:1;
     rtlreg_t SF:1;
+    rtlreg_t useless2:1;
     rtlreg_t IF:1;
+    rtlreg_t useless3:1;
     rtlreg_t OF:1;
   }eflags;
   
