@@ -85,16 +85,16 @@ typedef struct {
       rtlreg_t ebp;
       uint16_t bp;
     };
-
+union{
+      rtlreg_t edi;
+      uint16_t di;
+    };
     union{
       rtlreg_t esi;
       uint16_t si;
     };
 
-    union{
-      rtlreg_t edi;
-      uint16_t di;
-    };
+    
   };
   };
   vaddr_t pc;
