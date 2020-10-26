@@ -41,8 +41,7 @@ int sprintf(char *out, const char *fmt, ...) {
           }while(tmp!=0);
           break;
           while(pos>0){
-            --pos;
-            out[cnt++]=digit[pos];
+            out[cnt++]=digit[--pos];
           }
           break;
         }
