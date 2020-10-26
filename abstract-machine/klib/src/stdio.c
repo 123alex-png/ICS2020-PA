@@ -28,7 +28,7 @@ int sprintf(char *out, const char *fmt, ...) {
           int tmp=10;//va_arg(arg,int);
           if(tmp<0){
             out[cnt++]='-';
-            tmp=(unsigned)(-tmp);
+            tmp=(unsigned)(tmp);
           }
           else{
             tmp=(unsigned)tmp;
