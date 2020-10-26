@@ -26,6 +26,7 @@ int sprintf(char *out, const char *fmt, ...) {
       // switch(fmt[i]){
       //   case 'd':{
           int tmp=va_arg(arg,int);
+          assert(tmp==10);
           out[0]='1';out[1]='0';
           return tmp;
           // if(tmp<0){
