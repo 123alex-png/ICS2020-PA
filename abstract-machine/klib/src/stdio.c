@@ -27,8 +27,8 @@ int sprintf(char *out, const char *fmt, ...) {
         case 'd':{
           int tmp=va_arg(arg,int);
           if(tmp<0){
-            // out[cnt++]='-';
-            tmp=(unsigned)(-tmp);
+            out[cnt++]='-';
+            tmp=(unsigned)(tmp);
           }
           else{
             tmp=(unsigned)tmp;
