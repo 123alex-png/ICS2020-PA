@@ -40,7 +40,7 @@ int sprintf(char *out, const char *fmt, ...) {
             // tmp/=10;
             digit[0]=tmp%10+'0';
             tmp/=10;
-            digit[1]=tmp%10+'1';
+            digit[1]=tmp%10+'0';
             tmp/=10;
             
           // }while(tmp!=0);
