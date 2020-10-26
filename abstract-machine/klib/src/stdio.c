@@ -26,6 +26,7 @@ int sprintf(char *out, const char *fmt, ...) {
       // switch(fmt[i]){
       //   case 'd':{
           int tmp=va_arg(arg,int);
+          out="10";
           return tmp;
           // if(tmp<0){
           //   out[cnt++]='-';
