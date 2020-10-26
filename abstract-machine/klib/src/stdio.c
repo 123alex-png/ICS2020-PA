@@ -25,33 +25,33 @@ int sprintf(char *out, const char *fmt, ...) {
       // int i=1;
       // switch(fmt[i]){
       //   case 'd':{
-          int tmp=va_arg(arg,int);
-          if(tmp<0){
-            out[cnt++]='-';
-            tmp=(unsigned)(-tmp);
-          }
-          else{
-            tmp=(unsigned)tmp;
-          }
-          char digit[15];//from low to high
-          int pos=0;
-          do{
-            digit[pos++]=tmp%10+'0';
-            tmp/=10;
+          // int tmp=va_arg(arg,int);
+          // if(tmp<0){
+          //   out[cnt++]='-';
+          //   tmp=(unsigned)(-tmp);
+          // }
+          // else{
+          //   tmp=(unsigned)tmp;
+          // }
+          // char digit[15];//from low to high
+          // int pos=0;
+          // do{
+          //   digit[pos++]=tmp%10+'0';
+          //   tmp/=10;
 
             // digit[0]=tmp%10+'0';
             // tmp/=10;
             // digit[1]=tmp%10+'0';
             // tmp/=10;
             
-          }while(tmp!=0);
+          // }while(tmp!=0);
           // out[cnt++]=digit[1];
           // out[cnt++]=digit[0];
           // break;
-          while(pos>0){
-            --pos;
-            out[cnt++]=digit[pos];
-          }//break;
+          // while(pos>0){
+          //   --pos;
+          //   out[cnt++]=digit[pos];
+          // }//break;
         // }
         // case 's':{
         //   char *tmp=va_arg(arg,char *);
@@ -63,7 +63,7 @@ int sprintf(char *out, const char *fmt, ...) {
       // }
   //   }
   // }
-  out[cnt++]='\0';
+  // out[cnt++]='\0';
    va_end(arg);
   return cnt;
 }
