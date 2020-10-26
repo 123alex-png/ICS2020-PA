@@ -27,7 +27,7 @@ endif
 
 ifndef SHARE
 DIFF ?= kvm
-ifeq ($(ISA),x86)
+ifneq ($(ISA),x86)
 ifeq ($(DIFF),kvm)
 DIFF = qemu
 $(info KVM is only supported with ISA=x86, use QEMU instead)
