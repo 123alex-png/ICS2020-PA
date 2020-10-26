@@ -36,8 +36,8 @@ int sprintf(char *out, const char *fmt, ...) {
           char digit[15];//from low to high
           int pos=0;
           do{
-            digit[pos++]=tmp%10u+'0';
-            tmp/=10u;
+            digit[pos++]=tmp%10+'0';
+            tmp/=10;
           }while(tmp!=0);
           while(pos>0){
             --pos;
