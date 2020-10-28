@@ -11,6 +11,7 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uint32_t now=inl(RTC_ADDR);
+  printf("%d\n",now);
   if(now<last){
     second++;
   }
