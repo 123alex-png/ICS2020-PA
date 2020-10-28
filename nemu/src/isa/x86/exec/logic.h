@@ -37,6 +37,7 @@ static inline def_EHelper(or) {
 }
 
 static inline def_EHelper(sar) {
+  rtl_sext(s,ddest,ddest,id_dest->width);
   rtl_sar(s,ddest,ddest,dsrc1);
   rtl_update_ZFSF(s,ddest,id_dest->width);
   operand_write(s,id_dest,ddest);
