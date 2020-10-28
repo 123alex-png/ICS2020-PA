@@ -2,12 +2,13 @@
 #include <nemu.h>
 
 #include<stdio.h>
-int second;
+int second=0;
 void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   int now=inl(RTC_ADDR);
+
   if(now==999999){
     outl(RTC_ADDR,0);
     second++;
