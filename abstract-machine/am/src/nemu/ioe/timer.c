@@ -2,11 +2,11 @@
 #include <nemu.h>
 uint64_t boot_time;
 void __am_timer_init() {
-  boot_time=inb(RTC_ADDR);
+  boot_time=inl(RTC_ADDR);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uint64_t now=inb(RTC_ADDR);
+  uint64_t now=inl(RTC_ADDR);
   uptime->us=now-boot_time;
 }
 
