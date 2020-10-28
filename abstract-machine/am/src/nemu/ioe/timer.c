@@ -2,14 +2,14 @@
 #include <nemu.h>
 
 #include<stdio.h>
-uint64_t boot_time;
-uint64_t second=0;
-uint64_t last;
+int boot_time;
+int second=0;
+int last;
 void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uint64_t now=inl(RTC_ADDR);
+  int now=inl(RTC_ADDR);
   printf("%d\n",now);
   if(now==1052192){
     second++;
