@@ -11,7 +11,7 @@ void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
     outl(RTC_ADDR,0);
     second++;
   }
-  if(100000<=inl(RTC_ADDR)&&inl(RTC_ADDR)<=1052152)
+  if(100000<=inl(RTC_ADDR)&&inl(RTC_ADDR)<=1052192)
   printf("%d\n",inl(RTC_ADDR));
   uptime->us=second*1000000+inl(RTC_ADDR);
 }
