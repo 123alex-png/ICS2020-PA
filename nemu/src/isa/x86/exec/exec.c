@@ -45,7 +45,7 @@ static inline def_EHelper(gp3) {
     EX   (3, neg)
     EX   (4, mul)
     EX   (5, imul1)
-    //EX   (6, div)
+    EX   (6, div)
     EX   (7, idiv)
   }
 }
@@ -166,7 +166,7 @@ again:
     IDEX (0x09, G2E, or)
     IDEXW(0x0a, E2G, or, 1)//
     IDEX (0x13, E2G, adc)
-    //IDEX (0x19 ,G2E, sbb)
+    IDEX (0x19 ,G2E, sbb)
     IDEX (0x1a, E2G, sbb)
     IDEX (0x1b, E2G, sbb)
     IDEXW(0x20 ,G2E, and, 1)
