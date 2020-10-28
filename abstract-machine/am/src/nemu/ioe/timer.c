@@ -3,15 +3,16 @@
 
 #include<stdio.h>
 int second=0;
+int last=0;
 void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  if(inl(RTC_ADDR)==999999){
-    outl(RTC_ADDR,0);
+  if(inl(RTC_ADDR)<last){
     second++;
   }
-  uptime->us=1000000*second;
+  last=inl(RTC_ADDR);
+  uptime->us=1000000*second+inl(RTC_ADDR);
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
