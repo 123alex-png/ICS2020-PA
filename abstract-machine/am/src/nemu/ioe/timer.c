@@ -1,7 +1,7 @@
 #include <am.h>
 #include <nemu.h>
 
-#include<stdio.h>
+//#include<stdio.h>
 uint32_t second=0;
 uint32_t last=0;
 //int boot_time;
@@ -11,7 +11,7 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uint32_t now=inl(RTC_ADDR);
-  printf("%d\n",now);
+  //printf("%d\n",now);
   if(now<last){
     second++;
   }
