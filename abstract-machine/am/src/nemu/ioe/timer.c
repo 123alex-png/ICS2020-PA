@@ -3,12 +3,12 @@
 uint64_t boot_time;
 void __am_timer_init() {
   boot_time=inl(RTC_ADDR);
-  boot_time=boot_time>999000?1000000:boot_time;
+  boot_time=boot_time==999000?1000000:boot_time; 
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uint64_t now=inl(RTC_ADDR);
-  now=now>999000?1000000:now;
+  now=now>=999000?1000000:now;
   uptime->us=now-boot_time;
 }
 
