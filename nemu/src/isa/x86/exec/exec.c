@@ -91,6 +91,7 @@ static inline def_EHelper(2byte_esc) {
     IDEX (0x85, J, jcc)
     IDEX (0x86, J, jcc)
     IDEX (0x87, J, jcc)
+    IDEX (0x8c, J, jcc)
     IDEX (0x8d, J, jcc)
     IDEX (0x8e, J, jcc)
     IDEX (0x8f, J, jcc)
