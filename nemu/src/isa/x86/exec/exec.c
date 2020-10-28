@@ -30,9 +30,9 @@ static inline def_EHelper(gp2) {
   switch (s->isa.ext_opcode) {
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(6)
-    EX(4, shl)
-    EX(5, shr)
-    EX(7, sar)
+    EXW(4, shl, 1)
+    EXW(5, shr, 1)
+    EXW(7, sar, 1)
   }
 }
 
