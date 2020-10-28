@@ -45,7 +45,7 @@ static inline def_EHelper(gp3) {
     EX   (3, neg)
     EX   (4, mul)
     EX   (5, imul1)
-    EX   (6, div)
+    //EX   (6, div)
     EX   (7, idiv)
   }
 }
