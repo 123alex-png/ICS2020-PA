@@ -7,13 +7,11 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  int now=inl(RTC_ADDR);
-  printf("%d\n",now);
-  if(now==1052192){
+  if(inl(RTC_ADDR)==1052192){
     outl(RTC_ADDR,0);
     second++;
   }
-  uptime->us=second*1000000+now;;
+  uptime->us=second*1000000+inl(RTC_ADDR);
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
