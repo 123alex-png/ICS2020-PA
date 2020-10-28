@@ -31,7 +31,7 @@ static inline def_EHelper(gp2) {
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(6)
     EX (4, shl)
-    EX (5, shr)
+    EXW(5, shr, 1)
     EX (7, sar)
   }
 }
