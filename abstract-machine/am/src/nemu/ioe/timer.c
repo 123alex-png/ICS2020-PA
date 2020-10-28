@@ -7,7 +7,7 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  if(inl(RTC_ADDR)==1052192){
+  if(inl(RTC_ADDR)==999999){
     outl(RTC_ADDR,0);
     second++;
   }
