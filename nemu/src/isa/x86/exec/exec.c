@@ -250,6 +250,7 @@ again:
     EX   (0x90, nop)
     EX   (0x98, cwtl)
     EX   (0x99, cltd)
+    IDEXW(0xa8, I2a, test, 1)
     EX   (0xc3, ret)
     EX   (0xc9, leave)
     IDEXW(0xe4, in_I2a, in, 1)
