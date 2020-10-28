@@ -7,7 +7,7 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uint64_t now=inl(RTC_ADDR);
-  now=now==999999?1000000:now;
+  now=now>999000?1000000:now;
   uptime->us=now-boot_time;
 }
 
