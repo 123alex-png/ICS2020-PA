@@ -180,9 +180,12 @@ again:
     IDEXW(0x02, E2G, add, 1)
     IDEX (0x03, E2G, add)
     IDEX (0x05, I2a, add)
+    IDEXW(0x08, G2E, or, 1)
     IDEX (0x09, G2E, or)
     IDEXW(0x0a, E2G, or, 1)//
     IDEX (0x0b, E2G, or)
+    IDEXW(0x0c, I2a, or, 1)
+    IDEX (0x0d, I2a, or)
     IDEX (0x11, G2E, adc)
     IDEX (0x13, E2G, adc)
     IDEX (0x19 ,G2E, sbb)
