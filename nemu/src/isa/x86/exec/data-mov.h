@@ -57,12 +57,20 @@ static inline def_EHelper(cltd) {
 
 static inline def_EHelper(cwtl) {
   if (s->isa.is_operand_size_16) {
-  TODO();
+    *s0=c_shr(cpu.al,7);
+    if(*s0==0){
+      cpu.ax=cpu.al;
+    }
+    else{
+    *s0=c_shr(cpu.ax,15);
+    if(*s0==0){
+      cpu.eax=cpu.ax;
+    }
+    else{
+      cpu.eax=0xffffffff&cpu.ax;
+    }
+    }
   }
-  else {
-  TODO();
-  }
-
   print_asm(s->isa.is_operand_size_16 ? "cbtw" : "cwtl");
 }
 
