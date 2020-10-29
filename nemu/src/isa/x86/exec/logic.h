@@ -69,6 +69,7 @@ static inline def_EHelper(rol) {
   rtl_mv(s,s1,dsrc1);
   while(*s1!=0){
     rtl_li(s,ddest,*ddest*2+*s0);
+    rtl_li(s,s1,*s1-1);
   }
   rtl_update_ZFSF(s,ddest,id_dest->width);
   operand_write(s,id_dest,ddest);
