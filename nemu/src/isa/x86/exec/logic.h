@@ -65,9 +65,9 @@ static inline def_EHelper(shr) {
 }
 
 static inline def_EHelper(rol) {
-  rtl_msb(s,s0,ddest,id_dest->width);
   rtl_mv(s,s1,dsrc1);
   while(*s1!=0){
+    rtl_msb(s,s0,ddest,id_dest->width);
     rtl_li(s,ddest,*ddest*2+*s0);
     rtl_li(s,s1,*s1-1);
   }
