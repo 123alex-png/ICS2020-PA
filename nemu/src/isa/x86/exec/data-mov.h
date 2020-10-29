@@ -95,18 +95,6 @@ static inline def_EHelper(lea) {
 }
 
 static inline def_EHelper(movsb){
-  // switch (s->isa.is_operand_size_16)
-  // {
-  // case 4:
-  //   *s0=vaddr_read(cpu.esi,4);
-  //   vaddr_write(cpu.edi,*s0,4);
-  //   break;
-  
-  // case 2:
-  //   *s0=vaddr_read(cpu.esi,2);
-  //   vaddr_write(cpu.edi,*s0,2);
-  //   break;
-  // }
   rtl_lm(s,s0,&cpu.esi,0,4);
   rtl_sm(s,&cpu.edi,0,s0,4);
   cpu.esi++;cpu.edi++;

@@ -64,6 +64,15 @@ static inline def_EHelper(shr) {
   print_asm_template2(shr);
 }
 
+static inline def_EHelper(rol) {
+  rtl_msb(s,s0,ddest,id_dest->width);
+  rtl_mv(s,s1,dsrc1);
+  while(*s1!=0){
+    rtl_li(s,ddest,*ddest*2+*s0);
+  }
+  rtl_update_ZFSF(s,ddest,id_dest->width);
+  operand_write(s,id_dest,ddest);
+}
 
 static inline def_EHelper(setcc) {
   uint32_t cc = s->opcode & 0xf;
