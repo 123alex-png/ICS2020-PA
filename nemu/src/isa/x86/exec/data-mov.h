@@ -102,7 +102,10 @@ static inline def_EHelper(movsb){
     vaddr_write(cpu.edi,*s0,4);
     break;
   
-  default:
+  case 2:
+    *s0=vaddr_read(cpu.esi,2);
+    vaddr_write(cpu.edi,*s0,2);
     break;
   }
+  cpu.esi++;
 }
