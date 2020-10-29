@@ -182,7 +182,7 @@ again:
     IDEX (0x05, I2a, add)
     IDEXW(0x08, G2E, or, 1)
     IDEX (0x09, G2E, or)
-    IDEXW(0x0a, E2G, or, 1)//
+    IDEXW(0x0a, E2G, or, 1)
     IDEX (0x0b, E2G, or)
     IDEXW(0x0c, I2a, or, 1)
     IDEX (0x0d, I2a, or)
@@ -268,6 +268,7 @@ again:
     EX   (0x90, nop)
     EX   (0x98, cwtl)
     EX   (0x99, cltd)
+    //EX   (0xa4, movsb)
     IDEXW(0xa8, I2a, test, 1)
     EX   (0xc3, ret)
     EX   (0xc9, leave)
