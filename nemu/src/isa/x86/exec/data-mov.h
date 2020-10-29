@@ -107,5 +107,5 @@ static inline def_EHelper(movsb){
     vaddr_write(cpu.edi,*s0,2);
     break;
   }
-  cpu.esi++;
+  cpu.esi++;cpu.edi++;
 }
