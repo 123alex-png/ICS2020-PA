@@ -94,4 +94,15 @@ static inline def_EHelper(lea) {
   print_asm_template2(lea);
 }
 
-
+static inline def_EHelper(movsb){
+  switch (s->isa.is_operand_size_16)
+  {
+  case 4:
+    *s0=vaddr_read(cpu.esi,4);
+    vaddr_write(cpu.edi,*s0,4);
+    break;
+  
+  default:
+    break;
+  }
+}
