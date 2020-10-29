@@ -30,10 +30,10 @@ static inline def_EHelper(gp2) {
   switch (s->isa.ext_opcode) {
     EMPTY(2) EMPTY(1) EMPTY(3)
     EMPTY(6)
-    EX (0, rol)
-    EX (4, shl)
+    case 0:exec_rol(s);break;
+    case 4:exec_shl(s);break;
     case 5:exec_shr(s);break;
-    EX (7, sar)
+    case 7:exec_sar(s);break;
   }
 }
 
@@ -162,7 +162,7 @@ again:
     IDEX (0xbd, mov_I2r, mov)
     IDEX (0xbe, mov_I2r, mov)
     IDEX (0xbf, mov_I2r, mov)
-    IDEX (0xc0, gp2_Ib2E, gp2)
+    IDEXW(0xc0, gp2_Ib2E, gp2, 1)
     IDEX (0xc1, gp2_Ib2E, gp2)
     IDEXW(0xc6, mov_I2E, mov, 1)
     IDEX (0xc7, mov_I2E, mov)

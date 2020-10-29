@@ -233,6 +233,7 @@ static inline def_DHelper(gp2_cl2E) {
   operand_reg(s, id_src1, true, R_ECX, 4);
 }
 
+
 static inline def_DHelper(gp2_Ib2E) {
   operand_rm(s, id_dest, true, NULL, false);
   id_src1->width = 1;
