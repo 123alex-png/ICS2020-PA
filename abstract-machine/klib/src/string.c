@@ -57,12 +57,12 @@ int strcmp(const char* s1, const char* s2) {
   //   return -1;
   // }
   // return 0;
-  char *p1=s1,*p2=s2;
-  while(p1==p2&&*p1!='\0'&&*p2!='\0'){
-    p1++;
-    p2++;
+  size_t i=0,j=0;
+  while(i==j&&s1[i]!='\0'&&s2[j]!='\0'){
+    i++;
+    j++;
   }
-  return *p1-*p2;
+  return s1[i]-s2[j];
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
