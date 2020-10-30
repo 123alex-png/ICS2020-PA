@@ -99,3 +99,8 @@ static inline def_EHelper(movsb){
   rtl_sm(s,&cpu.edi,0,s0,4);
   cpu.esi++;cpu.edi++;
 }
+
+static inline def_EHelper(shld) {
+  rtl_li(s,ddest,*dsrc2<<*dsrc1);
+  operand_write(s,id_dest,ddest);
+}
