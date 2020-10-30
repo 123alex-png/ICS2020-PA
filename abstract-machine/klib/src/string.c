@@ -20,6 +20,13 @@ char *strcpy(char* dst,const char* src) {
     *dest++=*srcc++;
   }
   *dest='\0';
+
+
+  /*
+   do{
+    *dest++=*srcc++;
+  }while(*srcc!='\0');
+  */
   return dst;
 }
 
