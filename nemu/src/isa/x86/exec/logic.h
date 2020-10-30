@@ -75,6 +75,18 @@ static inline def_EHelper(rol) {
   operand_write(s,id_dest,ddest);
 }
 
+static inline def_EHelper(ror) {
+  rtl_li(s,s1,*dsrc1&0xff);
+  while(*s1!=0){
+    //rtl_msb(s,s0,ddest,id_dest->width);
+    rtl_li(s,s0,*ddest&0x1);
+    rtl_li(s,ddest,(*ddest>>1)+(*s0<<(id_dest->width-1)));
+    rtl_li(s,s1,*s1-1);
+  }
+  rtl_update_ZFSF(s,ddest,id_dest->width);
+  operand_write(s,id_dest,ddest);
+}
+
 static inline def_EHelper(setcc) {
   uint32_t cc = s->opcode & 0xf;
   rtl_setcc(s, ddest, cc);
