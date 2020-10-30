@@ -53,7 +53,7 @@ char* strcat(char* dst, const char* src) {
 
 int strcmp(const char* s1, const char* s2) {
   size_t i;
-  for(i=0;i<strlen(s1);i++){
+  for(i=0;s1[i]!='\0';i++){
     if(*(s1+i)<*(s2+i)){
       return -1;
     }
