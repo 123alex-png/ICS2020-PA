@@ -44,19 +44,25 @@ char* strcat(char* dst, const char* src) {
 }
 
 int strcmp(const char* s1, const char* s2) {
-  size_t i;
-  for(i=0;i<strlen(s1);i++){
-    if(*(s1+i)<*(s2+i)){
-      return -1;
-    }
-    else if(*(s1+i)>*(s2+i)){
-      return 1;
-    }
+  // size_t i;
+  // for(i=0;i<strlen(s1);i++){
+  //   if(*(s1+i)<*(s2+i)){
+  //     return -1;
+  //   }
+  //   else if(*(s1+i)>*(s2+i)){
+  //     return 1;
+  //   }
+  // }
+  // if(*(s2+i)!='\0'){
+  //   return -1;
+  // }
+  // return 0;
+  char *p1=s1,*p2=s2;
+  while(p1==p2&&*p1!='\0'&&*p2!='\0'){
+    p1++;
+    p2++;
   }
-  if(*(s2+i)!='\0'){
-    return -1;
-  }
-  return 0;
+  return *p1-*p2;
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
