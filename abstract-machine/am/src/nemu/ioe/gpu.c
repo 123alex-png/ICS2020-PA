@@ -31,16 +31,17 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     outl(SYNC_ADDR, 1);
   }
   else{
-  int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
-  uint32_t *pixels = ctl->pixels;
-  int cp_bytes = w < W - x ? w : W - x;//min(w, W - x);
-  for (int j = 0; j < h && y + j < H; j ++) {
-    //memcpy(&fb[(y + j) * W + x], pixels, cp_bytes);
-    for(int k= 0; k < cp_bytes; k++){
-      fb[(y+j) * W + x + k] = *pixels;
+    int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
+    uint32_t *pixels = ctl->pixels;
+    int cp_bytes = w < W - x ? w : W - x;//min(w, W - x);
+    for (int j = 0; j < h && y + j < H; j ++) {
+      //memcpy(&fb[(y + j) * W + x], pixels, cp_bytes);
+      for(int k= 0; k < cp_bytes; k++){
+        fb[(y+j) * W + x + k] = *pixels;
+      }
+      pixels += w;
     }
-    pixels += w;
-  }
+    ctl->sync=true;
   }
 }
 
