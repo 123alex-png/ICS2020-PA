@@ -34,6 +34,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
         fb[j * H  + k]=*(uint32_t*)(ctl->pixels);
       }
     }
+    outl(SYNC_ADDR, 1);
     ctl->sync=true;
   }
 }
