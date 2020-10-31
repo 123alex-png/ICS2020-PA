@@ -64,6 +64,14 @@ static inline def_EHelper(shr) {
   print_asm_template2(shr);
 }
 
+static inline def_EHelper(shld) {
+  rtl_li(s,ddest,*ddest<<*dsrc1);
+  rtl_li(s,s0,*dsrc2>>(id_src2->width*4-*dsrc1));
+  rtl_add(s,ddest,ddest,s0);
+  operand_write(s,id_dest,ddest);
+}
+
+
 static inline def_EHelper(rol) {
   rtl_li(s,s1,*dsrc1&0xff);
   while(*s1!=0){
