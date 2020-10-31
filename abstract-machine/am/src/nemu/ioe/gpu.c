@@ -24,9 +24,6 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   if (ctl->sync) {
-    outl(SYNC_ADDR, 1);
-  }
-  else{
     int w = ctl->w, h = ctl->h, x = ctl->x, y = ctl->y;  
     uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
     for (int j = 0; j < h && y + j < H; j ++) {
@@ -35,7 +32,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
       }
     }
     outl(SYNC_ADDR, 1);
-    ctl->sync=true;
+    outl(SYNC_ADDR, 1);
   }
 }
 
