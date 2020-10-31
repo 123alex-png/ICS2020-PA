@@ -2,8 +2,7 @@
 #include <nemu.h>
 
 #define SYNC_ADDR (VGACTL_ADDR + 4)
-static int W,H;
-static uint32_t fb[400 * 300] = {};
+
 void __am_gpu_init() {
   int i;
   uint32_t t=inl(VGACTL_ADDR);
@@ -12,9 +11,6 @@ void __am_gpu_init() {
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   for (i = 0; i < w * h; i ++) fb[i] = i;
   outl(SYNC_ADDR, 1);
-  // uint32_t t=inl(VGACTL_ADDR);
-  W=t>>16;
-  H=t&0xffff;
 }
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
@@ -31,17 +27,13 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     outl(SYNC_ADDR, 1);
   }
   else{
-    int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
-    uint32_t *pixels = ctl->pixels;
-    int cp_bytes = w < W - x ? w : W - x;//min(w, W - x);
-    for (int j = 0; j < h && y + j < H; j ++) {
-      //memcpy(&fb[(y + j) * W + x], pixels, cp_bytes);
-      for(int k= 0; k < cp_bytes; k++){
-        fb[(y+j) * W + x + k] = *pixels;
-      }
-      pixels += w;
-    }
-    ctl->sync=true;
+    int i;
+  uint32_t t=inl(VGACTL_ADDR);
+  int w = (t>>16);  // TODO: get the correct width
+  int h = (t&0xffff);  // TODO: get the correct height
+  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
+  for (i = 0; i < w * h; i ++) fb[i] = i;
+  ctl->sync=true;
   }
 }
 
