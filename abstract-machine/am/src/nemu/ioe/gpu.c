@@ -4,12 +4,12 @@
 #define SYNC_ADDR (VGACTL_ADDR + 4)
 static int W,H;
 void __am_gpu_init() {
-  //int i;
+  int i;
   uint32_t t=inl(VGACTL_ADDR);
   W = (t>>16);  // TODO: get the correct width
   H = (t&0xffff);  // TODO: get the correct height
-  // uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  // for (i = 0; i < W * H; i ++) fb[i] = i;
+  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
+  for (i = 0; i < W * H; i ++) fb[i] = i;
   outl(SYNC_ADDR, 1);
 }
 
