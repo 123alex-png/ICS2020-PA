@@ -65,10 +65,10 @@ static inline def_EHelper(shr) {
 }
 
 static inline def_EHelper(shld) {
-  rtl_li(s,dsrc1,*dsrc1&0x1f);
-  if(*dsrc1!=0){
-    rtl_li(s,ddest,*ddest<<*dsrc1);
-    rtl_li(s,s0,*dsrc2>>(id_src2->width*8-*dsrc1));
+  rtl_li(s,s1,*dsrc1&0x1f);
+  if(*s1!=0){
+    rtl_li(s,ddest,*ddest<<*s1);
+    rtl_li(s,s0,*dsrc2>>(id_src2->width*8-*s1));
     rtl_add(s,ddest,ddest,s0);
     operand_write(s,id_dest,ddest);
   }
@@ -76,7 +76,7 @@ static inline def_EHelper(shld) {
 
 
 static inline def_EHelper(rol) {
-  rtl_li(s,s1,*dsrc1&0xff);
+  rtl_li(s,s1,*dsrc1&0x1f);
   while(*s1!=0){
     rtl_msb(s,s0,ddest,id_dest->width);
     rtl_li(s,ddest,*ddest*2+*s0);
@@ -87,7 +87,7 @@ static inline def_EHelper(rol) {
 }
 
 static inline def_EHelper(ror) {
-  rtl_li(s,s1,*dsrc1&0xff);
+  rtl_li(s,s1,*dsrc1&0x1f);
   while(*s1!=0){
     //rtl_msb(s,s0,ddest,id_dest->width);
     rtl_li(s,s0,*ddest&0x1);
