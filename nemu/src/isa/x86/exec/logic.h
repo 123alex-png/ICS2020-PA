@@ -65,6 +65,7 @@ static inline def_EHelper(shr) {
 }
 
 static inline def_EHelper(shld) {
+  rtl_li(s,dsrc1,*dsrc1&0x1f);
   if(*dsrc1!=0){
     rtl_li(s,ddest,*ddest<<*dsrc1);
     rtl_li(s,s0,*dsrc2>>(id_src2->width*8-*dsrc1));
