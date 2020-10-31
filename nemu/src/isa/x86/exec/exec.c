@@ -198,7 +198,7 @@ again:
     IDEX (0x15, I2a, adc)
     IDEXW(0x18 ,G2E, sbb, 1)
     IDEX (0x19 ,G2E, sbb)
-    IDEX (0x1a, E2G, sbb)
+    IDEXW(0x1a, E2G, sbb, 1)
     IDEX (0x1b, E2G, sbb)
     IDEXW(0x20 ,G2E, and, 1)
     IDEX (0x21 ,G2E, and)
