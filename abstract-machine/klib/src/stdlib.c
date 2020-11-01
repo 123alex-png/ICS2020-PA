@@ -29,11 +29,14 @@ int atoi(const char* nptr) {
   }
   return x;
 }
-extern char _heap_start;
-char *hbrk=&_heap_start;
+//extern char _heap_start;
+void *hbrk=NULL;
 void *malloc(size_t size) {
   // address+=size;
   // return address;
+  if(hbrk==NULL){
+    hbrk=(void *)ROUNDUP(size, 8);
+  }
   size  = (size_t)ROUNDUP(size, 8);
   char *old = hbrk;
   hbrk += size;
