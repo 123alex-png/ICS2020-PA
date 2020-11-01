@@ -19,21 +19,19 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
+  uint32_t t=inl(VGACTL_ADDR);
+  W = (t>>16);  // TODO: get the correct width
+  H = (t&0xffff);  // TODO: get the correct height
+  int w = ctl->w, h = ctl->h, x = ctl->x, y = ctl->y;  
+  uint32_t *pixels=ctl->pixels;
+  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
+  for (int j = 0; j < h && y + j < H; j ++) {
+    for(int k = 0; k < w && x + k < W; k++){
+      fb[(y + j) * W  + x + k]=*pixels++;
+    }
+  }
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
-  }
-  else{
-    uint32_t t=inl(VGACTL_ADDR);
-    W = (t>>16);  // TODO: get the correct width
-    H = (t&0xffff);  // TODO: get the correct height
-    int w = ctl->w, h = ctl->h, x = ctl->x, y = ctl->y;  
-    uint32_t *pixels=ctl->pixels;
-    uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-    for (int j = 0; j < h && y + j < H; j ++) {
-      for(int k = 0; k < w && x + k < W; k++){
-        fb[(y + j) * W  + x + k]=*pixels++;
-      }
-    }
   }
 }
 
