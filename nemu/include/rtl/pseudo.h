@@ -7,7 +7,7 @@
 
 /* RTL pseudo instructions */
 
-static def_rtl(li, rtlreg_t* dest, const rtlreg_t imm) {
+static inline def_rtl(li, rtlreg_t* dest, const rtlreg_t imm) {
   rtl_addi(s, dest, rz, imm);
 }
 
