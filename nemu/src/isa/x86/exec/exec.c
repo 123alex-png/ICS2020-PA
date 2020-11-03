@@ -298,6 +298,7 @@ again:
     IDEX (0xe8, J, call)
     IDEX (0xe9, J, jmp)
     IDEXW(0xeb, J, jmp, 1)
+    case 0xf3:cpu.pc+=4;
   default: exec_inv(s);
   }
 }
