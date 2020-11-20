@@ -109,6 +109,11 @@ typedef struct {
     rtlreg_t OF:1;
     rtlreg_t useless4:20;
   }eflags;
+
+  struct{
+    rtlreg_t base;
+    uint16_t limit;
+  }idtr;
   
 } x86_CPU_state;
 
