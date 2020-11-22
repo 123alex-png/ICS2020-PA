@@ -112,9 +112,9 @@ typedef struct {
 
   struct{
     rtlreg_t base;
-    uint16_t limit;
+    rtlreg_t limit;
   }idtr;
-  
+
 } x86_CPU_state;
 
 // decode
