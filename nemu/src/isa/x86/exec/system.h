@@ -1,5 +1,7 @@
 #include <monitor/difftest.h>
 
+void raise_intr(DecodeExecState *, uint32_t, vaddr_t);
+
 static inline def_EHelper(lidt) {
   // if(s->isa.is_operand_size_16){
   //   cpu.idtr;
@@ -26,7 +28,7 @@ static inline def_EHelper(mov_cr2r) {
 }
 
 static inline def_EHelper(int) {
-  TODO();
+  raise_intr(s,*ddest,s->seq_pc);
 
   print_asm("int %s", id_dest->str);
 
