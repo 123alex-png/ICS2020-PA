@@ -6,7 +6,7 @@ static inline def_EHelper(lidt) {
   // if(s->isa.is_operand_size_16){
   //   cpu.idtr;
   // }
-  rtl_lm(s,&(cpu.idtr.base),ddest,0,4);
+  rtl_lm(s,&(cpu.idtr.base),rz,0,4);
   rtl_lm(s,&(cpu.idtr.limit),rz,4,2);
   print_asm_template1(lidt);
 }
