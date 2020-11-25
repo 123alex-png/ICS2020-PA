@@ -40,7 +40,7 @@ int printf(const char *fmt, ...) {
           break;
         }
         case 'p':{
-          uint32_t tmp=va_arg(arg,int);
+          uint32_t tmp=va_arg(arg,uint32_t);
           if(tmp<0){
             putch('-');
             cnt++;
