@@ -39,6 +39,30 @@ int printf(const char *fmt, ...) {
           }
           break;
         }
+        case 'p':{
+          int tmp=va_arg(arg,int);
+          if(tmp<0){
+            putch('-');
+            cnt++;
+            tmp=(unsigned)(-tmp);
+          }
+          else{
+            tmp=(unsigned)tmp;
+          }
+          char digit[15];//from low to high
+          int pos=0;
+          do{
+            digit[pos++]=tmp%16+'0';
+            tmp/=16; 
+          }while(tmp!=0);
+          putch('0');
+          putch('x');
+          while(pos>0){
+            putch(digit[--pos]);
+            cnt++;
+          }
+        }
+
         case 's':{
           char *tmp=va_arg(arg,char *);
           for(size_t i=0;*(tmp+i)!='\0';i++){
