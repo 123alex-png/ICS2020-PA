@@ -61,6 +61,7 @@ int printf(const char *fmt, ...) {
             putch(digit[--pos]);
             cnt++;
           }
+          break;
         }
 
         case 's':{
