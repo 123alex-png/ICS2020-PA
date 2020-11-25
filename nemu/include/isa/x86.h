@@ -127,7 +127,10 @@ typedef struct {
   //   rtlreg_t OF:1;
   //   rtlreg_t useless4:20;
   // }eflags;
-  eflag eflags;
+  union{
+    eflag eflags;
+    uint32_t eflag_val;
+  };
   // struct idtr{
   //   rtlreg_t base;
   //   rtlreg_t limit;
