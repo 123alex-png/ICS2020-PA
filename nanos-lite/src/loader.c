@@ -25,10 +25,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     if(phdr.p_type==PT_LOAD){
       memcpy((void *)phdr.p_vaddr,(void *)(&ramdisk_start+phdr.p_offset),phdr.p_filesz);
       memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
-      return (uintptr_t)phdr.p_vaddr;
     }
   }
-  return 0;
+  return ehdr.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
