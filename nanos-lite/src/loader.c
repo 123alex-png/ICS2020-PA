@@ -27,7 +27,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
     }
   }
-  return 0;
+  return ramdisk_start;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
