@@ -17,16 +17,16 @@ extern uint8_t ramdisk_end;
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  // Elf_Ehdr ehdr;
-  // ramdisk_read(&ehdr, 0, 64);
-  // for(int i=0;i<ehdr.e_phnum;i++){
-  //   Elf_Phdr phdr;
-  //   ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
-  //   if(phdr.p_type==PT_LOAD){
-  //     memcpy((void *)phdr.p_vaddr,(void *)(&ramdisk_start+phdr.p_offset),phdr.p_filesz);
-  //     memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
-  //   }
-  // }
+  Elf_Ehdr ehdr;
+  ramdisk_read(&ehdr, 0, 64);
+  for(int i=0;i<ehdr.e_phnum;i++){
+    Elf_Phdr phdr;
+    ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
+    if(phdr.p_type==PT_LOAD){
+      memcpy((void *)phdr.p_vaddr,(void *)(&ramdisk_start+phdr.p_offset),phdr.p_filesz);
+      memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
+    }
+  }
   return (uintptr_t)&ramdisk_start;
 }
 
