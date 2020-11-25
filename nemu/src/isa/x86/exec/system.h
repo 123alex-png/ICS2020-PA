@@ -28,12 +28,9 @@ static inline def_EHelper(mov_cr2r) {
 }
 
 static inline def_EHelper(int) {
-  if(*ddest==0x81){
+  //if(*ddest==0x81){
     raise_intr(s,*ddest,s->seq_pc);
-  }
-  else{
 
-  }
   print_asm("int %s", id_dest->str);
 
 #ifndef __DIFF_REF_NEMU__
