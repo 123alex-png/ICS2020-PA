@@ -10,7 +10,7 @@ ISA = am_native
 endif
 
 ifeq ($(HAS_NAVY),)
-$(shell touch $(RAMDISK_FILE) src/files.h src/syscall.h)
+#$(shell touch $(RAMDISK_FILE) src/files.h src/syscall.h)
 else
 
 ifeq ($(wildcard $(NAVY_HOME)/libs/libos/src/syscall.h),)
