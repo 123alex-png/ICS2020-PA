@@ -41,8 +41,14 @@ static inline def_rtl(push, const rtlreg_t* src1) {
 static inline def_rtl(pop, rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
-  rtl_lm(s,dest,&cpu.esp,0,4);
-  cpu.esp+=4;
+  if(s->isa.is_operand_size_16){
+    rtl_lm(s,dest,&cpu.esp,0,2);
+    cpu.esp+=2;
+  }
+  else{
+    rtl_lm(s,dest,&cpu.esp,0,4);
+    cpu.esp+=4;
+  }
 }
 
 static inline def_rtl(is_sub_overflow, rtlreg_t* dest,

@@ -43,6 +43,7 @@ static inline def_EHelper(popa) {
     rtl_pop(s,(rtlreg_t*)&(cpu.di));
     rtl_pop(s,(rtlreg_t*)&(cpu.si));
     rtl_pop(s,(rtlreg_t*)&(cpu.bp));
+    rtl_pop(s,s0);
     rtl_pop(s,(rtlreg_t*)&(cpu.bx));
     rtl_pop(s,(rtlreg_t*)&(cpu.dx));
     rtl_pop(s,(rtlreg_t*)&(cpu.cx));
@@ -52,6 +53,7 @@ static inline def_EHelper(popa) {
     rtl_pop(s,&(cpu.edi));
     rtl_pop(s,&(cpu.esi));
     rtl_pop(s,&(cpu.ebp));
+    rtl_pop(s,s0);
     rtl_pop(s,&(cpu.ebx));
     rtl_pop(s,&(cpu.edx));
     rtl_pop(s,&(cpu.ecx));
