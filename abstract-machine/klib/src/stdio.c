@@ -52,7 +52,14 @@ int printf(const char *fmt, ...) {
           char digit[50];//from low to high
           int pos=0;
           do{
-            digit[pos++]=tmp%16+'0';
+            char x=(char)(tmp%16);
+            if(x>=10){
+              x='a'+x-10;
+            }
+            else{
+              x='0'+x;
+            }
+            digit[pos++]=x;
             tmp/=16; 
           }while(tmp!=0);
           putch('0');
