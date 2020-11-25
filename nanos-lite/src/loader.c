@@ -18,7 +18,7 @@ extern uint8_t ramdisk_end;
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   Elf_Ehdr ehdr;
-  ramdisk_read(&ehdr, 0, 52);
+  ramdisk_read(&ehdr, 0, 64);
   for(int i=0;i<ehdr.e_phnum;i++){
     Elf_Phdr phdr;
     ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
