@@ -41,15 +41,15 @@ int printf(const char *fmt, ...) {
         }
         case 'p':{
           uint32_t tmp=va_arg(arg,uint32_t);
-          if(tmp<0){
-            putch('-');
-            cnt++;
-            tmp=(unsigned)(-tmp);
-          }
-          else{
-            tmp=(unsigned)tmp;
-          }
-          char digit[15];//from low to high
+          // if(tmp<0){
+          //   putch('-');
+          //   cnt++;
+          //   tmp=(unsigned)(-tmp);
+          // }
+          // else{
+          //   tmp=(unsigned)tmp;
+          // }
+          char digit[50];//from low to high
           int pos=0;
           do{
             digit[pos++]=tmp%16+'0';
