@@ -23,6 +23,13 @@ int sys_write(int fd, void *buf, size_t count){
   return count;
 }
 
+int sys_brk(void * addr){
+  extern char _end;
+  printf("%d",_end);
+  //end=addr;
+  return 0;
+}
+
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -33,6 +40,7 @@ void do_syscall(Context *c) {
     case SYS_exit:sys_exit();break;
     case SYS_yield:sys_yield();break;
     case SYS_write:sys_write((int)a[1],(void *)a[2],(size_t)a[3]);break;
+    case SYS_brk:sys_brk((void *)a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
