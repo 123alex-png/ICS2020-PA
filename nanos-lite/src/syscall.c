@@ -25,9 +25,9 @@ int sys_write(int fd, void *buf, size_t count){
 
 int sys_brk(void * addr){
   extern char _end;
-  printf("%d",_end);
+  printf("%d\n",_end);
   //end=addr;
-  return 0;
+  return -1;
 }
 
 void do_syscall(Context *c) {
