@@ -25,7 +25,7 @@ int sys_write(int fd, void *buf, size_t count){
 
 int sys_brk(void * addr){
   extern char _end;
-  printf("%d\n",_end);
+  printf("%d\n",&_end);
   //end=addr;
   return -1;
 }
