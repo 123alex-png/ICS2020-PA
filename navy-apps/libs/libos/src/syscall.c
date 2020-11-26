@@ -66,11 +66,11 @@ int _write(int fd, void *buf, size_t count) {
 }
 
 void *_sbrk(intptr_t increment) {
-  extern char end;
-  intptr_t addr=end+increment;
+  extern char _end;
+  intptr_t addr=_end+increment;
   
   if(_syscall_(SYS_brk,addr,0,0)==0){ 
-    return (void *)0;
+    return (void *)(&end);
   }
   return (void *)-1;
 }
