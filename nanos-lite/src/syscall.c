@@ -1,6 +1,9 @@
 #include <common.h>
 #include "syscall.h"
 
+extern char end;
+static void *prog_break=(void *)(&end);
+
 int sys_yield(){
   yield();
   return 0;
@@ -24,10 +27,8 @@ int sys_write(int fd, void *buf, size_t count){
 }
 
 int sys_brk(void * addr){
-  //extern char _end;
-  //printf("%d\n",&_end);
-  //end=addr;
-  return -1;
+  prog_break=addr;
+  return 0;
 }
 
 void do_syscall(Context *c) {
