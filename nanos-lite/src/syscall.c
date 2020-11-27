@@ -2,7 +2,7 @@
 #include "syscall.h"
 
 extern char end;
-void *prog_break=(void *)(&end);
+static void *prog_break=(void *)(&end);
 
 int sys_yield(){
   yield();

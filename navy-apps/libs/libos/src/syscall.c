@@ -64,9 +64,12 @@ int _write(int fd, void *buf, size_t count) {
   _syscall_(SYS_write, fd, buf, count);
   return 0;
 }
-extern void *prog_break;
+
+extern char end;
+static void *prog_break=(void *)(&end);
+
 void *_sbrk(intptr_t increment) {
-  void *addr=prog_break+increment;
+  intptr_t addr=prog_break+increment;
   if(_syscall_(SYS_brk,addr,0,0)==0){ 
     return (prog_break);
   }
