@@ -70,6 +70,7 @@ static intptr_t prog_break;
 void *_sbrk(intptr_t increment) {
   if(increment==0){
     prog_break=_syscall_(SYS_brk,0,0,0);
+    return prog_break;
   }
   else{
     intptr_t addr=prog_break+increment;
