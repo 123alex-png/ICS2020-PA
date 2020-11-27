@@ -65,11 +65,19 @@ int _write(int fd, void *buf, size_t count) {
   return 0;
 }
 
-static void *prog_break;
+static intptr_t prog_break;
+
 void *_sbrk(intptr_t increment) {
-  intptr_t addr=prog_break+increment;
-  if(_syscall_(SYS_brk,addr,0,0)==0){ 
-    return (prog_break);
+  if(increment==0){
+    prog_break=_syscall_(SYS_brk,0,0,0);
+  }
+  else{
+    intptr_t addr=prog_break+increment;
+    if(_syscall_(SYS_brk,addr,0,0)==0){ 
+      void *ret=prog_break;
+      prog_break=prog_break+increment;
+      return ret;
+    }
   }
   return (void *)-1;
 }
