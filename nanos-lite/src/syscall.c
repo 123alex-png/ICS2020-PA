@@ -21,6 +21,7 @@ int sys_write(int fd, void *buf, size_t count){
       for(size_t i=0;i<count;i++){
         putch(*(char *)(buf+i));
       }
+      break;
     }
   }
   return count;
@@ -43,6 +44,7 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case SYS_exit:sys_exit();break;
     case SYS_yield:sys_yield();break;
+    //case SYS_read:sys_read((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_write:sys_write((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_brk:sys_brk((void *)a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
