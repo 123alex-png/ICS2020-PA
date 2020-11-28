@@ -27,7 +27,7 @@ int sys_write(int fd, void *buf, size_t count){
   return count;
 }
 
-int sys_brk(void * addr){
+intptr_t sys_brk(void * addr){
   if(addr==0){
     return (int)prog_break;
   }
