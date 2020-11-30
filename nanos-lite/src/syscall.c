@@ -35,13 +35,13 @@ int sys_write(int fd, void *buf, size_t count){
       assert(0);
       break;
     }
-    case 1:
-    case 2:{
-      for(size_t i=0;i<count;i++){
-        putch(*(char *)(buf+i));
-      }
-      break;
-    }
+    // case 1:
+    // case 2:{
+    //   for(size_t i=0;i<count;i++){
+    //     putch(*(char *)(buf+i));
+    //   }
+    //   break;
+    // }
     default:{
       fs_write(fd,buf,count);
     }
