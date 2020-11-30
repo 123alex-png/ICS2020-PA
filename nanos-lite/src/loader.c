@@ -14,16 +14,25 @@ size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 size_t get_ramdisk_size();
 extern uint8_t ramdisk_start;
 extern uint8_t ramdisk_end;
-Elf_Ehdr ehdr;
-Elf_Phdr phdr;
+static Elf_Ehdr ehdr;
+static Elf_Phdr phdr;
+
+int fs_open(const char *pathname, int flags, int mode);
+int fs_close(int fd);
+size_t fs_read(int fd, void *buf, size_t len);
+
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  
-  ramdisk_read(&ehdr, 0, 64);
-  volatile uint16_t phnum=ehdr.e_phnum;
+  int fd=fs_open(filename,0,0);
+  fs_read(fd,&ehdr,64);
+  //ramdisk_read(&ehdr, 0, 64);
+  uint16_t phnum=ehdr.e_phnum;
+  char *useless=malloc(ehdr.e_phoff-64);
+  fs_read(fd,useless,ehdr.e_phoff-64);
   for(int i=0;i<phnum;i++){
-    
-    ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
+      fs_read(fd,&phdr,ehdr.e_phentsize);
+//    ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
     if(phdr.p_type==PT_LOAD){
       memcpy((void *)phdr.p_vaddr,(void *)(&ramdisk_start+phdr.p_offset),phdr.p_filesz);
       memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);

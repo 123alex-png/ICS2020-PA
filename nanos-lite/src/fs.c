@@ -37,6 +37,8 @@ static Finfo file_table[] __attribute__((used)) = {
 #include "files.h"
 };
 
+static size_t open_offset[100];
+
 void init_fs() {
   // TODO: initialize the size of /dev/fb
 }
@@ -57,7 +59,13 @@ int fs_close(int fd){
 
 size_t fs_read(int fd, void *buf, size_t len){
   size_t offset=file_table[fd].disk_offset;
-  return ramdisk_read(buf,offset,len);
+  size_t size=file_table[fd].size;
+  size_t real_len=len;
+  if(open_offset[fd]+len>size){
+    real_len=size-len;
+  }
+  open_offset[fd]+=real_len;
+  return ramdisk_read(buf,offset+open_offset[fd],real_len);
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
