@@ -29,7 +29,7 @@ int sys_write(int fd, void *buf, size_t count){
 
 intptr_t sys_brk(void * addr){
   if(addr==0){
-    return (int)prog_break;
+    return (intptr_t)prog_break;
   }
   prog_break=addr;
   return 0;
