@@ -26,7 +26,7 @@ void init_proc() {
   Log("Initializing processes...");
 
   // load program here
-  naive_uload(NULL,"/home/quli/ics2020/navy-apps/tests/hello/build/hello-x86");
+  naive_uload(NULL,"/bin/hello");
 }
 
 Context* schedule(Context *prev) {
