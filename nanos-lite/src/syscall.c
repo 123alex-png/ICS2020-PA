@@ -3,6 +3,10 @@
 
 extern char end;
 void *prog_break=(void *)(&end);
+int fs_open(const char *pathname, int flags, int mode);
+int fs_close(int fd);
+size_t fs_read(int fd, void *buf, size_t len);
+size_t fs_write(int fd, const void *buf, size_t len);
 
 int sys_yield(){
   yield();
@@ -14,8 +18,20 @@ int sys_exit(){
   return 0;
 }
 
+int sys_open(const char *pathname, int flags, int mode){
+  return fs_open(pathname,0,0);
+}
+
+int sys_close(int fd){
+  return fs_close(fd);
+}
+
 int sys_write(int fd, void *buf, size_t count){
   switch(fd){
+    case 0:{
+      assert(0);
+      break;
+    }
     case 1:
     case 2:{
       for(size_t i=0;i<count;i++){
@@ -23,8 +39,26 @@ int sys_write(int fd, void *buf, size_t count){
       }
       break;
     }
+    default:{
+      fs_write(fd,buf,count);
+    }
   }
   return count;
+}
+
+int sys_read(int fd, void *buf, size_t count){
+  switch(fd){
+    case 0:
+    case 1:
+    case 2:{
+      assert(0);
+      break;
+    }
+    default:{
+      return fs_read(fd,buf,count);
+    }
+  }
+  return 0;
 }
 
 intptr_t sys_brk(void * addr){
@@ -35,6 +69,8 @@ intptr_t sys_brk(void * addr){
   return 0;
 }
 
+
+
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -44,7 +80,9 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case SYS_exit:sys_exit();break;
     case SYS_yield:sys_yield();break;
-    //case SYS_read:sys_read((int)a[1],(void *)a[2],(size_t)a[3]);break;
+    case SYS_open:sys_open((char *)a[1],0,0);break;
+    case SYS_close:sys_close(a[1]);break;
+    case SYS_read:sys_read((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_write:sys_write((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_brk:sys_brk((void *)a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
