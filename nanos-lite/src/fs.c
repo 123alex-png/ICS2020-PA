@@ -85,7 +85,7 @@ off_t fs_lseek(int fd, off_t offset, int whence){
   printf("offset=%d,whence = %d, size = %d\n",offset,whence,file_table[fd].size);
   switch(whence){
     case SEEK_SET:{
-      if(offset>file_table[fd].size){
+      if(offset<0||(offset>0&&offset>file_table[fd].size)){
         
         //assert(0);
         return (off_t)-1;
