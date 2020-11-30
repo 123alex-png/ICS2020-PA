@@ -82,7 +82,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
 }
 
 off_t fs_lseek(int fd, off_t offset, int whence){
-  printf("offset=%d,whence = %d, size = %d\n",offset,whence,file_table[fd].size);
+  printf("cur=%d,offset=%d,whence = %d, size = %d\n",open_offset[fd],offset,whence,file_table[fd].size);
   switch(whence){
     case SEEK_SET:{
       if(offset>0&&offset>file_table[fd].size){
