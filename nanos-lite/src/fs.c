@@ -76,6 +76,7 @@ size_t fs_read(int fd, void *buf, size_t len){
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
+  printf("size = %d\n",file_table[fd].size);
   size_t offset=file_table[fd].disk_offset;
   return ramdisk_write(buf,offset,len);
 }
