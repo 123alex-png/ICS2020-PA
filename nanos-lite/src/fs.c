@@ -87,8 +87,8 @@ off_t fs_lseek(int fd, off_t offset, int whence){
     case SEEK_SET:{
       if(offset>file_table[fd].size){
         
-        assert(0);
-        return -1;
+        //assert(0);
+        return (off_t)-1;
       }
       open_offset[fd]=offset;
       break;
@@ -96,7 +96,7 @@ off_t fs_lseek(int fd, off_t offset, int whence){
     case SEEK_CUR:{
       if(open_offset[fd]+offset>file_table[fd].size){
         //assert(0);
-        return -1;
+        return (off_t)-1;
       }
       open_offset[fd]+=offset;
       break;
@@ -104,7 +104,7 @@ off_t fs_lseek(int fd, off_t offset, int whence){
     case SEEK_END:{
       if(offset>0){
         //assert(0);
-        return -1;
+        return (off_t)-1;
       }
       open_offset[fd]=file_table[fd].size+offset;
       break;
