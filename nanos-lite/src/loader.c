@@ -21,6 +21,7 @@ int fs_open(const char *pathname, int flags, int mode);
 int fs_close(int fd);
 size_t fs_read(int fd, void *buf, size_t len);
 
+extern size_t offset;
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
@@ -36,7 +37,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
     }
   }
-  return ehdr.e_entry;
+  return ehdr.e_entry+offset;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
