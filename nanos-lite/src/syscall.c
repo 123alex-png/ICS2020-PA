@@ -21,7 +21,8 @@ int sys_exit(){
 }
 
 int sys_open(const char *pathname, int flags, int mode){
-  return fs_open(pathname,0,0);
+  int ret=fs_open(pathname,0,0);
+  return ret;
 }
 
 int sys_close(int fd){
@@ -86,7 +87,7 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case SYS_exit:sys_exit();break;
     case SYS_yield:sys_yield();break;
-    case SYS_open:sys_open((char *)a[1],0,0);break;
+    case SYS_open:a[0]=sys_open((char *)a[1],0,0);break;
     case SYS_read:sys_read((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_write:sys_write((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_close:sys_close(a[1]);break;
