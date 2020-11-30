@@ -56,16 +56,11 @@ int fs_open(const char *pathname, int flags, int mode){
 int fs_close(int fd){
   return 0;
 }
-size_t offset;
-size_t size;
-size_t real_len;
+
 size_t fs_read(int fd, void *buf, size_t len){
-  //size_t 
-  offset=file_table[fd].disk_offset;
-  //size_t 
-  size=file_table[fd].size;
-  //size_t 
-  real_len=len;
+  size_t offset=file_table[fd].disk_offset;
+  size_t size=file_table[fd].size;
+  size_t real_len=len;
   if(open_offset[fd]+len>size){
     real_len=size-len;
   }
@@ -83,19 +78,19 @@ size_t fs_write(int fd, const void *buf, size_t len){
 off_t fs_lseek(int fd, off_t offset, int whence){
   switch(whence){
     case SEEK_SET:{
-      file_table[fd].disk_offset=offset;
+      open_offset[fd]=offset;
       break;
     }
     case SEEK_CUR:{
-      file_table[fd].disk_offset+=offset;
+      open_offset[fd]+=offset;
       break;
     }
     case SEEK_END:{
-      file_table[fd].disk_offset=file_table[fd].size+offset;
+      open_offset[fd]=file_table[fd].size+offset;
       break;
     }
     default:
       assert(0);
   }
-  return file_table[fd].disk_offset;
+  return open_offset[fd];
 }
