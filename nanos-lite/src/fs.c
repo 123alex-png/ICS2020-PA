@@ -97,5 +97,5 @@ off_t fs_lseek(int fd, off_t offset, int whence){
     default:
       assert(0);
   }
-  return open_offset[fd];
+  return open_offset[fd]+file_table[fd].disk_offset;
 }
