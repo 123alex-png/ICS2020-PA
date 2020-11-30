@@ -80,7 +80,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
   return ramdisk_write(buf,offset,len);
 }
 
-off_t lseek(int fd, off_t offset, int whence){
+off_t fs_lseek(int fd, off_t offset, int whence){
   switch(whence){
     case SEEK_SET:{
       file_table[fd].disk_offset=offset;

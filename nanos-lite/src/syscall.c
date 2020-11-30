@@ -1,5 +1,6 @@
 #include <common.h>
 #include "syscall.h"
+#include <sys/types.h>
 
 extern char end;
 void *prog_break=(void *)(&end);
@@ -7,6 +8,7 @@ int fs_open(const char *pathname, int flags, int mode);
 int fs_close(int fd);
 size_t fs_read(int fd, void *buf, size_t len);
 size_t fs_write(int fd, const void *buf, size_t len);
+off_t fs_lseek(int fd, off_t offset, int whence);
 
 int sys_yield(){
   yield();
@@ -61,6 +63,10 @@ int sys_read(int fd, void *buf, size_t count){
   return 0;
 }
 
+off_t sys_lseek(int fd,off_t offset, int whence){
+  return fs_lseek(fd,offset,whence);
+}
+
 intptr_t sys_brk(void * addr){
   if(addr==0){
     return (intptr_t)prog_break;
@@ -81,9 +87,10 @@ void do_syscall(Context *c) {
     case SYS_exit:sys_exit();break;
     case SYS_yield:sys_yield();break;
     case SYS_open:sys_open((char *)a[1],0,0);break;
-    case SYS_close:sys_close(a[1]);break;
     case SYS_read:sys_read((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_write:sys_write((int)a[1],(void *)a[2],(size_t)a[3]);break;
+    case SYS_close:sys_close(a[1]);break;
+    case SYS_lseek:sys_lseek((int)a[1],(off_t)a[2],(int)a[3]);
     case SYS_brk:sys_brk((void *)a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
