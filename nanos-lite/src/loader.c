@@ -28,8 +28,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   fs_read(fd,&ehdr,64);
   //ramdisk_read(&ehdr, 0, 64);
   uint16_t phnum=ehdr.e_phnum;
-  char *useless=malloc(ehdr.e_phoff-64);
-  fs_read(fd,useless,ehdr.e_phoff-64);
   for(int i=0;i<phnum;i++){
       fs_read(fd,&phdr,ehdr.e_phentsize);
 //    ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
