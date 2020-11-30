@@ -24,13 +24,13 @@ size_t fs_read(int fd, void *buf, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  //int fd=fs_open(filename,0,0);
-  //fs_read(fd,&ehdr,sizeof(ehdr));
-  ramdisk_read(&ehdr, 0, 64);
+  int fd=fs_open(filename,0,0);
+  fs_read(fd,&ehdr,sizeof(ehdr));
+  //ramdisk_read(&ehdr, 0, 64);
   uint16_t phnum=ehdr.e_phnum;
   for(int i=0;i<phnum;i++){
-  //    fs_read(fd,&phdr,ehdr.e_phentsize);
-    ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
+      fs_read(fd,&phdr,ehdr.e_phentsize);
+  //  ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
     if(phdr.p_type==PT_LOAD){
       memcpy((void *)phdr.p_vaddr,(void *)(&ramdisk_start+phdr.p_offset),phdr.p_filesz);
       memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
