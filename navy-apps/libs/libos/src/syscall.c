@@ -57,13 +57,12 @@ void _exit(int status) {
 
 int _open(const char *path, int flags, mode_t mode) {
   //_exit(SYS_open);
-  
   return _syscall_(SYS_open,path,0,0);
 }
 
 int _write(int fd, void *buf, size_t count) {
-  _syscall_(SYS_write, fd, buf, count);
-  return 0;
+  
+  return _syscall_(SYS_write, fd, buf, count);//0;
 }
 
 static intptr_t prog_break;
