@@ -87,7 +87,7 @@ void do_syscall(Context *c) {
   switch (a[0]) {
     case SYS_exit:sys_exit();break;
     case SYS_yield:sys_yield();break;
-    case SYS_open:sys_open((char *)a[1],0,0);break;
+    case SYS_open:c->GPR1=sys_open((char *)a[1],0,0);break;
     case SYS_read:sys_read((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_write:c->GPR1=sys_write((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_close:sys_close(a[1]);break;
