@@ -23,7 +23,8 @@ int fs_open(const char *pathname, int flags, int mode);
 int fs_close(int fd);
 size_t fs_read(int fd, void *buf, size_t len);
 off_t fs_lseek(int fd, off_t offset, int whence);
-extern size_t off;
+size_t getoffset(int fd);
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   int fd=fs_open(filename,0,0);
@@ -34,7 +35,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       fs_read(fd,&phdr,ehdr.e_phentsize);
   //  ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
     if(phdr.p_type==PT_LOAD){
-      size_t offset=off;//=fs_lseek(fd,0,SEEK_CUR);
+      size_t offset=getoffset(fd);//=fs_lseek(fd,0,SEEK_CUR);
       memcpy((void *)phdr.p_vaddr,(void *)(&ramdisk_start+offset+phdr.p_offset),phdr.p_filesz);
       memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
     }

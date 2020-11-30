@@ -43,6 +43,10 @@ void init_fs() {
   // TODO: initialize the size of /dev/fb
 }
 
+size_t getoffset(int fd){
+  return file_table[fd].disk_offset;
+}
+
 int fs_open(const char *pathname, int flags, int mode){
   for(int i=3;i<FT_SIZE;i++){
     if(!strcmp(pathname,file_table[i].name)){
