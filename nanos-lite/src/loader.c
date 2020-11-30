@@ -25,7 +25,7 @@ size_t fs_read(int fd, void *buf, size_t len);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   int fd=fs_open(filename,0,0);
-  fs_read(fd,&ehdr,64);
+  fs_read(fd,&ehdr,52);
   //ramdisk_read(&ehdr, 0, 64);
   uint16_t phnum=ehdr.e_phnum;
   for(int i=0;i<phnum;i++){
