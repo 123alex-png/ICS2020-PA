@@ -13,7 +13,7 @@ typedef struct {
 
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
 
-#define FT_SIZE (sizeof(file_table)/20)
+#define FT_SIZE (sizeof(file_table)/sizeof(Finfo))
 
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
