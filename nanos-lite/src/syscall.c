@@ -64,7 +64,10 @@ intptr_t sys_brk(void * addr){
 }
 
 int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
-  ioe_read(AM_TIMER_UPTIME,tv);
+  uint64_t us;
+  ioe_read(AM_TIMER_UPTIME,&us);
+  tv->tv_usec=us%1000000;
+  tv->tv_sec=us/1000000;
   return 0;
 }
 
