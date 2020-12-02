@@ -1,15 +1,14 @@
 #include <stdio.h>
-#include <sys/time.h>
-
+#include <NDL.h>
 
 int main(){
-    struct timeval tv;
-    int cur=0;
+    int cur=1000;
     while(1){
-        gettimeofday(&tv, NULL);
-        if(tv.tv_sec==cur){
-            cur++;
-            printf("%ds %dus\n",tv.tv_sec,tv.tv_usec);
+        //gettimeofday(&tv, NULL);
+        uint32_t time=NDL_GetTicks();
+        if(time==cur){
+            cur+=1000;
+            printf("%dms\n", time);
         }
     }
 }
