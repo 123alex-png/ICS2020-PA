@@ -76,7 +76,7 @@ size_t fs_read(int fd, void *buf, size_t len){
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
-  return file_table[fd].write(buf,0,len);
+  return (&file_table[fd])->write(buf,0,len);
 }
 
 size_t _write(int fd, const void *buf, size_t len){
