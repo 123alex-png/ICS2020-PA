@@ -1,6 +1,8 @@
 #include <common.h>
 #include "syscall.h"
 #include <sys/types.h>
+#include <sys/time.h>
+#include <time.h>
 
 extern char end;
 void *prog_break=(void *)(&end);
@@ -61,7 +63,10 @@ intptr_t sys_brk(void * addr){
   return 0;
 }
 
-
+int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
+  ioe_read(AM_TIMER_UPTIME,tv);
+  return 0;
+}
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
@@ -76,8 +81,9 @@ void do_syscall(Context *c) {
     case SYS_read:c->GPR1=sys_read((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_write:c->GPR1=sys_write((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_close:sys_close(a[1]);break;
-    case SYS_lseek:c->GPR1=sys_lseek((int)a[1],(off_t)a[2],(int)a[3]);
-    case SYS_brk:sys_brk((void *)a[1]);break;
+    case SYS_lseek:c->GPR1=sys_lseek((int)a[1],(off_t)a[2],(int)a[3]);break;
+    case SYS_brk:c->GPR1=sys_brk((void *)a[1]);break;
+    case SYS_gettimeofday:c->GPR1=sys_gettimeofday((struct timeval *)a[1],(struct timezone *)a[2]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
