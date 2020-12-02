@@ -174,9 +174,9 @@ int dup2(int oldfd, int newfd) {
 
 unsigned int sleep(unsigned int seconds) {
   //assert(0);
-  struct timeval tv;
   while(1){
-    _syscall_(SYS_gettimeofday, &tv, NULL, 0);
+    struct timeval tv;
+    _syscall_(SYS_gettimeofday, &tv, (struct timeval *)0, 0);
     if(tv.tv_sec>=1){
       break;
     }

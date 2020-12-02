@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <NDL.h>
-
+unsigned int sleep(int second);
 int main(){
     //int cur=1000;
     while(1){
