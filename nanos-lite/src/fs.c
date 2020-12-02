@@ -18,6 +18,7 @@ enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 size_t serial_write(const void *buf, size_t offset, size_t len);
+//size_t h_write(int fd, const void *buf, size_t len);
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -77,14 +78,16 @@ size_t fs_read(int fd, void *buf, size_t len){
 
 size_t fs_write(int fd, const void *buf, size_t len){
   //return (&file_table[fd])->write(buf,0,len);
-  return file_table[fd].write(buf,0,len);
-}
-
-size_t h_write(int fd, const void *buf, size_t len){
   size_t offset=file_table[fd].disk_offset+open_offset[fd];
   open_offset[fd]+=len;
-  return ramdisk_write(buf,offset,len);
+  return file_table[fd].write(buf,offset,len);
 }
+
+// size_t h_write(int fd, const void *buf, size_t len){
+//   size_t offset=file_table[fd].disk_offset+open_offset[fd];
+//   open_offset[fd]+=len;
+//   return ramdisk_write(buf,offset,len);
+// }
 
 off_t fs_lseek(int fd, off_t offset, int whence){
   
