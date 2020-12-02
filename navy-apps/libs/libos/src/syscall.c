@@ -178,10 +178,11 @@ unsigned int sleep(unsigned int seconds) {
   while(1){
     _syscall_(SYS_gettimeofday, &tv, (struct timeval *)0, 0);
     if(tv.tv_sec-last>=1){
-      //last=tv.tv_sec;
+      
       break;
     }
   }
+  last=tv.tv_sec;
   return 0;
 }
 
