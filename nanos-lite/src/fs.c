@@ -48,7 +48,7 @@ size_t getoffset(int fd){
 }
 
 int fs_open(const char *pathname, int flags, int mode){
-  for(int i=3;i<25;i++){
+  for(int i=3;i<FT_SIZE;i++){
     if(!strcmp(pathname,file_table[i].name)){
       return i;
     }
