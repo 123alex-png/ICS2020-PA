@@ -7,8 +7,7 @@ int main(){
         //gettimeofday(&tv, NULL);
         uint32_t time=NDL_GetTicks();
         printf("%dms\n", time);
-        if(time > 50)break;
-        //sleep(1);
+        sleep(1);
     }
 }
 
