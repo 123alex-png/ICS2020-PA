@@ -174,8 +174,8 @@ int dup2(int oldfd, int newfd) {
 static unsigned int last=0;
 unsigned int sleep(unsigned int seconds) {
   //assert(0);
+  struct timeval tv;
   while(1){
-    struct timeval tv;
     _syscall_(SYS_gettimeofday, &tv, (struct timeval *)0, 0);
     if(tv.tv_sec-last>=1){
       last=tv.tv_sec;
