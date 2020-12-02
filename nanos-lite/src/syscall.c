@@ -30,22 +30,7 @@ int sys_close(int fd){
 }
 
 int sys_write(int fd, void *buf, size_t count){
-  switch(fd){
-    case 0:{
-      assert(0);
-      break;
-    }
-    // case 1:
-    // case 2:{
-    //   for(size_t i=0;i<count;i++){
-    //     putch(*(char *)(buf+i));
-    //   }
-    //   break;
-    // }
-    default:{
-      fs_write(fd,buf,count);
-    }
-  }
+  fs_write(fd,buf,count);
   return count;
 }
 
