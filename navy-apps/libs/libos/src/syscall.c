@@ -173,8 +173,15 @@ int dup2(int oldfd, int newfd) {
 }
 
 unsigned int sleep(unsigned int seconds) {
-  assert(0);
-  return -1;
+  //assert(0);
+  struct timeval tv;
+  while(1){
+    _syscall_(SYS_gettimeofday, &tv, NULL, 0);
+    if(tv.tv_sec>=1){
+      break;
+    }
+  }
+  return 0;
 }
 
 ssize_t readlink(const char *pathname, char *buf, size_t bufsiz) {
