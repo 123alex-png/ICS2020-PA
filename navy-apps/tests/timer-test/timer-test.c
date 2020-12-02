@@ -8,7 +8,7 @@ int main(){
         uint32_t time=NDL_GetTicks();
         printf("%dms\n", time);
         if(time > 1050)break;
-        sleep(1);
+        //sleep(1);
     }
 }
 
