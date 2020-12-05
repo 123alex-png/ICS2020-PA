@@ -180,7 +180,7 @@ unsigned int sleep(unsigned int seconds) {
     if(tv.tv_usec-last>=seconds){
       last=tv.tv_usec;
       assert(last<10);
-      printf("%d\n",last);
+      printf("sec=%d, last=%d\n",tv.tv_sec, last);
       break;
     }
   }
