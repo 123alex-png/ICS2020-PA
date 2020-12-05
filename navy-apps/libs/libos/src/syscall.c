@@ -178,7 +178,7 @@ unsigned int sleep(unsigned int seconds) {
   //assert(0);
   struct timeval tv;
   while(1){
-    _syscall_(SYS_gettimeofday, &tv, (struct timeval *)0, 0);
+    _gettimeofday(&tv, NULL);
     if(tv.tv_sec-last>=seconds){
       last=tv.tv_sec;
       printf("sec=%d,usec=%d, last=%d\n",tv.tv_sec, tv.tv_usec, last);
