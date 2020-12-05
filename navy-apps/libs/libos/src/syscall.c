@@ -182,7 +182,7 @@ unsigned int sleep(unsigned int seconds) {
     struct timeval tv;
     _gettimeofday(&tv, NULL);
     printf("sec=%d,usec=%d, init=%d\n",tv.tv_sec, tv.tv_usec, init.tv_sec);
-    if(tv.tv_sec-init.tv_sec>=seconds&&tv.tv_usec==init.tv_usec){
+    if(tv.tv_sec-init.tv_sec>=seconds){
       
       //assert(last<10);
       break;
