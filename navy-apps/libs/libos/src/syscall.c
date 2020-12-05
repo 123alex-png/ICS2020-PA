@@ -178,9 +178,8 @@ unsigned int sleep(unsigned int seconds) {
   //assert(0);
   _gettimeofday(&init, NULL);
   while(1){
-    struct timeval tv;
+    volatile struct timeval tv;
     _gettimeofday(&tv, NULL);
-    printf("1\n"/*,tv.tv_sec*/);
     if(tv.tv_sec-init.tv_sec>=seconds){
       //assert(0);
       //assert(last<10);
