@@ -99,7 +99,6 @@ off_t _lseek(int fd, off_t offset, int whence) {
 int _gettimeofday(struct timeval *tv, struct timezone *tz) {
   //_exit(SYS_gettimeofday);
   int ret=_syscall_(SYS_gettimeofday,tv,tz,0);
-  printf("sec=%d",tv->tv_sec);
   return ret;
 }
 
@@ -181,8 +180,6 @@ unsigned int sleep(unsigned int seconds) {
     _gettimeofday(&tv, NULL);
     if(tv.tv_sec-last>=seconds){
       last=tv.tv_sec;
-      printf("sec=%d,usec=%d, last=%d\n",tv.tv_sec, tv.tv_usec, last);
-      assert(last<10);
       break;
     }
   }
