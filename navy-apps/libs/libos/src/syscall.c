@@ -173,17 +173,16 @@ int dup(int oldfd) {
 int dup2(int oldfd, int newfd) {
   return -1;
 }
-
+struct timeval init;
 unsigned int sleep(unsigned int seconds) {
   //assert(0);
-  struct timeval init;
   _gettimeofday(&init, NULL);
   while(1){
     struct timeval tv;
     _gettimeofday(&tv, NULL);
     printf("sec=%d,usec=%d, init.sec=%d, init.usec=%d\n",tv.tv_sec, tv.tv_usec, init.tv_sec, init.tv_usec);
     if(tv.tv_sec-init.tv_sec>=seconds){
-      
+      assert(0);
       //assert(last<10);
       break;
     }
