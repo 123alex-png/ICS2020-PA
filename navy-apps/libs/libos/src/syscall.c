@@ -184,7 +184,7 @@ unsigned int sleep(unsigned int seconds) {
     if(tv.tv_sec-init.tv_sec>=seconds){
       //assert(0);
       //assert(last<10);
-      assert(0);
+      //assert(0);
       return 0;
     }
   }
