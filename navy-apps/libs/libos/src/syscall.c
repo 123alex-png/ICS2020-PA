@@ -183,7 +183,7 @@ unsigned int sleep(unsigned int seconds) {
     _gettimeofday(&tv, NULL);
     if(tv.tv_sec-init.tv_sec>=seconds&&tv.tv_usec==init.tv_usec){
       //printf("sec=%d,usec=%d, last=%d\n",tv.tv_sec, tv.tv_usec, last);
-      assert(last<10);
+      //assert(last<10);
       break;
     }
   }
