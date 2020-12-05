@@ -8,7 +8,7 @@ int main(){
         //gettimeofday(&tv, NULL);
         uint32_t time=NDL_GetTicks();
         printf("%dms\n", time);
-        sleep(1);
+        sleep(5);
         //assert(0);
     }
 }
