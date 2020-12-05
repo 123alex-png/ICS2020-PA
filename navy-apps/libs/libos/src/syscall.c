@@ -171,17 +171,18 @@ int dup(int oldfd) {
 int dup2(int oldfd, int newfd) {
   return -1;
 }
-unsigned int last=0;
+static unsigned int last=0;
 unsigned int sleep(unsigned int seconds) {
   //assert(0);
   struct timeval tv;
   while(1){
     _syscall_(SYS_gettimeofday, &tv, (struct timeval *)0, 0);
     if(tv.tv_usec-last>=1){
+      last=tv.tv_sec;
       break;
     }
   }
-  last=tv.tv_sec;
+  
   return 0;
 }
 
