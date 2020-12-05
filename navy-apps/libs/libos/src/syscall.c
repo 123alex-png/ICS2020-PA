@@ -177,7 +177,7 @@ unsigned int sleep(unsigned int seconds) {
   struct timeval tv;
   while(1){
     _syscall_(SYS_gettimeofday, &tv, (struct timeval *)0, 0);
-    if(tv.tv_usec-last>=1){
+    if(tv.tv_sec-last>=1){
       last=tv.tv_sec;
       break;
     }
