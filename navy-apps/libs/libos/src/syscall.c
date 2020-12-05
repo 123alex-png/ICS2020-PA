@@ -177,7 +177,6 @@ struct timeval init;
 unsigned int sleep(unsigned int seconds) {
   //assert(0);
   _gettimeofday(&init, NULL);
-  int cnt=0;
   while(1){
     struct timeval tv;
     _gettimeofday(&tv, NULL);
@@ -185,9 +184,7 @@ unsigned int sleep(unsigned int seconds) {
     if(tv.tv_sec-init.tv_sec>=seconds){
       //assert(0);
       //assert(last<10);
-      ++cnt;
-      assert(cnt>1);
-      break;
+      return 0;
     }
   }
   assert(0);
