@@ -187,7 +187,7 @@ unsigned int sleep(unsigned int seconds) {
       break;
     }
   }
-  
+  assert(0);
   return 0;
 }
 
