@@ -171,7 +171,7 @@ int dup(int oldfd) {
 int dup2(int oldfd, int newfd) {
   return -1;
 }
-static unsigned int last=0;
+unsigned int last=0;
 unsigned int sleep(unsigned int seconds) {
   //assert(0);
   struct timeval tv;
