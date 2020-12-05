@@ -178,14 +178,15 @@ unsigned int sleep(unsigned int seconds) {
   //assert(0);
   _gettimeofday(&init, NULL);
   int cnt=0;
-  while(++cnt){
+  while(1){
     struct timeval tv;
     _gettimeofday(&tv, NULL);
     //printf("sec=%d,usec=%d, init.sec=%d, init.usec=%d\n",tv.tv_sec, tv.tv_usec, init.tv_sec, init.tv_usec);
     if(tv.tv_sec-init.tv_sec>=seconds){
       //assert(0);
       //assert(last<10);
-      assert(cnt>10000);
+      ++cnt;
+      assert(cnt>1);
       break;
     }
   }
