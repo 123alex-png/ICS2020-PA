@@ -34,6 +34,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   }
   char event[100];
   char* upordown=ev.keydown ? "kd" : "ku";
+  printf("%s %s\n", upordown, names[ev.keycode]);
   sprintf(event, "%s %s\n", upordown, names[ev.keycode]);
   strncpy(buf, event, len);
   size_t ret = strlen(buf);
