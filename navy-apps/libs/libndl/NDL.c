@@ -19,6 +19,7 @@ uint32_t NDL_GetTicks() {
 int NDL_PollEvent(char *buf, int len) {
     FILE *fp=fopen("/dev/events","r");
     fscanf(fp,"%s",buf);
+    printf("%s\n",buf);
     if(buf[0]=='G'&&buf[1]=='o'){
       return 1;
     }
