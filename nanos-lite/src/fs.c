@@ -73,6 +73,8 @@ size_t fs_read(int fd, void *buf, size_t len){
   }
   if(file_table[fd].read==NULL){
     file_table[fd].read=ramdisk_read;
+  }
+  else{
     real_len = len;
   }
   file_table[fd].read(buf,off+open_offset[fd],real_len);
