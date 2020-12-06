@@ -8,7 +8,7 @@ int main() {
     printf("%s\n", buf);
     if (NDL_PollEvent(buf, sizeof(buf))) {
       printf("receive event: %s\n", buf);
-      assert(0);
+      //assert(0);
     }
   }
   return 0;
