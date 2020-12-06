@@ -78,7 +78,7 @@ size_t fs_read(int fd, void *buf, size_t len){
     real_len = len;
   }
   file_table[fd].read(buf,off+open_offset[fd],real_len);
-  if(file_table[fd].read==NULL){
+  if(file_table[fd].read==ramdisk_read){
     open_offset[fd]+=real_len;
   }
   return real_len;
