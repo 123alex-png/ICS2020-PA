@@ -1,5 +1,5 @@
 #include <common.h>
-
+#include <assert.h>
 #if defined(MULTIPROGRAM) && !defined(TIME_SHARING)
 # define MULTIPROGRAM_YIELD() yield()
 #else
@@ -14,6 +14,11 @@ static const char *keyname[256] __attribute__((used)) = {
   AM_KEYS(NAME)
 };
 
+#define NAMEINIT(key)  [ AM_KEY_##key ] = #key,
+static const char *names[] = {
+  AM_KEYS(NAMEINIT)
+};
+
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   for(size_t i=0;i<len;i++){
         putch(*(char *)(buf+i));
@@ -22,7 +27,19 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-  return 0;
+  AM_INPUT_KEYBRD_T kb;
+  ioe_read(AM_INPUT_KEYBRD, &kb);
+  if(kb.keycode == AM_KEY_NONE){
+    return 0;
+  }
+  char event[20]=names[kb.keycode];
+  event[strlen(event)]='\n';
+  strncpy(buf, event, len);
+  size_t ret = strlen(buf);
+  if (ret != strlen(event)){
+    assert(0);
+  }
+  return ret;
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {

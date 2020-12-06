@@ -181,8 +181,6 @@ unsigned int sleep(unsigned int seconds) {
     volatile struct timeval tv;
     _gettimeofday(&tv, NULL);
     if(tv.tv_sec-init.tv_sec>=seconds){
-      //assert(0);
-      //assert(last<10);
       return 0;
     }
   }
