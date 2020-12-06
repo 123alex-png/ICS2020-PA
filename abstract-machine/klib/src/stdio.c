@@ -94,11 +94,14 @@ int sprintf(char *out, const char *fmt, ...) {
   va_list arg;
   int cnt=0;
   va_start(arg,fmt);
+  bool flag=false;
   for(size_t i=0;fmt[i]!='\0';i++){
     if(fmt[i]!='%'){
       out[cnt++]=fmt[i];
+      flag=true;
     }
-    else{
+    else if(flag){
+      flag=false;
       i++;
       switch(fmt[i]){
         case 'd':{
@@ -129,6 +132,9 @@ int sprintf(char *out, const char *fmt, ...) {
           break;
         }
       }
+    }
+    else{
+      out[cnt++]=fmt[i];
     }
   }
   out[cnt++]='\0';
