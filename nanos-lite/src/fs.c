@@ -50,7 +50,7 @@ size_t getoffset(int fd){
 }
 
 int fs_open(const char *pathname, int flags, int mode){
-  for(int i=4;i<FT_SIZE;i++){
+  for(int i=3;i<FT_SIZE;i++){
     if(!strcmp(pathname,file_table[i].name)){
       return i;
     }
@@ -69,18 +69,11 @@ size_t fs_read(int fd, void *buf, size_t len){
   size_t size=file_table[fd].size;
   size_t real_len=len;
   if(open_offset[fd]+len>size){
-    real_len=size-open_offset[fd];
+    real_len=size-len;
   }
-  if(file_table[fd].read==NULL){
-    file_table[fd].read=ramdisk_read;
-  }
-  else{
-    real_len = len;
-  }
-  file_table[fd].read(buf,off+open_offset[fd],real_len);
-  if(file_table[fd].read==NULL){
-    open_offset[fd]+=real_len;
-  }
+  
+  ramdisk_read(buf,off+open_offset[fd],real_len);
+  open_offset[fd]+=real_len;
   return real_len;
 }
 
