@@ -37,13 +37,14 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   sprintf(event, "%s %s\n", upordown, names[ev.keycode]);
   strncpy(buf, event, len);
   size_t ret = strlen(buf);
-  // if (ret != strlen(event)){
-  //   assert(0);
-  // }
   return ret;
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
+  AM_GPU_CONFIG_T cfg;
+  ioe_read(AM_GPU_CONFIG, &cfg);
+  size_t info =(cfg.width << 4) + cfg.height;
+  sprintf(buf, "%d", info);
   return 0;
 }
 

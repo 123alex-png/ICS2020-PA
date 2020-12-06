@@ -30,6 +30,14 @@ return 0;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
+  int fd = _open("/proc/dispinfo", 0, 0);
+  size_t info;
+  _read(fd, &info, 8);
+  int width = info>>4, height = info & 0xffff;
+  if (*w == 0 && *h == 0 ){
+    screen_h = height;
+    screen_w = width;
+  }
   if (getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
@@ -50,6 +58,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
