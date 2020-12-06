@@ -77,11 +77,11 @@ size_t fs_read(int fd, void *buf, size_t len){
   else{
     real_len = len;
   }
-  file_table[fd].read(buf,off+open_offset[fd],real_len);
+  size_t ret=file_table[fd].read(buf,off+open_offset[fd],real_len);
   if(file_table[fd].read==ramdisk_read){
     open_offset[fd]+=real_len;
   }
-  return real_len;
+  return ret;
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
