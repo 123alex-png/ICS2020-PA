@@ -32,16 +32,16 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if(ev.keycode == AM_KEY_NONE){
     return 0;
   }
-  char event[100];
+  //char event[100];
   char* upordown=ev.keydown ? "kd" : "ku";
   printf("%s %s\n", upordown, names[ev.keycode]);
-  sprintf(event, "%s %s\n", upordown, names[ev.keycode]);
-  strncpy(buf, event, len);
-  size_t ret = strlen(buf);
+  // sprintf(event, "%s %s\n", upordown, names[ev.keycode]);
+  // strncpy(buf, event, len);
+  // size_t ret = strlen(buf);
   // if (ret != strlen(event)){
   //   assert(0);
   // }
-  return ret;
+  return 0;
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
