@@ -27,18 +27,18 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-  AM_INPUT_KEYBRD_T kb;
-  ioe_read(AM_INPUT_KEYBRD, &kb);
-  if(kb.keycode == AM_KEY_NONE){
+  AM_INPUT_KEYBRD_T ev;
+  ioe_read(AM_INPUT_KEYBRD, &ev);
+  if(ev.keycode == AM_KEY_NONE){
     return 0;
   }
-  char event[20]=names[kb.keycode];
-  event[strlen(event)]='\n';
+  char event[50];
+  sprintf("Got event: %s  %s\n",names[ev.keycode], ev.keydown ? "DOWN" : "UP");
   strncpy(buf, event, len);
   size_t ret = strlen(buf);
-  if (ret != strlen(event)){
-    assert(0);
-  }
+  // if (ret != strlen(event)){
+  //   assert(0);
+  // }
   return ret;
 }
 
