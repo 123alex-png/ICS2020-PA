@@ -52,6 +52,8 @@ void init_fs() {
   file_table[FD_DISPINFO].read(buf, 0, 50);
   size_t info = atoi(buf);
   int width = info >> 16, height = info & 0xffff;
+  printf ("%d %d\n",width, height);
+  assert(0);
   file_table[FD_FB].size = width * height;
 }
 
