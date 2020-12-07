@@ -9,7 +9,7 @@ int main() {
   int w, h;
   void *bmp = BMP_Load("/share/pictures/projectn.bmp", &w, &h);
   assert(bmp);
-  for(int i = 0 ; i < 128 * 50 ; i ++){
+  for(int i = 0 ; i < 128 * 1 ; i ++){
     printf("%x\n",*(int *)(bmp+i));
   }
   NDL_OpenCanvas(&w, &h);
