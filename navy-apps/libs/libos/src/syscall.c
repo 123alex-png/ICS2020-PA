@@ -76,7 +76,7 @@ void *_sbrk(intptr_t increment) {
   }
   char buf[50];
   sprintf(buf,"%d",prog_break);
-  _write(1, buf, 10);
+  _write(1, buf, 50);
   return (void *)-1;
 }
 
