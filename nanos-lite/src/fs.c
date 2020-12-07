@@ -55,10 +55,10 @@ size_t getoffset(int fd){
 
 int fs_open(const char *pathname, int flags, int mode){
   for(int i=0;i<FT_SIZE;i++){
-    if(file_table[i].name){
+    //if(file_table[i].name){
       if(!strcmp(pathname,file_table[i].name)){
         return i;
-      }
+     // }
     }
   }
   assert(0);
