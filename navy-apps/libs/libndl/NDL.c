@@ -12,6 +12,7 @@ static int screen_w = 0, screen_h = 0;
 int _gettimeofday(struct timeval *tv, struct timezone *tz);
 int _open(const char *path, int flags, mode_t mode);
 int _read(int fd, void *buf, size_t count);
+int _write(int fd, void *buf, size_t count);
 
 uint32_t NDL_GetTicks() {
   struct timeval tv;
@@ -62,7 +63,10 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-
+  int fd = _open("/dev/fb", 0, 0);
+  size_t len = w << 16 + h;
+  size_t offset = x + y * screen_w;
+  _write(fd, pixels, len);
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
