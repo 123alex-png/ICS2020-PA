@@ -46,8 +46,21 @@ void NDL_OpenCanvas(int *w, int *h) {
   //int fd = _open("/proc/dispinfo", 0, 0);
   char buf[50];
   fread(buf, 1, 50, fdispinfo);
-  size_t info = atoi(buf);
-  int width = info >> 16, height = info & 0xffff;
+  char buf1[25],buf2[25];
+  int i;
+  for(i=0;buf[i]!='/0';i++){
+    if(buf[i]==' '){
+      i++;
+      break;
+    }
+    buf1[i]=buf[i];
+  }
+  int j=0;
+  for(;buf[i]!='\n';i++){
+    buf2[j++]=buf[i];
+  }
+  int width = atoi(buf1), height = atoi(buf2);
+  printf("%d %d\n",width, height);
   screen_h = height;
   screen_w = width;
   printf("%d %d\n",screen_w, screen_h);
