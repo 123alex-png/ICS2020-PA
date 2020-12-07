@@ -56,11 +56,10 @@ void NDL_OpenCanvas(int *w, int *h) {
     buf1[i]=buf[i];
   }
   int j=0;
-  for(;buf[i]!='\n';i++){
+  for(;buf[i]!='\0';i++){
     buf2[j++]=buf[i];
   }
   int width = atoi(buf1), height = atoi(buf2);
-  printf("%d %d\n",width, height);
   screen_h = height;
   screen_w = width;
   printf("%d %d\n",screen_w, screen_h);
