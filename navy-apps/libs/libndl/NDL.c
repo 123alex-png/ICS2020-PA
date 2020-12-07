@@ -48,7 +48,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   fread(buf, 1, 50, fdispinfo);
   char buf1[25],buf2[25];
   int i;
-  for(i=0;buf[i]!='/0';i++){
+  for(i=0;buf[i]!='\0';i++){
     if(buf[i]==' '){
       i++;
       break;
@@ -91,9 +91,9 @@ void NDL_OpenCanvas(int *w, int *h) {
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // int fd = _open("/dev/fb", 0, 0);
 
-  size_t len = 4 * w;
+  size_t len = w;
   for (int j = 0; j < h && y + j < screen_h; j ++) {
-      size_t offset = (y + j) * screen_w * 4  + x * 4;
+      size_t offset = (y + j) * screen_w + x;
       fseek(ffb, offset, SEEK_SET);
       fwrite(ffb, pixels, 1, len);
       pixels += w;
