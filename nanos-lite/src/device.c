@@ -52,14 +52,14 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   return strlen(buf);
 }
 
-size_t fb_write(/*const */void *buf, size_t offset, size_t len) {
-  AM_GPU_FBDRAW_T ctl;
-  ctl.x = offset % width;
-  ctl.y = offset / width;
-  ctl.pixels = buf;
-  ctl.w = len >> 16;
-  ctl.h = len & 0xffff;
-  ctl.sync = true;
+size_t fb_write(const void *buf, size_t offset, size_t len) {
+  AM_GPU_FBDRAW_T ctl = {1, 2, buf, 1, 2, true};
+  // ctl.x = offset % width;
+  // ctl.y = offset / width;
+  // ctl.pixels = buf;
+  // ctl.w = len >> 16;
+  // ctl.h = len & 0xffff;
+  // ctl.sync = true;
   ioe_write(AM_GPU_FBDRAW, &ctl);
   return len;
 }
