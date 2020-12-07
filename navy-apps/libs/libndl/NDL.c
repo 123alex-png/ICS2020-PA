@@ -15,7 +15,7 @@ int _read(int fd, void *buf, size_t count);
 int _write(int fd, void *buf, size_t count);
 off_t _lseek(int fd, off_t offset, int whence);
 
-FILE *fevent;
+FILE *fevent, *fdispinfo, *ffb;
 
 
 
@@ -44,10 +44,8 @@ int NDL_PollEvent(char *buf, int len) {
 
 void NDL_OpenCanvas(int *w, int *h) {
   //int fd = _open("/proc/dispinfo", 0, 0);
-  FILE *fp = fopen("/proc/dispinfo", "r");
   char buf[50];
-  //_read(fd, buf, 50);
-  fread(buf, 1, 50, fp);
+  fread(buf, 1, 50, fdispinfo);
   size_t info = atoi(buf);
   int width = info >> 16, height = info & 0xffff;
   screen_h = height;
@@ -77,7 +75,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  int fd = _open("/dev/fb", 0, 0);
+  // int fd = _open("/dev/fb", 0, 0);
 
   // size_t len = (w << 16) + 1;
   // for (int j = 0; j < h && y + j < screen_h; j ++) {
@@ -88,8 +86,8 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // }
   size_t len = (w << 16) + h;
       size_t offset = (y) * screen_w  + x;
-      lseek(fd, offset, SEEK_SET);
-      _write(fd, pixels, len);
+      fseek(ffb, offset, SEEK_SET);
+      fwrite(ffb, 1, len, pixels);
       pixels += w;
   
 }
@@ -113,8 +111,13 @@ int NDL_Init(uint32_t flags) {
     evtdev = 3;
   }
   fevent=fopen("/dev/events", "r");
+  fdispinfo=fopen("/proc/dispinfo", "r");
+  ffb=fopen("/dev/fb", "r");
   return 0;
 }
 
 void NDL_Quit() {
+  fclose(fevent);
+  fclose(fdispinfo);
+  fclose(ffb);
 }
