@@ -66,7 +66,7 @@ void init_fs() {
   }
   buf2[j]='\0';
   int width = atoi(buf1), height = atoi(buf2);
-  printf("%d %d\n", width, height);
+  //printf("%d %d\n", width, height);
   file_table[FD_FB].size = width * height * 4;
 }
 
