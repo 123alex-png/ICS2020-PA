@@ -23,17 +23,19 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-    int fd=_open("/dev/events", 0, 0);
-    int ret=_read(fd, buf, len);
-    if(ret!=0){
-      return 1;
-    }
+    // int fd=_open("/dev/events", 0, 0);
+    // int ret=_read(fd, buf, len);
+    // if(ret!=0){
+    //   return 1;
+    // }
+    FILE *fp=fopen("dev/events", "r");
+    fscanf(fp, "%s", buf);
 return 0;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
   int fd = _open("/proc/dispinfo", 0, 0);
-  char *buf[50];
+  char buf[50];
   _read(fd, buf, 50);
   size_t info = atoi(buf);
   int width = info >> 16, height = info & 0xffff;
