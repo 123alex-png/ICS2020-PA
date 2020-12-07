@@ -28,7 +28,7 @@ int NDL_PollEvent(char *buf, int len) {
     // if(ret!=0){
     //   return 1;
     // }
-    FILE *fp=fopen("/dev/events", "r");
+    //FILE *fp=fopen("/dev/events", "r");
     buf = "a";
     // fscanf(fp, "%s", buf);
 return 0;
