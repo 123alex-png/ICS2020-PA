@@ -1,5 +1,5 @@
 #include <common.h>
-#include <assert.h>
+
 #if defined(MULTIPROGRAM) && !defined(TIME_SHARING)
 # define MULTIPROGRAM_YIELD() yield()
 #else
@@ -56,6 +56,7 @@ size_t fb_write(void *buf, size_t offset, size_t len) {
   AM_GPU_FBDRAW_T ctl;
   ctl.x = offset % width;
   ctl.y = offset / width;
+  assert(buf);
   ctl.pixels = buf;
   ctl.w = len >> 16;
   ctl.h = len & 0xffff;
