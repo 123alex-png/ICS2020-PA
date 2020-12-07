@@ -28,10 +28,12 @@ int NDL_PollEvent(char *buf, int len) {
     // if(ret!=0){
     //   return 1;
     // }
-    //FILE *fp=fopen("/dev/events", "r");
-    buf = "a";
-    // fscanf(fp, "%s", buf);
-return 0;
+    FILE *fp=fopen("/dev/events", "r");
+    fscanf(fp, "%s", buf);
+    if(buf){
+      return 1;
+    }
+    return 0;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
