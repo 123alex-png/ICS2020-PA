@@ -29,7 +29,9 @@ int NDL_PollEvent(char *buf, int len) {
     //   return 1;
     // }
     FILE *fp=fopen("/dev/events", "r");
-    fscanf(fp, "%s", buf);
+    fread(buf, 1, 3, fp);
+    fread(buf, 1, len-3, fp);
+    // fscanf(fp, "%s", buf);
     if(buf){
       return 1;
     }
