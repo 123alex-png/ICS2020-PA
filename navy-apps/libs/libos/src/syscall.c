@@ -68,9 +68,9 @@ int _write(int fd, void *buf, size_t count) {
 static intptr_t prog_break;
 void *_sbrk(intptr_t increment) {
   prog_break=_syscall_(SYS_brk,0,0,0);
-  char buf[50];
-  sprintf(buf,"%x\n",prog_break);
-  _write(1, buf, 50);
+  // char buf[50];
+  // sprintf(buf,"%x\n",prog_break);
+  // _write(1, buf, 50);
   intptr_t addr=prog_break+increment;
   if(_syscall_(SYS_brk,addr,0,0)!=-1){ 
     void *ret=(void *)prog_break;
