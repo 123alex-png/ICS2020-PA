@@ -44,7 +44,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   AM_GPU_CONFIG_T cfg;
   ioe_read(AM_GPU_CONFIG, &cfg);
   size_t info =(cfg.width << 4) + cfg.height;
-  printf("info = %u\n", info);
+  printf("info = %d\n", info);
   char tmp[50];
   sprintf(tmp, "%d", info);
   strncpy(buf, tmp, len);
