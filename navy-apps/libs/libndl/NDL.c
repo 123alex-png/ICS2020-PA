@@ -15,7 +15,7 @@ int _read(int fd, void *buf, size_t count);
 int _write(int fd, void *buf, size_t count);
 off_t _lseek(int fd, off_t offset, int whence);
 
-FILE *fp1;
+FILE *fevent;
 
 
 
@@ -32,8 +32,8 @@ int NDL_PollEvent(char *buf, int len) {
     // if(ret!=0){
     //   return 1;
     // }
-    fp1=fopen("/dev/events", "r");
-    int ret=fread(buf, 1, len, fp1);
+    int ret=fread(buf, 1, len, fevent);
+    fseek(fevent, 0, SEEK_CUR);
     // fscanf(fp,"%s", buf+3);
     // fscanf(fp, "%s", buf);
     if(ret){
@@ -112,7 +112,7 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  // fp1=fopen("/dev/events", "r");
+  fevent=fopen("/dev/events", "r");
   return 0;
 }
 
