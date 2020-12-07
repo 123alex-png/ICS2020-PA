@@ -1,5 +1,6 @@
 #include <fs.h>
 #include <sys/types.h>
+
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 
@@ -53,8 +54,10 @@ size_t getoffset(int fd){
 
 int fs_open(const char *pathname, int flags, int mode){
   for(int i=0;i<FT_SIZE;i++){
-    if(!strcmp(pathname,file_table[i].name)){
-      return i;
+    if(file_table[i].name){
+      if(!strcmp(pathname,file_table[i].name)){
+        return i;
+      }
     }
   }
   assert(0);
