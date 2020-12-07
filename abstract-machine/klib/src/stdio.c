@@ -27,7 +27,7 @@ int printf(const char *fmt, ...) {
           else{
             tmp=(unsigned)tmp;
           }
-          char digit[15];//from low to high
+          char digit[20];//from low to high
           int pos=0;
           do{
             digit[pos++]=tmp%10+'0';
@@ -110,7 +110,7 @@ int sprintf(char *out, const char *fmt, ...) {
           else{
             tmp=(unsigned)tmp;
           }
-          char digit[15];//from low to high
+          char digit[20];//from low to high
           int pos=0;
           do{
             digit[pos++]=tmp%10+'0';
@@ -125,6 +125,37 @@ int sprintf(char *out, const char *fmt, ...) {
           char *tmp=va_arg(arg,char *);
           for(size_t i=0;*(tmp+i)!='\0';i++){
             out[cnt++]=*(tmp+i);
+          }
+          break;
+        }
+        case 'p':{
+          uint32_t tmp=va_arg(arg,uint32_t);
+          // if(tmp<0){
+          //   putch('-');
+          //   cnt++;
+          //   tmp=(unsigned)(-tmp);
+          // }
+          // else{
+          //   tmp=(unsigned)tmp;
+          // }
+          char digit[50];//from low to high
+          int pos=0;
+          do{
+            char x=(char)(tmp%16);
+            if(x>=10){
+              x='a'+x-10;
+            }
+            else{
+              x='0'+x;
+            }
+            digit[pos++]=x;
+            tmp/=16; 
+          }while(tmp!=0);
+          out[cnt++]='0';
+          out[cnt++]='x';
+          while(pos>0){
+            out[cnt++]=digit[--pos];
+            cnt++;
           }
           break;
         }
