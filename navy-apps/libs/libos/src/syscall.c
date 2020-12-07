@@ -74,6 +74,7 @@ void *_sbrk(intptr_t increment) {
     prog_break=prog_break+increment;
     return ret;
   }
+  printf("%d\n", prog_break);
   return (void *)-1;
 }
 
