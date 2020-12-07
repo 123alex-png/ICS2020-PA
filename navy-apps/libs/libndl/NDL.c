@@ -34,7 +34,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   char *buf[50];
   _read(fd, buf, 50);
   size_t info = atoi(buf);
-  int width = info >> 4, height = info & 0xffff;
+  int width = info >> 16, height = info & 0xffff;
   screen_h = height;
   screen_w = width;
   printf("%d %d\n",screen_w, screen_h);
