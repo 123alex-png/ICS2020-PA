@@ -29,10 +29,10 @@ int NDL_PollEvent(char *buf, int len) {
     //   return 1;
     // }
     FILE *fp=fopen("/dev/events", "r");
-    fread(buf, 1, 3, fp);
+    int ret=fread(buf, 1, 3, fp);
     fscanf(fp,"%s", buf+3);
     // fscanf(fp, "%s", buf);
-    if(buf){
+    if(ret){
       return 1;
     }
     return 0;
