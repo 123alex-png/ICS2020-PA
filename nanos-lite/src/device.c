@@ -48,7 +48,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   height = cfg.height;
   // size_t info =(cfg.width << 16) + cfg.height;
   //char tmp[50];
-  sprintf(buf, "%d %d", width, height);
+  sprintf(buf, "%d %d ", width, height);
   // strncpy(buf, tmp, len);
   return strlen(buf);
 }
