@@ -31,15 +31,15 @@ return 0;
 
 void NDL_OpenCanvas(int *w, int *h) {
   int fd = _open("/proc/dispinfo", 0, 0);
-  char *buf[21];
-  _read(fd, buf, 20);
-  char num1[10],num2[10];
-  strncpy(num1, buf, 10);
-  strncpy(num2, buf + 10, 10);
-  int width = atoi(num1), height = atoi(num2);
+  char *buf[50];
+  _read(fd, buf, 50);
+  size_t info = atoi(buf);
+  int width = info >> 4, height = info & 0xffff;
+  screen_h = height;
+  screen_w = width;
   if (*w == 0 && *h == 0 ){
-    screen_h = height;
-    screen_w = width;
+    *h = height;
+    *w = width;
   }
   if (getenv("NWM_APP")) {
     int fbctl = 4;

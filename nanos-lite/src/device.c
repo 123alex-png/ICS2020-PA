@@ -43,15 +43,11 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   AM_GPU_CONFIG_T cfg;
   ioe_read(AM_GPU_CONFIG, &cfg);
-  char num1[10], num2[10];
-  sprintf(num1,"%d",cfg.width);
-  sprintf(num2,"%d",cfg.height);
-  strcat(num1,num2);
-  strncpy(buf, num1, len);
-  //size_t info =(cfg.width << 4) + cfg.height;
-  //  sprintf(buf, "%d", cfg.width, cfg.height);
-  
-  return 0;
+  size_t info =(cfg.width << 4) + cfg.height;
+  char tmp[50];
+  sprintf(tmp, "%d", info);
+  strncpy(buf, tmp, len);
+  return strlen(buf);
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
