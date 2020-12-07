@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/time.h>
-
+#include <assert.h>
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
@@ -28,9 +28,11 @@ int NDL_PollEvent(char *buf, int len) {
     // if(ret!=0){
     //   return 1;
     // }
+    
     FILE *fp=fopen("/dev/events", "r");
-    int ret=fread(buf, 1, 3, fp);
-    fscanf(fp,"%s", buf+3);
+    
+    int ret=fread(buf, 1, len, fp);
+    // fscanf(fp,"%s", buf+3);
     // fscanf(fp, "%s", buf);
     if(ret){
       return 1;
@@ -39,9 +41,11 @@ int NDL_PollEvent(char *buf, int len) {
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
-  int fd = _open("/proc/dispinfo", 0, 0);
+  //int fd = _open("/proc/dispinfo", 0, 0);
+  FILE *fp = fopen("/proc/dispinfo", "r");
   char buf[50];
-  _read(fd, buf, 50);
+  //_read(fd, buf, 50);
+  fread(buf, 1, 50, fp);
   size_t info = atoi(buf);
   int width = info >> 16, height = info & 0xffff;
   screen_h = height;
