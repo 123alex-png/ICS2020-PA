@@ -105,8 +105,7 @@ size_t fs_read(int fd, void *buf, size_t len){
   // else{
   //   ret = ramdisk_read(buf ,file_table[fd].disk_offset + open_offset[fd], len);
   // }
-  // open_offset[fd] += ret;
-  // return ret;
+  // open_offset[fd]
 
 }
 
@@ -118,30 +117,31 @@ size_t fs_write(int fd, const void *buf, size_t len){
 }
 
 
-off_t fs_lseek(int fd, off_t offset, int whence){   
+off_t fs_lseek(int fd, off_t offset, int whence){
+  
   switch(whence){
     case SEEK_SET:{
-      // if(offset>file_table[fd].size){
-      //   assert(0);
-      //   return (off_t)-1;
-      // }
+      if(offset>file_table[fd].size){
+        //assert(0);
+        return (off_t)-1;
+      }
       open_offset[fd]=offset;
       //printf("cur=%d,offset=%d,whence = %d, size = %d\n",open_offset[fd],offset,whence,file_table[fd].size);
       break;
     }
     case SEEK_CUR:{
-      // if(open_offset[fd]+offset>file_table[fd].size){
-      //   assert(0);
-      //   return (off_t)-1;
-      // }
+      if(open_offset[fd]+offset>file_table[fd].size){
+        //assert(0);
+        return (off_t)-1;
+      }
       open_offset[fd]+=offset;
       break;
     }
     case SEEK_END:{
-      // if(offset>0){
-      //   assert(0);
-      //   ret  urn (off_t)-1;
-      // }
+      if(offset>0){
+        //assert(0);
+        return (off_t)-1;
+      }
       open_offset[fd]=file_table[fd].size+offset;
       break;
     }
