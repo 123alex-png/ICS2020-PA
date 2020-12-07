@@ -32,7 +32,7 @@ int NDL_PollEvent(char *buf, int len) {
     // if(ret!=0){
     //   return 1;
     // }
-    
+    fp1=fopen("/dev/events", "r");
     int ret=fread(buf, 1, len, fp1);
     // fscanf(fp,"%s", buf+3);
     // fscanf(fp, "%s", buf);
@@ -112,7 +112,7 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  fp1=fopen("/dev/events", "r");
+  // fp1=fopen("/dev/events", "r");
   return 0;
 }
 
