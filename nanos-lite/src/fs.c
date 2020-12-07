@@ -52,8 +52,6 @@ void init_fs() {
   file_table[FD_DISPINFO].read(buf, 0, 50);
   size_t info = atoi(buf);
   int width = info >> 16, height = info & 0xffff;
-  printf ("%d %d\n",width, height);
-  assert(0);
   file_table[FD_FB].size = width * height;
 }
 
@@ -78,9 +76,8 @@ int fs_close(int fd){
   return 0;
 }
 
-size_t off;
 size_t fs_read(int fd, void *buf, size_t len){
-  off=file_table[fd].disk_offset;
+  size_t off=file_table[fd].disk_offset;
   size_t size=file_table[fd].size;
   size_t real_len=len;
   if(open_offset[fd]+len>size){
@@ -97,6 +94,20 @@ size_t fs_read(int fd, void *buf, size_t len){
     open_offset[fd]+=real_len;
   }
   return ret;
+
+  // if(open_offset[fd]>=file_table[fd].size)return 0;
+  // size_t real_len=file_table[fd].size - open_offset[fd];
+  // if(len > real_len)len = real_len;
+  // size_t ret = 0;
+  // if(file_table[fd].read){
+  //   ret = file_table[fd].read(buf, file_table[fd].disk_offset + open_offset[fd], len);
+  // }
+  // else{
+  //   ret = ramdisk_read(buf ,file_table[fd].disk_offset + open_offset[fd], len);
+  // }
+  // open_offset[fd] += ret;
+  // return ret;
+
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
@@ -107,31 +118,30 @@ size_t fs_write(int fd, const void *buf, size_t len){
 }
 
 
-off_t fs_lseek(int fd, off_t offset, int whence){
-  
+off_t fs_lseek(int fd, off_t offset, int whence){   
   switch(whence){
     case SEEK_SET:{
-      if(offset>file_table[fd].size){
-        //assert(0);
-        return (off_t)-1;
-      }
+      // if(offset>file_table[fd].size){
+      //   assert(0);
+      //   return (off_t)-1;
+      // }
       open_offset[fd]=offset;
       //printf("cur=%d,offset=%d,whence = %d, size = %d\n",open_offset[fd],offset,whence,file_table[fd].size);
       break;
     }
     case SEEK_CUR:{
-      if(open_offset[fd]+offset>file_table[fd].size){
-        //assert(0);
-        return (off_t)-1;
-      }
+      // if(open_offset[fd]+offset>file_table[fd].size){
+      //   assert(0);
+      //   return (off_t)-1;
+      // }
       open_offset[fd]+=offset;
       break;
     }
     case SEEK_END:{
-      if(offset>0){
-        //assert(0);
-        return (off_t)-1;
-      }
+      // if(offset>0){
+      //   assert(0);
+      //   return (off_t)-1;
+      // }
       open_offset[fd]=file_table[fd].size+offset;
       break;
     }
