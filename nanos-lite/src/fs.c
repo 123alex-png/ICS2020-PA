@@ -52,7 +52,7 @@ void init_fs() {
   file_table[FD_DISPINFO].read(buf, 0, 50);
   size_t info = atoi(buf);
   int width = info >> 16, height = info & 0xffff;
-  file_table[FD_FB].size = width * height;
+  file_table[FD_FB].size = width * height * 4;
 }
 
 size_t getoffset(int fd){
