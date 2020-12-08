@@ -18,7 +18,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     h = s -> h;
   }
   printf("%d %d\n", w, h);
-  NDL_DrawRect(s->pixels, x, y, w, h);
+  NDL_DrawRect(s->pixels, x, y, s->pitch, h);
 }
 
 // APIs below are already implemented.
