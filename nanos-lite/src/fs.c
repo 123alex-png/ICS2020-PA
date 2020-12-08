@@ -110,21 +110,6 @@ size_t fs_read(int fd, void *buf, size_t len){
     open_offset[fd]+=real_len;
   }
   return ret;
-
-  // size_t real_len=file_table[fd].size - open_offset[fd];
-  // if(len > real_len)len = real_len;
-  // size_t ret = 0;
-  
-  // if(file_table[fd].read){
-  //   ret = file_table[fd].read(buf, file_table[fd].disk_offset + open_offset[fd], len);
-  // }
-  // else{
-  //   if(open_offset[fd]>=file_table[fd].size)return 0;
-  //   ret = ramdisk_read(buf ,file_table[fd].disk_offset + open_offset[fd], len);
-  //   open_offset[fd] += len;
-  // }
-  
-  // return ret;
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
