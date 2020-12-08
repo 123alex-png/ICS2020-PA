@@ -56,40 +56,19 @@ void _exit(int status) {
 }
 
 int _open(const char *path, int flags, mode_t mode) {
-  //_exit(SYS_open);
   int ret=_syscall_(SYS_open, (const char *)path,0,0);
   return ret;
 }
 
 int _write(int fd, void *buf, size_t count) {
-  //assert(0);
   return _syscall_(SYS_write, fd, (void *)buf, count);
 }
-
-// static intptr_t prog_break;
-// void *_sbrk(intptr_t increment) {
-//   prog_break=_syscall_(SYS_brk,0,0,0);
-//   // char buf[50];
-//   // sprintf(buf,"%x\n",prog_break);
-//   // _write(1, buf, 50);
-//   intptr_t addr=prog_break+increment;
-//   if(_syscall_(SYS_brk,addr,0,0)!=-1){ 
-//     void *ret=(void *)prog_break;
-//     prog_break=prog_break+increment;
-//     return ret;
-//   }
-//   return (void *)-1;
-// }
 
 extern char end;
 static intptr_t prog_break = &end;
 void *_sbrk(intptr_t increment) {
-  char buf[50];
-  sprintf(buf,"%x\n",prog_break);
-  _write(1, buf, 50);
   intptr_t addr=prog_break+increment;
   if(_syscall_(SYS_brk,addr,0,0)==0){ 
-    // assert(0);
     intptr_t ret = prog_break;
     prog_break = addr;
     return (void *)ret;
@@ -99,23 +78,14 @@ void *_sbrk(intptr_t increment) {
 
 
 int _read(int fd, void *buf, size_t count) {
-  
-  //_exit(SYS_read);
-  char buff[50];
-  sprintf(buff,"%d\n", fd);
-  _write(1, buff, 50);
-  //assert(0);
   return _syscall_(SYS_read,fd,(void *)buf,count);
 }
 
 int _close(int fd) {
-  //_exit(SYS_close);
   return _syscall_(SYS_close,fd,0,0);
 }
 
 off_t _lseek(int fd, off_t offset, int whence) {
-  //_exit(SYS_lseek);
-  
   return _syscall_(SYS_lseek,fd,offset,whence);
 }
 
