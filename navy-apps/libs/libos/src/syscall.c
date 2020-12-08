@@ -81,8 +81,8 @@ int _write(int fd, void *buf, size_t count) {
 //   return (void *)-1;
 // }
 
-extern char _end;
-static intptr_t prog_break = &_end;
+extern char end;
+static intptr_t prog_break = &end;
 void *_sbrk(intptr_t increment) {
   char buf[50];
   sprintf(buf,"%x\n",prog_break);
