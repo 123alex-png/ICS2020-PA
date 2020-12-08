@@ -84,11 +84,11 @@ int _write(int fd, void *buf, size_t count) {
 extern char _end;
 static intptr_t prog_break = &_end;
 void *_sbrk(intptr_t increment) {
-  // char buf[50];
-  // sprintf(buf,"%x\n",prog_break);
-  // _write(1, buf, 50);
+  char buf[50];
+  sprintf(buf,"%x\n",prog_break);
+  _write(1, buf, 50);
   intptr_t addr=prog_break+increment;
-  if(_syscall_(SYS_brk,addr,0,0)!=-1){ 
+  if(_syscall_(SYS_brk,addr,0,0)==0){ 
     intptr_t ret = prog_break;
     prog_break = addr;
     return ret;
