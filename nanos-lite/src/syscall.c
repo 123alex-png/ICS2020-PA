@@ -45,10 +45,10 @@ off_t sys_lseek(int fd,off_t offset, int whence){
 }
 
 intptr_t sys_brk(void * addr){
-  if(addr==0){
-    return (intptr_t)prog_break;
-  }
-  prog_break=addr;
+  // if(addr==0){
+  //   return (intptr_t)prog_break;
+  // }
+  // prog_break=addr;
   return 0;
 }
 
