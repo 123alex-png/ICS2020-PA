@@ -62,7 +62,7 @@ int _open(const char *path, int flags, mode_t mode) {
 }
 
 int _write(int fd, void *buf, size_t count) {
-  assert(0);
+  //assert(0);
   return _syscall_(SYS_write, fd, (void *)buf, count);
 }
 
@@ -104,7 +104,7 @@ int _read(int fd, void *buf, size_t count) {
   char buff[50];
   sprintf(buff,"%d\n", fd);
   _write(1, buff, 50);
-  assert(0);
+  //assert(0);
   return _syscall_(SYS_read,fd,(void *)buf,count);
 }
 
