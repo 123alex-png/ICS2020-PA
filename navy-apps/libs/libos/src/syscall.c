@@ -89,7 +89,7 @@ void *_sbrk(intptr_t increment) {
   _write(1, buf, 50);
   intptr_t addr=prog_break+increment;
   if(_syscall_(SYS_brk,addr,0,0)==0){ 
-    assert(0);
+    // assert(0);
     intptr_t ret = prog_break;
     prog_break = addr;
     return (void *)ret;
