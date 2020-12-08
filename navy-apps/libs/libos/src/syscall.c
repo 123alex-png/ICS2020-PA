@@ -62,19 +62,35 @@ int _open(const char *path, int flags, mode_t mode) {
 }
 
 int _write(int fd, void *buf, size_t count) {
+  assert(0);
   return _syscall_(SYS_write, fd, (void *)buf, count);
 }
 
-static intptr_t prog_break;
+// static intptr_t prog_break;
+// void *_sbrk(intptr_t increment) {
+//   prog_break=_syscall_(SYS_brk,0,0,0);
+//   // char buf[50];
+//   // sprintf(buf,"%x\n",prog_break);
+//   // _write(1, buf, 50);
+//   intptr_t addr=prog_break+increment;
+//   if(_syscall_(SYS_brk,addr,0,0)!=-1){ 
+//     void *ret=(void *)prog_break;
+//     prog_break=prog_break+increment;
+//     return ret;
+//   }
+//   return (void *)-1;
+// }
+
+extern char _end;
+static intptr_t prog_break = &_end;
 void *_sbrk(intptr_t increment) {
-  prog_break=_syscall_(SYS_brk,0,0,0);
-  char buf[50];
-  sprintf(buf,"%x\n",prog_break);
-  _write(1, buf, 50);
+  // char buf[50];
+  // sprintf(buf,"%x\n",prog_break);
+  // _write(1, buf, 50);
   intptr_t addr=prog_break+increment;
   if(_syscall_(SYS_brk,addr,0,0)!=-1){ 
-    void *ret=(void *)prog_break;
-    prog_break=prog_break+increment;
+    intptr_t ret = prog_break;
+    prog_break = addr;
     return ret;
   }
   return (void *)-1;
@@ -84,6 +100,10 @@ void *_sbrk(intptr_t increment) {
 int _read(int fd, void *buf, size_t count) {
   
   //_exit(SYS_read);
+  char buff[50];
+  sprintf(buff,"%d\n", fd);
+  _write(1, buff, 50);
+  assert(0);
   return _syscall_(SYS_read,fd,(void *)buf,count);
 }
 
