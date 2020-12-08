@@ -124,8 +124,11 @@ int NDL_Init(uint32_t flags) {
     evtdev = 3;
   }
   fevent=fopen("/dev/events", "r");
+  //assert(fevent);
   fdispinfo=fopen("/proc/dispinfo", "r");
+  assert(fdispinfo);
   ffb=fopen("/dev/fb", "r+");
+  //assert(ffb);
   return 0;
 }
 

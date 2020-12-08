@@ -37,18 +37,7 @@ int sys_write(int fd, void *buf, size_t count){
 }
 
 int sys_read(int fd, void *buf, size_t count){
-  switch(fd){
-    case 0:
-    case 1:
-    case 2:{
-      assert(0);
-      break;
-    }
-    default:{
-      return fs_read(fd,buf,count);
-    }
-  }
-  return 0;
+  return fs_read(fd, buf, count);
 }
 
 off_t sys_lseek(int fd,off_t offset, int whence){

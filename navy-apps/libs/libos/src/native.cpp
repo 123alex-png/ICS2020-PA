@@ -157,10 +157,12 @@ extern "C" int execve(const char *filename, char *const argv[], char *const envp
 
 FILE *fopen(const char *path, const char *mode) {
   char newpath[512];
+  //printf("\n\n%s\n\n", path);
   return glibc_fopen(redirect_path(newpath, path), mode);
 }
 
 int open(const char *path, int flags, ...) {
+
   if (strcmp(path, "/proc/dispinfo") == 0) {
     return dispinfo_fd;
   } else if (strcmp(path, "/dev/events") == 0) {

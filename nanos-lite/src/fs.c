@@ -75,6 +75,7 @@ size_t getoffset(int fd){
 }
 
 int fs_open(const char *pathname, int flags, int mode){
+  //assert(strcmp(pathname, "/share/pictures/projectn.bmp"));
   for(int i=0;i<FT_SIZE;i++){
     //if(file_table[i].name)
     {
@@ -92,36 +93,35 @@ int fs_close(int fd){
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
-  size_t off=file_table[fd].disk_offset;
-  size_t size=file_table[fd].size;
-  size_t real_len=len;
-  if(open_offset[fd]+len>size){
-    real_len=size-open_offset[fd];
-  }
-  if(file_table[fd].read==NULL){
-    file_table[fd].read=ramdisk_read;
+  // size_t off=file_table[fd].disk_offset;
+  // size_t size=file_table[fd].size;
+  // size_t real_len=len;
+  // if(open_offset[fd]+len>size){
+  //   real_len=size-open_offset[fd];
+  // }
+  // if(file_table[fd].read==NULL){
+  //   file_table[fd].read=ramdisk_read;
+  // }
+  // else if(file_table[fd].read != ramdisk_read){
+  //   real_len = len;
+  // }
+  // size_t ret=file_table[fd].read(buf,off+open_offset[fd],real_len);
+  // if(file_table[fd].read==ramdisk_read){
+  //   open_offset[fd]+=real_len;
+  // }
+  // return ret;
+
+  if(open_offset[fd]>=file_table[fd].size)return 0;
+  size_t real_len=file_table[fd].size - open_offset[fd];
+  if(len > real_len)len = real_len;
+  size_t ret = 0;
+  if(file_table[fd].read){
+    ret = file_table[fd].read(buf, file_table[fd].disk_offset + open_offset[fd], len);
   }
   else{
-    real_len = len;
-  }
-  size_t ret=file_table[fd].read(buf,off+open_offset[fd],real_len);
-  if(file_table[fd].read==ramdisk_read){
-    open_offset[fd]+=real_len;
+    ret = ramdisk_read(buf ,file_table[fd].disk_offset + open_offset[fd], len);
   }
   return ret;
-
-  // if(open_offset[fd]>=file_table[fd].size)return 0;
-  // size_t real_len=file_table[fd].size - open_offset[fd];
-  // if(len > real_len)len = real_len;
-  // size_t ret = 0;
-  // if(file_table[fd].read){
-  //   ret = file_table[fd].read(buf, file_table[fd].disk_offset + open_offset[fd], len);
-  // }
-  // else{
-  //   ret = ramdisk_read(buf ,file_table[fd].disk_offset + open_offset[fd], len);
-  // }
-  // open_offset[fd]
-
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
