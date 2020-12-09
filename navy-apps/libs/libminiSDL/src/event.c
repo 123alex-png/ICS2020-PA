@@ -14,6 +14,10 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
+  SDL_WaitEvent(ev);
+  if(ev->key.keysym.sym == SDLK_NONE){
+    // re
+  }
   return 0;
 }
 
@@ -30,7 +34,7 @@ int SDL_WaitEvent(SDL_Event *event) {
     }
     char *key = buf+3;
     //printf("key = %s, %d\n", key, strlen(key));
-    for(int i=0; i < 83; i++){
+    for(int i=1; i < 83; i++){
       //printf("%s, %d\n", keyname[i], strlen(keyname[i]));
       if(!strcmp(key, keyname[i])){
         event->key.keysym.sym = i;
