@@ -93,7 +93,6 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // int fd = _open("/dev/fb", 0, 0);
 
   size_t len = w;
-  uint8_t *lpixels = pixels;
   size_t offset;
   for (int j = 0; j < h && y + j < screen_h; j ++) {
       // printf("offset = %d, x = %d, y = %d\n", offset, x, y);
