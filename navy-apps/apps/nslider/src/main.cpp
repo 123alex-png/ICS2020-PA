@@ -24,6 +24,7 @@ void render() {
     SDL_FreeSurface(slide);
   }
   char fname[256];
+   printf("cur = %d in render\n", cur);
   sprintf(fname, path, cur);
   slide = SDL_LoadBMP(fname);
   assert(slide);
@@ -38,6 +39,7 @@ void prev(int rep) {
 }
 
 void next(int rep) {
+   printf("cur = %d in next\n", cur);
   if (rep == 0) rep = 1;
   cur += rep;
   if (cur >= N) cur = N - 1;

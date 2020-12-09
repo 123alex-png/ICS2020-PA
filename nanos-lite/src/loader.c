@@ -25,6 +25,26 @@ size_t fs_read(int fd, void *buf, size_t len);
 off_t fs_lseek(int fd, off_t offset, int whence);
 size_t getoffset(int fd);
 
+// static uintptr_t loader(PCB *pcb, const char *filename) {
+//   //TODO();
+//   int fd=fs_open(filename,0,0);
+//   fs_read(fd,&ehdr,sizeof(ehdr));
+//   //ramdisk_read(&ehdr, 0, 64);
+//   uint16_t phnum=ehdr.e_phnum;
+//   for(int i=0;i<phnum;i++){
+//       fs_read(fd,&phdr,ehdr.e_phentsize);
+//   //  ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
+//     if(phdr.p_type==PT_LOAD){
+//       size_t offset=getoffset(fd);//=fs_lseek(fd,0,SEEK_CUR);
+      
+//       // memcpy((void *)phdr.p_vaddr,(void *)(&ramdisk_start+offset+phdr.p_offset),phdr.p_filesz);
+//       ramdisk_read((void *)phdr.p_vaddr, phdr.p_offset + offset, phdr.p_filesz);
+//       memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
+//     }
+//   }
+//   return ehdr.e_entry;
+// }
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   int fd=fs_open(filename,0,0);
@@ -32,8 +52,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //ramdisk_read(&ehdr, 0, 64);
   uint16_t phnum=ehdr.e_phnum;
   for(int i=0;i<phnum;i++){
-      fs_read(fd,&phdr,ehdr.e_phentsize);
-  //  ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
+      //fs_read(fd,&phdr,ehdr.e_phentsize);
+      // ramdisk_read(&phdr, ehdr.e_phoff + i * sizeof(Elf_Phdr), sizeof(Elf_Phdr));
+   ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
     if(phdr.p_type==PT_LOAD){
       size_t offset=getoffset(fd);//=fs_lseek(fd,0,SEEK_CUR);
       
@@ -44,6 +65,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   }
   return ehdr.e_entry;
 }
+
 
 void naive_uload(PCB *pcb, const char *filename) {
   uintptr_t entry = loader(pcb, filename);

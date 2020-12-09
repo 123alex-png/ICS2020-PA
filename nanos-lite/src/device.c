@@ -32,12 +32,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if(ev.keycode == AM_KEY_NONE){
     return 0;
   }
-  char event[100];
   char* upordown=ev.keydown ? "kd" : "ku";
-  sprintf(event, "%s %s\n", upordown, names[ev.keycode]);
-  strncpy(buf, event, len);
-  size_t ret = strlen(buf);
-  return ret;
+  sprintf(buf, "%s %s", upordown, names[ev.keycode]);
+  return len;
 }
 
 static int width, height;
@@ -47,11 +44,11 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   width = cfg.width;
   height = cfg.height;
   sprintf(buf, "%d %d ", width, height);
-  return strlen(buf);
+  return len;
 }
 
 size_t fb_write(void *buf, size_t offset, size_t len) {
-      printf("offset=%d len=%d\n", offset, len);
+      // printf("offset=%d len=%d\n", offset, len);
   AM_GPU_FBDRAW_T ctl;
   ctl.x = offset % width;
   ctl.y = offset / width;
