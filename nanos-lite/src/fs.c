@@ -48,26 +48,9 @@ static size_t open_offset[100];
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
-  char buf[50];
-  file_table[FD_DISPINFO].read(buf, 0, 50);
-  char buf1[25],buf2[25];
-  int i;
-  for(i=0;buf[i]!='\0';i++){
-    if(buf[i]==' '){
-      i++;
-      break;
-    }
-    buf1[i]=buf[i];
-  }
-  buf1[i]='\0';
-  int j=0;
-  for(;buf[i]!='\0';i++){
-    buf2[j++]=buf[i];
-  }
-  buf2[j]='\0';
-  int width = atoi(buf1), height = atoi(buf2);
-  //printf("%d %d\n", width, height);
-  file_table[FD_FB].size = width * height * 4;
+  int width = io_read(AM_GPU_CONFIG).width, height = io_read(AM_GPU_CONFIG).height;
+  printf("%d %d\n", width, height);
+  file_table[FD_FB].size = width * height;
 }
 
 size_t getoffset(int fd){
@@ -119,50 +102,51 @@ size_t fs_write(int fd, const void *buf, size_t len){
   // return file_table[fd].write(buf,offset,len);
     size_t ret = 0;
   if(file_table[fd].write){
+    // printf("%d \n",len);
     ret = file_table[fd].write(buf, open_offset[fd], len);
+    open_offset[fd] += ret - 768;
+    // printf("offset = %d, len = %d\n", open_offset[fd], ret);
+    return ret;
   }
-  else{
-    if(open_offset[fd]>=file_table[fd].size)return 0;
-    size_t real_len=file_table[fd].size - open_offset[fd];
-    if(len > real_len)len = real_len;
-    ret = ramdisk_write(buf ,file_table[fd].disk_offset + open_offset[fd], len);
-    open_offset[fd] += ret;
-  }
-  
+  if(open_offset[fd]>=file_table[fd].size)return 0;
+  size_t real_len=file_table[fd].size - open_offset[fd];
+  if(len > real_len)len = real_len;
+  ret = ramdisk_write(buf ,file_table[fd].disk_offset + open_offset[fd], len);
+  open_offset[fd] += ret;
   return ret;
 }
 
 
 off_t fs_lseek(int fd, off_t offset, int whence){
-  
   switch(whence){
     case SEEK_SET:{
-      if(offset>file_table[fd].size){
-        //assert(0);
-        return (off_t)-1;
-      }
+      // if(offset>file_table[fd].size){
+      //   //assert(0);
+      //   return (off_t)-1;
+      // }
       open_offset[fd]=offset;
       //printf("cur=%d,offset=%d,whence = %d, size = %d\n",open_offset[fd],offset,whence,file_table[fd].size);
       break;
     }
     case SEEK_CUR:{
-      if(open_offset[fd]+offset>file_table[fd].size){
-        //assert(0);
-        return (off_t)-1;
-      }
+      // if(open_offset[fd]+offset>file_table[fd].size){
+      //   //assert(0);
+      //   return (off_t)-1;
+      // }
+      
       open_offset[fd]+=offset;
       break;
     }
     case SEEK_END:{
-      if(offset>0){
-        //assert(0);
-        return (off_t)-1;
-      }
+      // if(offset>0){
+      //   //assert(0);
+      //   return (off_t)-1;
+      // }
       open_offset[fd]=file_table[fd].size+offset;
       break;
     }
     default:
-      assert(0);
+      return -1;
   }
   return open_offset[fd];
 }

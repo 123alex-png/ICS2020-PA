@@ -46,14 +46,12 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   ioe_read(AM_GPU_CONFIG, &cfg);
   width = cfg.width;
   height = cfg.height;
-  // size_t info =(cfg.width << 16) + cfg.height;
-  //char tmp[50];
   sprintf(buf, "%d %d ", width, height);
-  // strncpy(buf, tmp, len);
   return strlen(buf);
 }
 
 size_t fb_write(void *buf, size_t offset, size_t len) {
+      printf("offset=%d len=%d\n", offset, len);
   AM_GPU_FBDRAW_T ctl;
   ctl.x = offset % width;
   ctl.y = offset / width;
@@ -61,7 +59,6 @@ size_t fb_write(void *buf, size_t offset, size_t len) {
   ctl.pixels = buf;
   ctl.w = len / 4;//len >> 16;
   ctl.h = 1;//len & 0xffff;
-  ctl.sync = true;
   ioe_write(AM_GPU_FBDRAW, &ctl);
   return len;
 }
