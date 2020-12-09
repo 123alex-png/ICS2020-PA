@@ -52,9 +52,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //ramdisk_read(&ehdr, 0, 64);
   uint16_t phnum=ehdr.e_phnum;
   for(int i=0;i<phnum;i++){
-      //fs_read(fd,&phdr,ehdr.e_phentsize);
+      fs_read(fd,&phdr,ehdr.e_phentsize);
       // ramdisk_read(&phdr, ehdr.e_phoff + i * sizeof(Elf_Phdr), sizeof(Elf_Phdr));
-   ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
+  //  ramdisk_read(&phdr,ehdr.e_phoff+i*ehdr.e_phentsize,ehdr.e_phentsize);
     if(phdr.p_type==PT_LOAD){
       size_t offset=getoffset(fd);//=fs_lseek(fd,0,SEEK_CUR);
       
