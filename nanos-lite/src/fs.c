@@ -75,43 +75,43 @@ int fs_close(int fd){
   return 0;
 }
 
-// size_t fs_read(int fd, void *buf, size_t len){
-//   if(open_offset[fd] >= file_table[fd].size){
-//     return 0;
-//   }
-//   size_t off=file_table[fd].disk_offset;
-//   size_t size=file_table[fd].size;
-//   size_t real_len=len;
-//   if(open_offset[fd]+len>size){
-//     real_len=size-open_offset[fd];
-//   }
-//   if(file_table[fd].read==NULL){
-//     file_table[fd].read=ramdisk_read;
-//     real_len = len;
-//   }
-//   else if(file_table[fd].read != ramdisk_read){
-//     real_len = len;
-//   }
-//   size_t ret=file_table[fd].read(buf,off+open_offset[fd],real_len);
-//   open_offset[fd]+=real_len;
-//   return ret;
-// }
-
 size_t fs_read(int fd, void *buf, size_t len){
-  if(file_table[fd].read){
-    int ret = file_table[fd].read(buf, open_offset[fd] + file_table[fd].disk_offset, len);
-    open_offset[fd] += ret;
-    return ret;
-  }
   if(open_offset[fd] >= file_table[fd].size){
     return 0;
   }
-  if(open_offset[fd] + len > file_table[fd].size){
-    len = file_table[fd].size - open_offset[fd];
+  size_t off=file_table[fd].disk_offset;
+  size_t size=file_table[fd].size;
+  size_t real_len=len;
+  if(open_offset[fd]+len>size){
+    real_len=size-open_offset[fd];
   }
-  ramdisk_read(buf, open_offset[fd] + file_table[fd].disk_offset, len);
-  return len;
+  if(file_table[fd].read==NULL){
+    file_table[fd].read=ramdisk_read;
+    real_len = len;
+  }
+  else if(file_table[fd].read != ramdisk_read){
+    real_len = len;
+  }
+  size_t ret=file_table[fd].read(buf,off+open_offset[fd],real_len);
+  open_offset[fd]+=real_len;
+  return ret;
 }
+
+// size_t fs_read(int fd, void *buf, size_t len){
+//   if(file_table[fd].read){
+//     int ret = file_table[fd].read(buf, open_offset[fd] + file_table[fd].disk_offset, len);
+//     open_offset[fd] += ret;
+//     return ret;
+//   }
+//   if(open_offset[fd] >= file_table[fd].size){
+//     return 0;
+//   }
+//   if(open_offset[fd] + len > file_table[fd].size){
+//     len = file_table[fd].size - open_offset[fd];
+//   }
+//   ramdisk_read(buf, open_offset[fd] + file_table[fd].disk_offset, len);
+//   return len;
+// }
 
 
 

@@ -2,7 +2,6 @@
 #include <assert.h>
 
 int main() {
-  return 0;
   FILE *fp = fopen("/share/files/num", "r+");
   assert(fp);//assert(0);
   fseek(fp, 0, SEEK_END);
