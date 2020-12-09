@@ -66,10 +66,10 @@ void NDL_OpenCanvas(int *w, int *h) {
   screen_h = height;
   screen_w = width;
   //printf("%d %d\n",screen_w, screen_h);
-  // if (*w == 0 && *h == 0 ){
-  //   *h = height;
-  //   *w = width;
-  // }
+  if (*w == 0 && *h == 0 ){
+    *h = height;
+    *w = width;
+  }
   if (getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
