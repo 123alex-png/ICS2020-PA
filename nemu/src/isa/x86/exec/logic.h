@@ -78,7 +78,7 @@ static inline def_EHelper(shrd) {
   rtl_li(s,s1,*dsrc1&0x1f);
   if(*s1!=0){
     rtl_li(s,ddest,*ddest>>*s1);
-    rtl_li(s,s0,*dsrc2 & ((1<<*s1)-1));
+    rtl_li(s,s0,*dsrc2 <<(id_src2->width*8-*s1));
     rtl_add(s,ddest,ddest,s0);
     operand_write(s,id_dest,ddest);
   }
