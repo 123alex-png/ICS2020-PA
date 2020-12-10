@@ -64,8 +64,8 @@ int _write(int fd, void *buf, size_t count) {
   return _syscall_(SYS_write, fd, (void *)buf, count);
 }
 
-extern char end;
-static intptr_t prog_break = &end;
+extern char _end;
+static intptr_t prog_break = &_end;
 void *_sbrk(intptr_t increment) {
   char buf[50];
   sprintf(buf,"%d %d\n",prog_break,increment);
