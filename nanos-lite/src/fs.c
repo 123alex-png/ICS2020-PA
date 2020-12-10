@@ -59,6 +59,9 @@ size_t getoffset(int fd){
 }
 
 int fs_open(const char *pathname, int flags, int mode){
+  // if(!strcmp(pathname, "/share/games/bird/splash.png")){
+  //   assert(0);
+  // }
   for(int i=0;i<FT_SIZE;i++){
     //if(file_table[i].name)
     {
