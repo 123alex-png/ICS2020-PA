@@ -135,16 +135,16 @@ static inline def_EHelper(lea) {
 }
 
 static inline def_EHelper(movsb){
-  rtl_lm(s,s0,&cpu.esi,0,4);
-  rtl_sm(s,&cpu.edi,0,s0,4);
+  rtl_lm(s,s0,&cpu.esi,0,1);
+  rtl_sm(s,&cpu.edi,0,s0,1);
   cpu.esi++;cpu.edi++;
 }
 
 static inline def_EHelper(movsw){
   int cnt = 2;
   while(cnt--){
-    rtl_lm(s,s0,&cpu.esi,0,4);
-    rtl_sm(s,&cpu.edi,0,s0,4);
+    rtl_lm(s,s0,&cpu.esi,0,1);
+    rtl_sm(s,&cpu.edi,0,s0,1);
     cpu.esi++;cpu.edi++;
   }
 }
