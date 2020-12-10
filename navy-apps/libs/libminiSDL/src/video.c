@@ -33,8 +33,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   // printf("dstx=%d, dsty=%d, dstw=%d, dsth=%d\n",dstx,dsty,dstw,dsth);
   // printf("srcx=%d, srcy=%d, srcw=%d, srch=%d\n",srcx,srcy,srcw,srch);
   //assert(srcw == dstw && srch ==dsth);
-  uint32_t *dstpixels = dst->pixels;
-  uint32_t *srcpixels = src->pixels;
+  uint32_t *dstpixels = (uint32_t *)dst->pixels;
+  uint32_t *srcpixels = (uint32_t *)src->pixels;
   for(int i = 0; i < srch; i++){
     for(int j = 0; j < srcw; j++){
       dstpixels[(i + dsty) * dst->w + j + dstx] = srcpixels[(i + srcy) * srcw + j + srcx];
@@ -53,11 +53,11 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   else{ 
     x = dstrect->x;
     y = dstrect->y;
-    w = dstrect->w != 0 ? dstrect->w : dst -> w;
-    h = dstrect->h != 0 ? dstrect->h : dst -> h ;
+    w = dstrect->w;
+    h = dstrect->h;
   }
-  printf("x=%d y=%d w=%d h=%d\n",x,y,w,h);
-  uint32_t *pixels = dst->pixels;
+  // printf("x=%d y=%d w=%d h=%d\n",x,y,w,h);
+  uint32_t *pixels = (uint32_t *)dst->pixels;
   for(int i = 0; i < h; i ++){
     for(int j = 0;j < w; j ++){
       pixels[w * i + j] = color;
@@ -73,7 +73,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   }
   // printf("%d %d\n", w, h);
   // printf("%d\n", s->pitch);
-  NDL_DrawRect(s->pixels, x, y, w, h);
+  NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
 }
 
 // APIs below are already implemented.

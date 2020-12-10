@@ -29,7 +29,7 @@ int SDL_PollEvent(SDL_Event *ev) {
     for(int i = 0; i < 83; i++){
       //printf("%s, %d\n", keyname[i], strlen(keyname[i]));
       if(!strcmp(key, keyname[i])){
-        printf("receive event: %s\n", buf);
+        //printf("receive event: %s\n", buf);
         ev->key.keysym.sym = i;
         return 1;
       }
@@ -42,7 +42,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   event->type = SDL_KEYUP;
   if(NDL_PollEvent(buf, sizeof(buf))){
-    printf("receive event: %s\n", buf);
+    //printf("receive event: %s\n", buf);
     if(buf[1]=='u'){
       event->type = SDL_KEYUP;
     }

@@ -55,25 +55,25 @@ void _exit(int status) {
   while (1);
 }
 
-int _open(const char *path, int flags, mode_t mode) {
-  int ret=_syscall_(SYS_open, (const char *)path,0,0);
+int _open(char *path, int flags, mode_t mode) {
+  int ret=_syscall_(SYS_open, (intptr_t)(void *)path,0,0);
   return ret;
 }
 
 int _write(int fd, void *buf, size_t count) {
-  return _syscall_(SYS_write, fd, (void *)buf, count);
+  return _syscall_(SYS_write, fd, (intptr_t)buf, count);
 }
 
 extern char _end;
-static intptr_t prog_break = &_end;
+static void *prog_break = &_end;
 void *_sbrk(intptr_t increment) {
-  char buf[50];
-  sprintf(buf,"%d %d\n",prog_break,increment);
-  write(1, buf, 50);
-  intptr_t addr=prog_break+increment;
+  // char buf[50];
+  // sprintf(buf,"%d %d\n",prog_break,increment);
+  // write(1, buf, 50);
+  intptr_t addr=(intptr_t)prog_break+increment;
   if(_syscall_(SYS_brk,addr,0,0)==0){ 
-    intptr_t ret = prog_break;
-    prog_break = addr;
+    intptr_t ret = (intptr_t)prog_break;
+    prog_break = (void *)addr;
     return (void *)ret;
   }
   return (void *)-1;
@@ -81,7 +81,7 @@ void *_sbrk(intptr_t increment) {
 
 
 int _read(int fd, void *buf, size_t count) {
-  return _syscall_(SYS_read,fd,(void *)buf,count);
+  return _syscall_(SYS_read, fd, (intptr_t)buf,count);
 }
 
 int _close(int fd) {
@@ -94,7 +94,7 @@ off_t _lseek(int fd, off_t offset, int whence) {
 
 int _gettimeofday(struct timeval *tv, struct timezone *tz) {
   //_exit(SYS_gettimeofday);
-  int ret=_syscall_(SYS_gettimeofday,(struct timeval *)tv,(struct timezone *)tz,0);
+  int ret=_syscall_(SYS_gettimeofday,(intptr_t)(void *)tv, (intptr_t)(void *)tz,0);
   //printf("sec=%d",tv->tv_sec);
   return ret;
 }
@@ -172,14 +172,14 @@ int dup2(int oldfd, int newfd) {
 struct timeval init;
 unsigned int sleep(unsigned int seconds) {
   //assert(0);
-  _gettimeofday(&init, NULL);
-  while(1){
-    volatile struct timeval tv;
-    _gettimeofday(&tv, NULL);
-    if(tv.tv_sec-init.tv_sec>=seconds){
-      return 0;
-    }
-  }
+  // _gettimeofday(&init, NULL);
+  // while(1){
+  //   volatile struct timeval tv;
+  //   _gettimeofday(&tv, NULL);
+  //   if(tv.tv_sec-init.tv_sec>=seconds){
+  //     return 0;
+  //   }
+  // }
   assert(0);
   return 0;
 }
