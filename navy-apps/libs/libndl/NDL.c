@@ -23,6 +23,7 @@ uint32_t NDL_GetTicks() {
   struct timeval tv;
   gettimeofday(&tv, NULL);
   uint32_t ret = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+  // printf("NDL_GetTicks: %d\n", ret);
   return ret;
 }
 

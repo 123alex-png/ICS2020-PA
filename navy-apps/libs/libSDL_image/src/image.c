@@ -17,6 +17,7 @@ SDL_Surface* IMG_Load(const char *filename) {
   uint8_t *buf = malloc(size);
   fseek(fp, 0, SEEK_SET);
   fread(buf, size, 1, fp);
+  assert(buf);
   // for(int i = 0; i < size; i++){
   //   {
   //   printf("buf[%d] = %d\n", i, buf[i]);
@@ -25,6 +26,7 @@ SDL_Surface* IMG_Load(const char *filename) {
   // printf("size = %d\n",size);
   // assert(0);
   SDL_Surface *ret = STBIMG_LoadFromMemory(buf, size);
+  assert(ret);
   fclose(fp);
   free(buf);
   return ret;
