@@ -14,10 +14,12 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
+  if(ev == NULL){
+    return 1;
+  }
   char buf[64];
   ev->type = SDL_KEYUP;
   if(NDL_PollEvent(buf, sizeof(buf))){
-    
     if(buf[1]=='u'){
       ev->type = SDL_KEYUP;
     }

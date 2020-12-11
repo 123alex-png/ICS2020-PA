@@ -91,7 +91,18 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   }
   // printf("%d %d\n", w, h);
   // printf("%d\n", s->pitch);
-  NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+  if(s->format->palette == NULL){
+    NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+  }
+  else{
+    uint32_t *pixels = malloc(w * h * 4);
+    for(int i = 0; i < h; i ++){
+      for(int j = 0; j < w; j ++){
+        pixels[i * w + j] = s->format->palette[s->pixels[i * w + j]].colors->val;
+      }
+    }
+    NDL_DrawRect(pixels, x, y, w, h);
+  }
 }
 
 // APIs below are already implemented.
