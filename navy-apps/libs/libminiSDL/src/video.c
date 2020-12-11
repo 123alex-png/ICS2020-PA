@@ -33,11 +33,20 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   // printf("dstx=%d, dsty=%d, dstw=%d, dsth=%d\n",dstx,dsty,dstw,dsth);
   // printf("srcx=%d, srcy=%d, srcw=%d, srch=%d\n",srcx,srcy,srcw,srch);
   //assert(srcw == dstw && srch ==dsth);
-  uint32_t *dstpixels = (uint32_t *)dst->pixels;
-  uint32_t *srcpixels = (uint32_t *)src->pixels;
-  for(int i = 0; i < srch; i++){
-    for(int j = 0; j < srcw; j++){
-      dstpixels[(i + dsty) * dst->w + j + dstx] = srcpixels[(i + srcy) * srcw + j + srcx];
+  if(dst->format->palette == NULL){
+    uint32_t *dstpixels = (uint32_t *)dst->pixels;
+    uint32_t *srcpixels = (uint32_t *)src->pixels;
+    for(int i = 0; i < srch; i++){
+      for(int j = 0; j < srcw; j++){
+        dstpixels[(i + dsty) * dst->w + j + dstx] = srcpixels[(i + srcy) * srcw + j + srcx];
+      }
+    }
+  }
+  else{
+    for(int i = 0; i < srch; i++){
+      for(int j = 0; j < srcw; j++){
+        dst->format->palette[dst->pixels[(i + dsty) * dst->w + j + dstx]].colors->val = src->format->palette[src->pixels[(i + srcy) * srcw + j + srcx]].colors->val;
+      }
     }
   }
 }
@@ -57,11 +66,20 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     h = dstrect->h;
   }
   // printf("x=%d y=%d w=%d h=%d\n",x,y,w,h);
-  uint32_t *pixels = (uint32_t *)dst->pixels;
-  for(int i = 0; i < h; i ++){
-    for(int j = 0;j < w; j ++){
-      pixels[w * i + j] = color;
-      // printf("%d\n", w * i + j);
+  if(dst->format->palette == NULL){
+    uint32_t *pixels = (uint32_t *)dst->pixels;
+    for(int i = 0; i < h; i ++){
+      for(int j = 0;j < w; j ++){
+        pixels[w * i + j] = color;
+        // printf("%d\n", w * i + j);
+      }
+    }
+  }
+  else{
+    for(int i = 0; i < h; i++){
+      for(int j = 0; j < w; j++){
+        dst->format->palette[dst->pixels[(i + y) * dst->w + j + x]].colors->val = color;
+      }
     }
   }
 }

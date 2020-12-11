@@ -132,7 +132,7 @@ int NDL_Init(uint32_t flags) {
   fdispinfo=fopen("/proc/dispinfo", "r");
   assert(fdispinfo);
   ffb=fopen("/dev/fb", "r+");
-  //assert(ffb);
+  assert(ffb);
   return 0;
 }
 

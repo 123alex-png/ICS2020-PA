@@ -18,6 +18,8 @@ SDL_Surface* IMG_Load(const char *filename) {
   fseek(fp, 0, SEEK_SET);
   fread(buf, 1, size, fp);
   assert(buf);
+  printf("%s %d %d\n", filename, strlen(buf),size);
+  // assert(sizeof(buf)==size);
   // for(int i = 0; i < size; i++){
   //   {
   //   printf("buf[%d] = %d\n", i, buf[i]);
