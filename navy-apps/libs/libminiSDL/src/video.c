@@ -8,6 +8,7 @@
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  //printf("dst->format->BitsPerPixel = %d\n", dst->format->BitsPerPixel);
   int dstx,dsty;
   if(dstrect == NULL){
     dstx = 0;
@@ -33,22 +34,24 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   // printf("dstx=%d, dsty=%d, dstw=%d, dsth=%d\n",dstx,dsty,dstw,dsth);
   // printf("srcx=%d, srcy=%d, srcw=%d, srch=%d\n",srcx,srcy,srcw,srch);
   //assert(srcw == dstw && srch ==dsth);
-  if(dst->format->palette == NULL){
-    uint32_t *dstpixels = (uint32_t *)dst->pixels;
-    uint32_t *srcpixels = (uint32_t *)src->pixels;
-    for(int i = 0; i < srch; i++){
-      for(int j = 0; j < srcw; j++){
-        dstpixels[(i + dsty) * dst->w + j + dstx] = srcpixels[(i + srcy) * srcw + j + srcx];
+    if(dst->format->BitsPerPixel == 8){
+      uint8_t *dstpixels = (uint8_t *)dst->pixels;
+      uint8_t *srcpixels = (uint8_t *)src->pixels;
+      for(int i = 0; i < srch; i++){
+        for(int j = 0; j < srcw; j++){
+          dstpixels[(i + dsty) * dst->w + j + dstx] = srcpixels[(i + srcy) * src->w + j + srcx];
+        }
       }
     }
-  }
-  else{
-    for(int i = 0; i < srch; i++){
-      for(int j = 0; j < srcw; j++){
-        dst->format->palette[dst->pixels[(i + dsty) * dst->w + j + dstx]].colors->val = src->format->palette[src->pixels[(i + srcy) * srcw + j + srcx]].colors->val;
+    else{
+      uint32_t *dstpixels = (uint32_t *)dst->pixels;
+      uint32_t *srcpixels = (uint32_t *)src->pixels;
+      for(int i = 0; i < srch; i++){
+        for(int j = 0; j < srcw; j++){
+          dstpixels[(i + dsty) * dst->w + j + dstx] = srcpixels[(i + srcy) * src->w + j + srcx];
+        }
       }
     }
-  }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
@@ -66,8 +69,8 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     h = dstrect->h;
   }
   // printf("x=%d y=%d w=%d h=%d\n",x,y,w,h);
-  if(dst->format->palette == NULL){
-    uint32_t *pixels = (uint32_t *)dst->pixels;
+  if(dst->format->BitsPerPixel == 8){
+    uint8_t *pixels = dst->pixels;
     for(int i = 0; i < h; i ++){
       for(int j = 0;j < w; j ++){
         pixels[w * i + j] = color;
@@ -76,13 +79,16 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     }
   }
   else{
-    for(int i = 0; i < h; i++){
-      for(int j = 0; j < w; j++){
-        dst->format->palette[dst->pixels[(i + y) * dst->w + j + x]].colors->val = color;
+    uint32_t *pixels = (uint32_t *)dst->pixels;
+    for(int i = 0; i < h; i ++){
+      for(int j = 0;j < w; j ++){
+        pixels[w * i + j] = color;
+        // printf("%d\n", w * i + j);
       }
     }
   }
 }
+
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if(x==0 && y==0 && w==0 && h==0){
@@ -98,7 +104,16 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     uint32_t *pixels = malloc(w * h * 4);
     for(int i = 0; i < h; i ++){
       for(int j = 0; j < w; j ++){
-        pixels[i * w + j] = s->format->palette[s->pixels[i * w + j]].colors->val;
+        // if(s->format->palette->colors[s->pixels[i * w + j]].val)
+        // printf("%d\n",s->format->palette->colors[s->pixels[i * w + j]].val);
+        // if(s->pixels[i * w + j])
+        // printf("s->pixels[i * w + j] = %d\n", s->pixels[i * w + j]);
+        uint32_t color = 0;
+        uint32_t tmp = s->format->palette->colors[s->pixels[(i + y) * w + j + x]].val;
+        color |= (tmp & 0xff00ff00);
+        color |= (tmp & 0xff0000)>>16;
+        color |= (tmp & 0xff)<<16;
+        pixels[(i + y) * w + j + x] = color;
       }
     }
     NDL_DrawRect(pixels, x, y, w, h);
@@ -228,6 +243,7 @@ void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors, int firstcolor
       uint8_t r = colors[i].r;
       uint8_t g = colors[i].g;
       uint8_t b = colors[i].b;
+      // printf("%x\n",s->format->palette->colors[i].val);
     }
     SDL_UpdateRect(s, 0, 0, 0, 0);
   }
