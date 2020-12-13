@@ -15,51 +15,118 @@ static inline def_EHelper(pop) {
 }
 
 static inline def_EHelper(pusha) {
+  // if(s->isa.is_operand_size_16){
+  //   rtl_push(s,(rtlreg_t*)&(cpu.ax));
+  //   rtl_push(s,(rtlreg_t*)&(cpu.cx));
+  //   rtl_push(s,(rtlreg_t*)&(cpu.dx));
+  //   rtl_push(s,(rtlreg_t*)&(cpu.bx));
+  //   rtl_push(s,(rtlreg_t*)&(cpu.sp));
+  //   rtl_push(s,(rtlreg_t*)&(cpu.bp));
+  //   rtl_push(s,(rtlreg_t*)&(cpu.si));
+  //   rtl_push(s,(rtlreg_t*)&(cpu.di));
+  // }
+  // else{
+  //   rtl_push(s,&(cpu.eax));
+  //   rtl_push(s,&(cpu.ecx));
+  //   rtl_push(s,&(cpu.edx));
+  //   rtl_push(s,&(cpu.ebx));
+  //   rtl_push(s,&(cpu.esp));
+  //   rtl_push(s,&(cpu.ebp));
+  //   rtl_push(s,&(cpu.esi));
+  //   rtl_push(s,&(cpu.edi));
+  // }
   if(s->isa.is_operand_size_16){
-    rtl_push(s,(rtlreg_t*)&(cpu.ax));
-    rtl_push(s,(rtlreg_t*)&(cpu.cx));
-    rtl_push(s,(rtlreg_t*)&(cpu.dx));
-    rtl_push(s,(rtlreg_t*)&(cpu.bx));
-    rtl_push(s,(rtlreg_t*)&(cpu.sp));
-    rtl_push(s,(rtlreg_t*)&(cpu.bp));
-    rtl_push(s,(rtlreg_t*)&(cpu.si));
-    rtl_push(s,(rtlreg_t*)&(cpu.di));
-  }
-  else{
-    rtl_push(s,&(cpu.eax));
-    rtl_push(s,&(cpu.ecx));
-    rtl_push(s,&(cpu.edx));
-    rtl_push(s,&(cpu.ebx));
-    rtl_push(s,&(cpu.esp));
-    rtl_push(s,&(cpu.ebp));
-    rtl_push(s,&(cpu.esi));
-    rtl_push(s,&(cpu.edi));
-  }
+  rtl_lr(s,s0,4,2);
+  rtl_lr(s,s1,0,2);
+  rtl_push(s,s1);
+  rtl_lr(s,s1,1,2);
+  rtl_push(s,s1);
+  rtl_lr(s,s1,2,2);
+  rtl_push(s,s1);
+  rtl_lr(s,s1,3,2);
+  rtl_push(s,s1);
+  rtl_push(s,s0);
+  rtl_lr(s,s1,5,2);
+  rtl_push(s,s1);
+  rtl_lr(s,s1,6,2);
+  rtl_push(s,s1);
+  rtl_lr(s,s1,7,2);
+  rtl_push(s,s1);
+}else{
+  rtl_lr(s,s0,4,4);
+  rtl_lr(s,s1,0,4);
+  rtl_push(s,s1);
+  rtl_lr(s,s1,1,4);
+  rtl_push(s,s1);
+  rtl_lr(s,s1,2,4);
+  rtl_push(s,s1);
+  rtl_lr(s,s1,3,4);
+  rtl_push(s,s1);
+  rtl_push(s,s0);
+  rtl_lr(s,s1,5,4);
+  rtl_push(s,s1);
+  rtl_lr(s,s1,6,4);
+  rtl_push(s,s1);
+  rtl_lr(s,s1,7,4);
+  rtl_push(s,s1);
+}
   print_asm("pusha");
 }
 
 static inline def_EHelper(popa) {
-  if(s->isa.is_operand_size_16){
-    rtl_pop(s,(rtlreg_t*)&(cpu.di));
-    rtl_pop(s,(rtlreg_t*)&(cpu.si));
-    rtl_pop(s,(rtlreg_t*)&(cpu.bp));
-    rtl_pop(s,s0);
-    rtl_pop(s,(rtlreg_t*)&(cpu.bx));
-    rtl_pop(s,(rtlreg_t*)&(cpu.dx));
-    rtl_pop(s,(rtlreg_t*)&(cpu.cx));
-    rtl_pop(s,(rtlreg_t*)&(cpu.ax));
-  }
-  else{
-    rtl_pop(s,&(cpu.edi));
-    rtl_pop(s,&(cpu.esi));
-    rtl_pop(s,&(cpu.ebp));
-    rtl_pop(s,s0);
-    rtl_pop(s,&(cpu.ebx));
-    rtl_pop(s,&(cpu.edx));
-    rtl_pop(s,&(cpu.ecx));
-    rtl_pop(s,&(cpu.eax));
-  }
-
+  // if(s->isa.is_operand_size_16){
+  //   rtl_pop(s,(rtlreg_t*)&(cpu.di));
+  //   rtl_pop(s,(rtlreg_t*)&(cpu.si));
+  //   rtl_pop(s,(rtlreg_t*)&(cpu.bp));
+  //   rtl_pop(s,s0);
+  //   rtl_pop(s,(rtlreg_t*)&(cpu.bx));
+  //   rtl_pop(s,(rtlreg_t*)&(cpu.dx));
+  //   rtl_pop(s,(rtlreg_t*)&(cpu.cx));
+  //   rtl_pop(s,(rtlreg_t*)&(cpu.ax));
+  // }
+  // else{
+  //   rtl_pop(s,&(cpu.edi));
+  //   rtl_pop(s,&(cpu.esi));
+  //   rtl_pop(s,&(cpu.ebp));
+  //   rtl_pop(s,s0);
+  //   rtl_pop(s,&(cpu.ebx));
+  //   rtl_pop(s,&(cpu.edx));
+  //   rtl_pop(s,&(cpu.ecx));
+  //   rtl_pop(s,&(cpu.eax));
+  // }
+if(s->isa.is_operand_size_16){
+  rtl_pop(s,s0);
+  rtl_sr(s,7,s0,2);
+  rtl_pop(s,s0);
+  rtl_sr(s,6,s0,2);
+  rtl_pop(s,s0);
+  rtl_sr(s,5,s0,2);
+  rtl_pop(s,s0);
+  rtl_pop(s,s0);
+  rtl_sr(s,3,s0,2);
+  rtl_pop(s,s0);
+  rtl_sr(s,2,s0,2);
+  rtl_pop(s,s0);
+  rtl_sr(s,1,s0,2);
+  rtl_pop(s,s0);
+  rtl_sr(s,0,s0,2);
+}else{
+  rtl_pop(s,s0);
+  rtl_sr(s,7,s0,4);
+  rtl_pop(s,s0);
+  rtl_sr(s,6,s0,4);
+  rtl_pop(s,s0);
+  rtl_sr(s,5,s0,4);
+  rtl_pop(s,s0);
+  rtl_pop(s,s0);
+  rtl_sr(s,3,s0,4);
+  rtl_pop(s,s0);
+  rtl_sr(s,2,s0,4);
+  rtl_pop(s,s0);
+  rtl_sr(s,1,s0,4);
+  rtl_pop(s,s0);
+  rtl_sr(s,0,s0,4);
+}
   print_asm("popa");
 }
 
