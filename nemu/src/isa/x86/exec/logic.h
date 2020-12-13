@@ -88,7 +88,7 @@ static inline def_EHelper(shrd) {
 
 
 static inline def_EHelper(rol) {
-  rtl_li(s,s1,*dsrc1&0x1f);
+  rtl_li(s,s1,*dsrc1%(id_dest->width*8));
   rtl_li(s,ddest,(*ddest<<*s1)|((*ddest)>>(id_dest->width*8-*s1)));
   // while(*s1!=0){
   //   rtl_msb(s,s0,ddest,id_dest->width);
@@ -101,7 +101,7 @@ static inline def_EHelper(rol) {
 }
 
 static inline def_EHelper(ror) {
-  rtl_li(s,s1,*dsrc1&0x1f);
+  rtl_li(s,s1,*dsrc1%(id_dest->width*8));
   rtl_li(s,ddest,(*ddest>>*s1)|((*ddest)<<(id_dest->width*8-*s1)));
   // while(*s1!=0){
   //   //rtl_msb(s,s0,ddest,id_dest->width);
