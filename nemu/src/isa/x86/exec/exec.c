@@ -324,7 +324,7 @@ vaddr_t isa_exec_once() {
   }
   fetch_decode_exec(&s);
   update_pc(&s);
-  if(++cnt > 100000){
+  if(++cnt > 10000000){
     printf("%d\n",cnt);
   }
   return s.seq_pc;
