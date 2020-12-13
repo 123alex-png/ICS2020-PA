@@ -2,7 +2,7 @@
 #define __CC_H__
 
 #include "../local-include/rtl.h"
-
+#define EFLAGS eflags
 enum {
   CC_O, CC_NO, CC_B,  CC_NB,
   CC_E, CC_NE, CC_BE, CC_NBE,

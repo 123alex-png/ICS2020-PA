@@ -1,5 +1,5 @@
 #include "cc.h"
-
+#define EFLAGS eflags
 
 static inline def_EHelper(test) {
   rtl_and(s,s0,ddest,dsrc1);

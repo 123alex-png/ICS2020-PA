@@ -45,7 +45,7 @@ rtl_pop(s,s0);
 //printf("%x\n",*s0);
 rtl_pop(s,s1);
 rtl_pop(s,s2);
-cpu.EFLAGS.val=*s2;
+cpu.eflag_val=*s2;
 cpu.cs=*s1;
 rtl_j(s,*s0);
   print_asm("iret");
