@@ -109,11 +109,11 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         // if(s->pixels[i * w + j])
         // printf("s->pixels[i * w + j] = %d\n", s->pixels[i * w + j]);
         uint32_t color = 0;
-        uint32_t tmp = s->format->palette->colors[s->pixels[(i + y) * w + j + x]].val;
+        uint32_t tmp = s->format->palette->colors[s->pixels[(i + y) * s->w + j + x]].val;
         color |= (tmp & 0xff00ff00);
         color |= (tmp & 0xff0000)>>16;
         color |= (tmp & 0xff)<<16;
-        pixels[i * s->w + j] = color;
+        pixels[i * w + j] = color;
       }
     }
     NDL_DrawRect(pixels, x, y, w, h);
