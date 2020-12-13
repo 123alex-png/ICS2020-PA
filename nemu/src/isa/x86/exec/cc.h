@@ -44,7 +44,7 @@ static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcod
     // case CC_NL:rtl_li(s,dest,interpret_relop(RELOP_EQ,cpu.SF,cpu.OF));break;
     // case CC_NLE:rtl_li(s,dest,c_and(!cpu.ZF,interpret_relop(RELOP_EQ,cpu.SF,cpu.OF)));break;
     default: panic("should not reach here");
-    case CC_P:case CC_NP: printf("pc=%x\n",s->seq_pc);panic("PF is not supported");
+    case CC_P:case CC_NP: panic("PF is not supported");
   }
 
   if (invert) {
