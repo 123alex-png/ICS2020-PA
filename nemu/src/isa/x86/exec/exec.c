@@ -312,7 +312,7 @@ again:
   default: exec_inv(s);
   }
 }
-
+int cnt = 0;
 vaddr_t isa_exec_once() {
   DecodeExecState s;
   s.is_jmp = 0;
