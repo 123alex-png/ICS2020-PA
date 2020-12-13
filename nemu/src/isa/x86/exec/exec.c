@@ -318,7 +318,7 @@ vaddr_t isa_exec_once() {
   s.is_jmp = 0;
   s.isa = (ISADecodeInfo) { 0 };
   s.seq_pc = cpu.pc;
-  if(cpu.pc==0x301e774){
+  if(cpu.pc==0x301e864){
     printf("cpu.ax = %x\n",cpu.ax);
     // assert(0);
   }
