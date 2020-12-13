@@ -72,6 +72,7 @@ static inline def_EHelper(shld) {
     rtl_add(s,ddest,ddest,s0);
     operand_write(s,id_dest,ddest);
   }
+  rtl_update_ZFSF(s,ddest,id_dest->width);
 }
 
 static inline def_EHelper(shrd) {
@@ -82,6 +83,7 @@ static inline def_EHelper(shrd) {
     rtl_add(s,ddest,ddest,s0);
     operand_write(s,id_dest,ddest);
   }
+  rtl_update_ZFSF(s,ddest,id_dest->width);
 }
 
 
