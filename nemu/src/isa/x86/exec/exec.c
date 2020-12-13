@@ -312,7 +312,7 @@ again:
   default: exec_inv(s);
   }
 }
-int cnt = 0;
+int64_t cnt = 0;
 vaddr_t isa_exec_once() {
   DecodeExecState s;
   s.is_jmp = 0;
@@ -324,8 +324,8 @@ vaddr_t isa_exec_once() {
   }
   fetch_decode_exec(&s);
   update_pc(&s);
-  if(++cnt > 10000000){
-    printf("%d\n",cnt);
+  if(++cnt > 100000000){
+    printf("%ld\n",cnt);
   }
   return s.seq_pc;
 }
