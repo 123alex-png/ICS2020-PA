@@ -140,11 +140,27 @@ static inline def_EHelper(movsb){
   cpu.esi++;cpu.edi++;
 }
 
+// static inline def_EHelper(movsw){
+//   int cnt = 2;
+//   while(cnt--){
+//     rtl_lm(s,s0,&cpu.esi,0,1);
+//     rtl_sm(s,&cpu.edi,0,s0,1);
+//     cpu.esi++;cpu.edi++;
+//   }
+// }
 static inline def_EHelper(movsw){
-  int cnt = 2;
-  while(cnt--){
-    rtl_lm(s,s0,&cpu.esi,0,1);
-    rtl_sm(s,&cpu.edi,0,s0,1);
-    cpu.esi++;cpu.edi++;
+  *s1=cpu.esi;
+  *s2=cpu.edi;
+  if(s->isa.is_operand_size_16){
+    rtl_lm(s,s0,s1,0,2);
+    rtl_sm(s,s2,0,s0,2);
+    cpu.esi+=2;
+    cpu.edi+=2;
+  }else{
+    rtl_lm(s,s0,s1,0,4);
+    rtl_sm(s,s2,0,s0,4);
+    cpu.esi+=4;
+    cpu.edi+=4;
   }
+  print_asm_template1(movsw);
 }
