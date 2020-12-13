@@ -1,7 +1,7 @@
 #include <cpu/exec.h>
 #include "../local-include/decode.h"
 #include "all-instr.h"
-#include <common.h>
+
 static inline void set_width(DecodeExecState *s, int width) {
   if (width == -1) return;
   if (width == 0) {
@@ -318,7 +318,7 @@ vaddr_t isa_exec_once() {
   s.is_jmp = 0;
   s.isa = (ISADecodeInfo) { 0 };
   s.seq_pc = cpu.pc;
-  if(cpu.pc==0x41be70){
+  if(cpu.pc==0x41c1da/*0x41be70*/){
     printf("cpu.ax = %x\n",cpu.ax);
     assert(0);
   }
