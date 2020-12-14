@@ -4,9 +4,7 @@
 #include <SDL.h>
 
 char handle_key(SDL_Event *ev);
-struct MenuItem {
-  const char *name, *bin, *arg1;
-} items[] = {
+const char *items[] = {
   {"nterm"},
   {"nslider"},
   {"fceux"},
@@ -39,7 +37,7 @@ static void sh_prompt() {
 static void sh_handle_cmd(const char *cmd) {
   for(int i = 0;i < 11; i++){
     if(!strncmp(cmd, items[i], strlen(cmd)-1)){
-      execvp(exec_argv[0], NULL);
+      execvp(items[i], NULL);
     }
   }
 }
