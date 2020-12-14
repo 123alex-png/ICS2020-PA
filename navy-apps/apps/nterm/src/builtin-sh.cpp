@@ -43,7 +43,7 @@ static void sh_handle_cmd(const char *cmd) {
       exec_argv[0] = items[i].bin;
       exec_argv[1] = items[i].arg1;
       exec_argv[2] = NULL;
-      execvp(exec_argv[0], (char**)exec_argv);
+      execvp(exec_argv[0], NULL);
     }
   }
 }
