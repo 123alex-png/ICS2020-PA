@@ -22,11 +22,11 @@ int fs_open(const char *pathname, int flags, int mode);
 int fs_close(int fd);
 size_t fs_read(int fd, void *buf, size_t len);
 off_t fs_lseek(int fd, off_t offset, int whence);
-
+Elf_Ehdr ehdr;
+Elf_Phdr phdr;
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  Elf_Ehdr ehdr;
-  Elf_Phdr phdr;
+  
   int fd=fs_open(filename,0,0);
   fs_read(fd,&ehdr,sizeof(ehdr));
   //ramdisk_read(&ehdr, 0, 64);

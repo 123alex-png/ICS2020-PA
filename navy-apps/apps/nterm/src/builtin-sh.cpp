@@ -4,7 +4,21 @@
 #include <SDL.h>
 
 char handle_key(SDL_Event *ev);
-
+struct MenuItem {
+  const char *name, *bin, *arg1;
+} items[] = {
+  {"nterm\n", "/bin/nterm", NULL},
+  {"nslider\n", "/bin/nslider", NULL},
+  {"FCEUX (Super Mario Bros)\n", "/bin/fceux", "/share/games/nes/mario.nes"},
+  {"FCEUX (100 in 1)\n", "/bin/fceux", "/share/games/nes/100in1.nes"},
+  {"bird\n", "/bin/bird", NULL},
+  {"pal\n", "/bin/pal", NULL},
+  {"NPlayer\n", "/bin/nplayer", NULL},
+  {"coremark\n", "/bin/coremark", NULL},
+  {"dhrystone\n", "/bin/dhrystone", NULL},
+  {"typing-game\n", "/bin/typing-game", NULL},
+  {"ONScripter\n", "/bin/onscripter", NULL},
+};
 static void sh_printf(const char *format, ...) {
   static char buf[256] = {};
   va_list ap;
@@ -23,12 +37,22 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
+  for(int i = 0;i < 11; i++){
+    if(!strncmp(cmd, items[i].bin, strlen(cmd)-1)){
+      const char *exec_argv[3];
+      exec_argv[0] = items[i].bin;
+      exec_argv[1] = items[i].arg1;
+      exec_argv[2] = NULL;
+      execvp(exec_argv[0], (char**)exec_argv);
+    }
+  }
 }
+
 
 void builtin_sh_run() {
   sh_banner();
   sh_prompt();
-
+  setenv("PATH", "/bin", 0);
   while (1) {
     SDL_Event ev;
     if (SDL_PollEvent(&ev)) {
