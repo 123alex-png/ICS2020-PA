@@ -54,10 +54,6 @@ void init_fs() {
   file_table[FD_FB].size = width * height;
 }
 
-size_t getoffset(int fd){
-  return file_table[fd].disk_offset;
-}
-
 int fs_open(const char *pathname, int flags, int mode){
   // if(!strcmp(pathname, "/share/games/bird/splash.png")){
   //   assert(0);

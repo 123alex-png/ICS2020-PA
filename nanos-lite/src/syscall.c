@@ -2,6 +2,7 @@
 #include "syscall.h"
 #include <sys/types.h>
 #include <sys/time.h>
+#include <proc.h>
 
 
 extern char end;
@@ -11,6 +12,7 @@ int fs_close(int fd);
 size_t fs_read(int fd, void *buf, size_t len);
 size_t fs_write(int fd, const void *buf, size_t len);
 off_t fs_lseek(int fd, off_t offset, int whence);
+void naive_uload(PCB *pcb, const char *filename);
 
 int sys_yield(){
   yield();
@@ -60,6 +62,11 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
   return 0;
 }
 
+int sys_execve(const char *fname, char *argv[], char *envp[]){
+  naive_uload(NULL, fname);
+  return 0;
+}
+
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -75,7 +82,9 @@ void do_syscall(Context *c) {
     case SYS_close:c->GPRx=fs_close(a[1]);break;
     case SYS_lseek:c->GPRx=fs_lseek((int)a[1],(off_t)a[2],(int)a[3]);break;
     case SYS_brk:c->GPRx=sys_brk((void *)a[1]);break;
+    case SYS_execve:c->GPRx=sys_execve((char *)a[1], (char **)a[2], (char **)a[3]);break;
     case SYS_gettimeofday:c->GPRx=sys_gettimeofday((struct timeval *)a[1],(struct timezone *)a[2]);break;
+    
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
