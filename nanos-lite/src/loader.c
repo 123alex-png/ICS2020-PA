@@ -1,7 +1,6 @@
 #include <proc.h>
 #include <elf.h>
 #include <fs.h>
-#include <sys/types.h>
 
 #ifdef __LP64__
 # define Elf_Ehdr Elf64_Ehdr
@@ -21,7 +20,7 @@ extern uint8_t ramdisk_end;
 int fs_open(const char *pathname, int flags, int mode);
 int fs_close(int fd);
 size_t fs_read(int fd, void *buf, size_t len);
-off_t fs_lseek(int fd, off_t offset, int whence);
+size_t fs_lseek(int fd, size_t offset, int whence);
 Elf_Ehdr ehdr;
 Elf_Phdr phdr;
 static uintptr_t loader(PCB *pcb, const char *filename) {

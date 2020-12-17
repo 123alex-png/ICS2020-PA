@@ -1,6 +1,5 @@
 #include <common.h>
 #include "syscall.h"
-#include <sys/types.h>
 #include <sys/time.h>
 #include <proc.h>
 
@@ -11,7 +10,7 @@ int fs_open(const char *pathname, int flags, int mode);
 int fs_close(int fd);
 size_t fs_read(int fd, void *buf, size_t len);
 size_t fs_write(int fd, const void *buf, size_t len);
-off_t fs_lseek(int fd, off_t offset, int whence);
+size_t fs_lseek(int fd, size_t offset, int whence);
 void naive_uload(PCB *pcb, const char *filename);
 
 int sys_yield(){
@@ -42,15 +41,11 @@ int sys_read(int fd, void *buf, size_t count){
   return fs_read(fd, buf, count);
 }
 
-off_t sys_lseek(int fd,off_t offset, int whence){
+size_t sys_lseek(int fd, size_t offset, int whence){
   return fs_lseek(fd,offset,whence);
 }
 
 intptr_t sys_brk(void * addr){
-  // if(addr==0){
-  //   return (intptr_t)prog_break;
-  // }
-  // prog_break=addr;
   return 0;
 }
 
@@ -80,7 +75,7 @@ void do_syscall(Context *c) {
     case SYS_read:c->GPRx=fs_read((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_write:c->GPRx=fs_write((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_close:c->GPRx=fs_close(a[1]);break;
-    case SYS_lseek:c->GPRx=fs_lseek((int)a[1],(off_t)a[2],(int)a[3]);break;
+    case SYS_lseek:c->GPRx=fs_lseek((int)a[1],(size_t)a[2],(int)a[3]);break;
     case SYS_brk:c->GPRx=sys_brk((void *)a[1]);break;
     case SYS_execve:c->GPRx=sys_execve((char *)a[1], (char **)a[2], (char **)a[3]);break;
     case SYS_gettimeofday:c->GPRx=sys_gettimeofday((struct timeval *)a[1],(struct timezone *)a[2]);break;
