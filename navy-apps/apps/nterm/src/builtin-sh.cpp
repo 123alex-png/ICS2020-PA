@@ -42,7 +42,6 @@ static void sh_handle_cmd(const char *cmd) {
   }
 }
 
-extern char **environ;
 void builtin_sh_run() {
   sh_banner();
   sh_prompt();
