@@ -54,8 +54,15 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 
 
 Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
-  Context *ret = malloc(sizeof(struct Context));
-
+  Context *ret = (Context *)(kstack.end - (void *)sizeof(Context));
+  ret -> eip = (uintptr_t)entry;
+  // ret -> edi = cpu.edi;
+  // ret -> esi = cpu.esi;
+  // ret -> ebp = cpu.ebp;
+  // ret -> ebx = cpu.ebx;
+  // ret -> edx = cpu.edx;
+  // ret -> ecx = cpu.ecx;
+  // ret -> eax = cpu.eax;
   return ret;
 }
 
