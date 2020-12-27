@@ -15,9 +15,9 @@ void __am_vecnull();
 
 
 Context* __am_irq_handle(Context *c) {
-  extern char _stack_pointer;
-  printf("%p\n", &_stack_pointer);
-  assert(0);
+  // extern char _stack_pointer;
+  // printf("%p\n", &_stack_pointer);
+  // assert(0);
   if (user_handler) {
     Event ev = {0};
     switch (c->irq) {

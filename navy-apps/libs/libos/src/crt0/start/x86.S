@@ -1,5 +1,5 @@
 .globl  _start
 _start:
   movl $0, %ebp
-  #mov %eax, %esp
+  movl $0x1e4b00, %esp
   call call_main
