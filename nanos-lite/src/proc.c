@@ -32,8 +32,9 @@ void init_proc() {
 }
 
 Context* schedule(Context *prev) {
-  assert(0);
+  
   current->cp = prev;
   current = &pcb[0];
+  assert(0);
   return current->cp;
 }
