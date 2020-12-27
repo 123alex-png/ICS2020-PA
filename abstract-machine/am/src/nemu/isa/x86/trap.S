@@ -14,9 +14,9 @@ __am_asm_trap:
   call __am_irq_handle
 
  # addl $4, %esp
-  
-  addl $4, %esp
   movl %eax, %esp
+  #addl $4, %esp
+  
   popal
   addl $4, %esp
 
