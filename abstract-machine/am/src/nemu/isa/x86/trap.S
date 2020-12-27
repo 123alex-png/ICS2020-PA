@@ -6,7 +6,6 @@
 
 
 __am_asm_trap:
-  push %eax
   pushal
 
   pushl $0
