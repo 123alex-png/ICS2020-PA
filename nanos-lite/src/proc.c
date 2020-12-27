@@ -23,7 +23,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   context_kload(&pcb[0], (void *)hello_fun, (void *)12345);
-  // context_kload(&pcb[0], (void *)hello_fun, (void *)54321);
+  context_kload(&pcb[1], (void *)hello_fun, (void *)54321);
   switch_boot_pcb();
 
   Log("Initializing processes...");
