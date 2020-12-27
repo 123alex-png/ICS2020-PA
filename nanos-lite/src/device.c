@@ -20,7 +20,7 @@ static const char *names[] = {
 };
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
-  yield();
+  // yield();
   for(size_t i=0;i<len&& *(char *)(buf+i)!='\0';i++){
         putch(*(char *)(buf+i));
       }
@@ -28,7 +28,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-  yield();
+  // yield();
   AM_INPUT_KEYBRD_T ev;
   ioe_read(AM_INPUT_KEYBRD, &ev);
   if(ev.keycode == AM_KEY_NONE){
@@ -51,7 +51,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 
 size_t fb_write(void *buf, size_t offset, size_t len) {
       // printf("offset=%d len=%d\n", offset, len);
-  yield();
+  // yield();
   AM_GPU_FBDRAW_T ctl;
   ctl.x = offset % width;
   ctl.y = offset / width;
