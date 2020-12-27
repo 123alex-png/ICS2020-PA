@@ -19,5 +19,5 @@ __am_asm_trap:
   
   popal
   addl $4, %esp
-
+  push %eax
   iret
