@@ -58,3 +58,11 @@ void context_kload(PCB *pcb, void *entry, void *arg){
   // protect(&(pcb->as));
   // pcb->cp->as = &(pcb->as);
 }
+
+void context_uload(PCB *pcb, char *filename){
+  uintptr_t entry = loader(pcb, filename);
+  Area stack;
+  stack.start = pcb->stack;
+  stack.end = stack.start + sizeof(pcb->stack);
+  pcb->cp = ucontext(&(pcb->as), stack, (void *)entry);
+}

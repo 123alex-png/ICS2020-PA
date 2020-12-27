@@ -60,5 +60,8 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 }
 
 Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
-  return NULL;
+  Context *ret = (Context *)(kstack.end) - 1;
+  ret -> eip = (uintptr_t)entry;
+  ret -> cs = 0x8;
+  return ret;
 }

@@ -57,15 +57,8 @@ Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context *ret = (Context *)(kstack.end) - 1;
   ret -> eip = (uintptr_t)entry;
   ret -> cs = 0x8;
-  ret -> GPR1 = (uintptr_t)arg;
-  assert(arg);
-  // ret -> edi = cpu.edi;
-  // ret -> esi = cpu.esi;
-  // ret -> ebp = cpu.ebp;
-  // ret -> ebx = cpu.ebx;
-  // ret -> edx = cpu.edx;
-  // ret -> ecx = cpu.ecx;
-  // ret -> eax = cpu.eax;
+  ret -> GPR1 = (uintptr_t)arg;//TODO
+
   return ret;
 }
 
