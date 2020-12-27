@@ -6,7 +6,7 @@ static AddrSpace kas = {};
 static void* (*pgalloc_usr)(int) = NULL;
 static void (*pgfree_usr)(void*) = NULL;
 static int vme_enable = 0;
-
+void __am_kcontext_start();
 static Area segments[] = {      // Kernel memory mappings
   NEMU_PADDR_SPACE
 };
@@ -61,7 +61,8 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 
 Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
   Context *ret = (Context *)(kstack.end) - 1;
-  ret -> eip = (uintptr_t)entry;
+  ret -> GPR2 = (uintptr_t)entry;
   ret -> cs = 0x8;
+  ret -> eip = (uintptr_t)__am_kcontext_start;
   return ret;
 }
