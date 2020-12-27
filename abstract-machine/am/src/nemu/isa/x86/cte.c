@@ -13,6 +13,7 @@ void __am_vecsys();
 void __am_vectrap();
 void __am_vecnull();
 
+void __am_kcontext_start();
 
 Context* __am_irq_handle(Context *c) {
   // extern char _stack_pointer;
@@ -58,10 +59,10 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 
 Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context *ret = (Context *)(kstack.end) - 1;
-  ret -> eip = (uintptr_t)entry;
+  ret -> GPR2 = (uintptr_t)entry;
   ret -> cs = 0x8;
   ret -> GPR1 = (uintptr_t)arg;//TODO
-
+  ret -> eip = (uintptr_t)__am_kcontext_start;
   return ret;
 }
 
