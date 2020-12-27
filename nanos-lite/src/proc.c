@@ -35,6 +35,5 @@ Context* schedule(Context *prev) {
   
   current->cp = prev;
   current = &pcb[0];
-  assert(0);
   return current->cp;
 }
