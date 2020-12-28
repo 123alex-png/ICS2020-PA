@@ -59,7 +59,7 @@ void context_kload(PCB *pcb, void *entry, void *arg){
   // pcb->cp->as = &(pcb->as);
 }
 
-void context_uload(PCB *pcb, char *filename){
+void context_uload(PCB *pcb, char *filename, char *const argv[], char *const envp[]){
   uintptr_t entry = loader(pcb, filename);
   Area stack;
   stack.start = pcb->stack;
