@@ -14,12 +14,6 @@ void call_main(uintptr_t *args) {
     exit(main(0, empty, empty));
   }
   else{
-    printf("c = %c\n", *c);
-    
-    assert(*c=='-');
-    // printf("c = %c\n", *c);
-    // printf("c = %c\n", *c);
-    // printf("c = %c\n", *c);
     for(int i = 1; i <= *args; i++){
       printf("args[%d] = %p\n", i, args[i]);
       char *p = (char *)args[i];
