@@ -18,6 +18,11 @@ void call_main(uintptr_t *args) {
     }
     char *c = 0x1e2cfb0;
     printf("c = %c\n", *c);
+    printf("c+1 = %c\n", *(c+1));
+    printf("c+2 = %c\n", *(c+2));
+    // printf("c = %c\n", *c);
+    // printf("c = %c\n", *c);
+    // printf("c = %c\n", *c);
     for(int i = 1; i <= *args; i++){
       printf("args[%d] = %p\n", i, args[i]);
       char *p = (char *)args[i];
