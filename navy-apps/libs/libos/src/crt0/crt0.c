@@ -5,11 +5,10 @@
 int main(int argc, char *argv[], char *envp[]);
 extern char **environ;
 void call_main(uintptr_t *args) {
-  char *c = 0x1e2cfb0;
   printf("args = %p,*args = %d\n", args, *args);
   char *empty[] =  {NULL };
   environ = empty;
-  char *argv[12][80];
+  char argv[12][80];
   if(args == NULL) {
     exit(main(0, empty, empty));
   }
@@ -20,14 +19,16 @@ void call_main(uintptr_t *args) {
       printf("p = %p\n", p);
       int j = 0;
       for(j = 0; p[j]!='\0'; j++){
-        printf("j=%d, p[j]=%x\n", j, p[j]);
-        argv[i][j] = p[j];
+        printf("j=%d, p[j]=%c\n", j, p[j]);
+        argv[i-1][j] = p[j];
       }
-      argv[i][j] = '\0';
+      argv[i-1][j] = '\0';
     }
+    printf("%p\n", argv);
     // assert(argv[0]);
-    // printf("argv[0] = %s\n", argv[0]);
-    exit(main(0, argv, empty));
+    printf("&argv[0] = %p\n", &argv[0]);
+    printf("argv[0] = %s\n", argv[0]);
+    exit(main(*args, (char **)argv, empty));
   }
   assert(0);
 }
