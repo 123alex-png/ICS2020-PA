@@ -84,7 +84,7 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], c
     for(int i = 0; i < argc; i++){
       for(int j = 0; j < strlen(argv[i]); j++){
         *end++ = argv[i][j];
-        printf("end = %p, *end = %d\n", end - 1, *(end-1));
+        printf("end = %p, *end = %x\n", end - 1, *(end-1));
       }
     }
   }
