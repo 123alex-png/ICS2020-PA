@@ -6,9 +6,6 @@ int main(int argc, char *argv[], char *envp[]);
 extern char **environ;
 void call_main(uintptr_t *args) {
   char *c = 0x1e2cfb0;
-    printf("c = %c\n", *c);
-    printf("c+1 = %c\n", *(c+1));
-    printf("c+2 = %c\n", *(c+2));
   printf("args = %p,*args = %d\n", args, *args);
   char *empty[] =  {NULL };
   environ = empty;
@@ -20,7 +17,7 @@ void call_main(uintptr_t *args) {
     for(int i = 0; i < 12; i++){
       argv[i] = (char *)malloc(12 * 80);
     }
-    
+    assert(*c=='-');
     // printf("c = %c\n", *c);
     // printf("c = %c\n", *c);
     // printf("c = %c\n", *c);
