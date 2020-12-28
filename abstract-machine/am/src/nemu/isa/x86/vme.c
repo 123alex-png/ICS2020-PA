@@ -64,7 +64,5 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
   ret -> eip = (uintptr_t)entry;
   ret -> cs = 0x8;
   ret -> GPRx = (uintptr_t)kstack.end;
-  printf("%p\n", kstack.end);
-  assert(0);
   return ret;
 }
