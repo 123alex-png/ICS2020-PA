@@ -9,15 +9,12 @@ void call_main(uintptr_t *args) {
   printf("args = %p,*args = %d\n", args, *args);
   char *empty[] =  {NULL };
   environ = empty;
-  char *argv[12];
+  char *argv[12][80];
   if(args == NULL) {
     exit(main(0, empty, empty));
   }
   else{
     printf("c = %c\n", *c);
-    for(int i = 0; i < 12; i++){
-      argv[i] = (char *)malloc(12 * 80);
-    }
     
     assert(*c=='-');
     // printf("c = %c\n", *c);
