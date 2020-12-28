@@ -30,6 +30,7 @@ void call_main(uintptr_t *args) {
     // printf("argv[0] = %s\n", argv[0]);
     // exit(main(*args, (char **)argv, empty));
     void *argv = args + 1;
+    printf("argv[0] = %s\n", argv[0]);
     exit(main(*args, (char **)argv, empty));
   }
   assert(0);
