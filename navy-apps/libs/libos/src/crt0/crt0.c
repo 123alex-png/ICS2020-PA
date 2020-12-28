@@ -23,7 +23,7 @@ void call_main(uintptr_t *args) {
       printf("p = %p\n", p);
       int j = 0;
       for(j = 0; p[j]!='\0'; j++){
-        printf("j=%d, p[j]=%x\n", j, p[j]);
+        printf("j=%d, p[j]=%c\n", j, p[j]);
         argv[i][j] = p[j];
       }
       argv[i][j] = '\0';
