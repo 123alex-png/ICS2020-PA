@@ -14,10 +14,11 @@ void call_main(uintptr_t *args) {
     exit(main(0, empty, empty));
   }
   else{
+    assert(*c=='-');
     for(int i = 0; i < 12; i++){
       argv[i] = (char *)malloc(12 * 80);
     }
-    assert(*c=='-');
+    
     // printf("c = %c\n", *c);
     // printf("c = %c\n", *c);
     // printf("c = %c\n", *c);
