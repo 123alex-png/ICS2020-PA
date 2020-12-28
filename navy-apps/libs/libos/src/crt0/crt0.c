@@ -16,7 +16,8 @@ void call_main(uintptr_t *args) {
     for(int i = 0; i < 12; i++){
       argv[i] = (char *)malloc(12 * 80);
     }
-    
+    char *c = 0x1e2cfb0;
+    printf("c = %c", *c);
     for(int i = 1; i <= *args; i++){
       printf("args[%d] = %p\n", i, args[i]);
       char *p = (char *)args[i];
