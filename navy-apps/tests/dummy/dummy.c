@@ -8,7 +8,7 @@
 extern int _syscall_(int, uintptr_t, uintptr_t, uintptr_t);
 
 int main(int      argc, char    *argv[]) {
-  printf("addr=%p", &argv[0][0]);
+  printf("addr=");
   while(1);
   return _syscall_(SYS_yield, 0, 0, 0);
 }
