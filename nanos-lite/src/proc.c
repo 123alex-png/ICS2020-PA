@@ -26,7 +26,7 @@ void hello_fun(void *arg) {
 void init_proc() {
   context_kload(&pcb[0], (void *)hello_fun, (void *)12345);
   // context_kload(&pcb[1], (void *)hello_fun, (void *)52314);
-  char *args[] ={NULL};
+  char *args[] ={"--ski"};
   context_uload(&pcb[1], "/bin/pal", args, NULL);
   switch_boot_pcb();
 
