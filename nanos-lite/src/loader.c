@@ -71,7 +71,7 @@ void context_uload(PCB *pcb, char *filename, char *const argv[], char *const env
     printf("argp = %p\n", argp);
     int argc = 1;
     char *last= (char *)argp + 0x500;
-    for(; /*argv[argc]!=NULL*/argc<=2; argc++){
+    for(; /*argv[argc]!=NULL*/argc<=1; argc++){
       assert(argv[argc]!=NULL);
       argp[argc] = (intptr_t)last;
       printf("argp[%d] = %p\n", argc, argp[argc]);
