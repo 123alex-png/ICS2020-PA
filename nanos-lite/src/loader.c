@@ -64,5 +64,5 @@ void context_uload(PCB *pcb, char *filename, char *const argv[], char *const env
   Area stack;
   stack.start = pcb->stack;
   stack.end = stack.start + sizeof(pcb->stack);
-  pcb->cp = ucontext(&(pcb->as), stack, (void *)entry);
+  pcb->cp = ucontext(&(pcb->as), stack, (void *)entry, argv, envp);
 }

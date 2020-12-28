@@ -59,10 +59,29 @@ void __am_switch(Context *c) {
 void map(AddrSpace *as, void *va, void *pa, int prot) {
 }
 
-Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
+
+//envp未实现
+Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], char *const envp[]) {
   Context *ret = (Context *)(kstack.end) - 1;
   ret -> eip = (uintptr_t)entry;
   ret -> cs = 0x8;
   ret -> esp = (uintptr_t)kstack.end;
+  int *argp = kstack.end - 0x80;
+  int argc = 0;
+  char *last=(char *)argp;
+  for(argc = 0; argv[argc]!=NULL; argc++){
+    argp[argc+1] = (int)last;
+    last += strlen(argv[argc]);
+  }
+  argp[argc] = 0;
+  --argc;
+  argp[0] = argc;
+  ret -> GPRx = (uintptr_t)argp;
+  char *end = (char *)argp + 0x30;//至多可放12个参数，所有参数长度和至多80字节
+  for(int i = 0; i < argc; i++){
+    for(int j = 0; j < strlen(argv[i]); j++){
+      *end++ = argv[i][j];
+    }
+  }
   return ret;
 }
