@@ -9,7 +9,7 @@ extern int _syscall_(int, uintptr_t, uintptr_t, uintptr_t);
 
 int main(int      argc, char    *argv[]) {
   // volatile char tmp = argv[0][0];
-  printf("&argv[0][4]=%p,argv[0][4] = %d\n",&argv[0][4], argv[0][4]);
+  printf("&argv[0][4]=%p,argv[0][4] = %p\n",&argv[0][4], argv[0][4]&0xff);
   // putchar(argv[0]);
   // while(1);
   return _syscall_(SYS_yield, 0, 0, 0);
