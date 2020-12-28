@@ -57,7 +57,7 @@ void _exit(int status) {
 }
 
 int _open(char *path, int flags, mode_t mode) {
-  int ret=_syscall_(SYS_open, (intptr_t)(void *)path,0,0);
+  int ret=_syscall_(SYS_open, (intptr_t)(void *)path,flags,mode);
   return ret;
 }
 
@@ -171,7 +171,7 @@ int dup(int oldfd) {
 int dup2(int oldfd, int newfd) {
   return -1;
 }
-struct timeval init;
+
 unsigned int sleep(unsigned int seconds) {
   //assert(0);
   // _gettimeofday(&init, NULL);
