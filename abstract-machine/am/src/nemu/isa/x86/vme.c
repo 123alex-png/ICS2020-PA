@@ -65,6 +65,5 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
   ret -> cs = 0x8;
   ret -> esp = (uintptr_t)&_stack_pointer;
   printf("esp = %p\n", ret->esp);
-  assert(0);
   return ret;
 }
