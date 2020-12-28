@@ -5,11 +5,8 @@
 int main(int argc, char *argv[], char *envp[]);
 extern char **environ;
 void call_main(uintptr_t *args) {
-  printf("args = %p,*args = %d\n", args, *args);
-  printf("argv[0] = %p\n", *(args+1));
   char *empty[] =  {NULL };
   environ = empty;
-  // char argv[12][80];
   if(args == NULL) {
     exit(main(0, empty, empty));
   }
@@ -33,7 +30,7 @@ void call_main(uintptr_t *args) {
     // char **argv = (char **)(args + 1);
     // printf("argv = %p\n", argv);
     // printf("argv[0] = %p\n", argv[0]);
-    printf("argv[0] = %p\n", *(args+1));
+    // printf("argv[0] = %p\n", *(args+1));
     // exit(main(*args, (char **)argv, empty));
   }
   assert(0);

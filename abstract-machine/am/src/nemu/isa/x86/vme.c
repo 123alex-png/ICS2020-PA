@@ -60,37 +60,10 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 }
 
 
-//envp未实现
-Context* ucontext(AddrSpace *as, Area kstack, void *entry, char *const argv[], char *const envp[]) {
+Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
   Context *ret = (Context *)(kstack.end) - 1;
   ret -> eip = (uintptr_t)entry;
   ret -> cs = 0x8;
   ret -> esp = (uintptr_t)kstack.end;
-  if(argv != NULL){
-    intptr_t *argp = kstack.end - 0x80;
-    printf("argp = %p\n", argp);
-    int argc = 1;
-    char *last= (char *)argp + 0x30;
-    for(; /*argv[argc]!=NULL*/argc<=1; argc++){
-      *(argp + argc) = (intptr_t)last;
-      printf("(argp + argc)=%p, last=%p\n", argp+argc,last);
-      printf("argp[%d] = %p\n", argc, argp[argc]);
-      last += strlen(argv[argc-1]);
-    }
-    argp[argc] = 0;
-    --argc;
-    argp[0] = argc;
-    ret -> GPRx = (uintptr_t)argp;
-    char *end = (char *)argp + 0x30;//至多可放12个参数，所有参数长度和至多80字节
-    for(int i = 0; i < argc; i++){
-      for(int j = 0; j < strlen(argv[i]); j++){
-        *end++ = argv[i][j];
-        printf("end = %p, *end = %d\n", end - 1, (*(end-1))&0xff);
-      }
-    }
-  }
-  else{
-    ret -> GPRx = 0;
-  }
   return ret;
 }
