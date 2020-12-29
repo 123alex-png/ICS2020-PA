@@ -51,10 +51,10 @@ void naive_uload(PCB *pcb, const char *filename) {
 }
 
 void context_kload(PCB *pcb, void *entry, void *arg){
-  Area stack;
-  stack.start = pcb->stack;
-  stack.end = stack.start + sizeof(pcb->stack);
-  pcb->cp = kcontext(stack, entry, arg);
+  Area kstack;
+  kstack.start = pcb->stack;
+  kstack.end = kstack.start + sizeof(pcb->stack);
+  pcb->cp = kcontext(kstack, entry, arg);
   // protect(&(pcb->as));
   // pcb->cp->as = &(pcb->as);
 }
@@ -69,7 +69,12 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   ustack.start = new_page(8);
   // ustack.start = pcb->stack;
   ustack.end = ustack.start + sizeof(pcb->stack);
-  pcb->cp = ucontext(&(pcb->as), ustack, (void *)entry);
+  
+  Area kstack;
+  kstack.start = pcb->stack;
+  kstack.end = kstack.start + sizeof(pcb->stack);
+  pcb->cp = ucontext(&(pcb->as), kstack, (void *)entry);
+  
   Context *c = pcb->cp;
   if(argv != NULL){
   //   intptr_t *argp = ustack.end - sizeof(Context) - 0x300;
@@ -96,7 +101,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   
   //   }
     void *ptr[12];
-    char *argp = (char *)ustack.end - 0x700;
+    char *argp = (char *)ustack.end;
     // printf("%p\n", argp);
     int argc = 0;
     for(int i = 0; argv[i] != NULL; i++){
