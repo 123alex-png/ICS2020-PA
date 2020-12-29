@@ -87,7 +87,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     // printf("argc = %d", argc);
     argp[0] = argc;
     c -> GPRx = (uintptr_t)argp;
-    char *end = (char *)argp + 0x100;//至多可放12个参数，所有参数长度和至多80字节
+    char *end = (char *)argp + 0x10;//至多可放12个参数，所有参数长度和至多80字节
     for(int i = 0; i < argc; i++){
       for(int j = 0; argv[i][j]!='\0'; j++){
         *end++ = argv[i][j];
