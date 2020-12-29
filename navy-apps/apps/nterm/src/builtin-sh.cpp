@@ -46,7 +46,13 @@ static void sh_handle_cmd(const char *cmd) {
       char **args =(char **)malloc(sizeof(char **) * 10);
       args[0] = str + strlen(str) + 1;
       args[0][strlen(args[0])-2]='\0';
+      for(int i = 0; args[0][i]!='\0';i++){
+        printf("%d: %d\n", i, args[0][i]&0xff);
+      }
       args[1] = NULL;
+      // args[0]="--skip";
+      // args[1]=NULL;
+      // printf("%s\n", args[0]);
       execvp(items[i], (char* const*)args);
     }
   }
