@@ -70,12 +70,12 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   Context *c = pcb->cp;
   if(argv != NULL){
     intptr_t *argp = ustack.end - sizeof(pcb) - 0x2000;
-    printf("argp = %p\n", argp);
+    // printf("argp = %p\n", argp);
     int argc = 1;
     char *last= (char *)argp + 0x100;
     for(; /*argv[argc]!=NULL*/argv[argc-1]!=NULL; argc++){
       argp[argc] = (intptr_t)last;
-      printf("argp[%d] = %p\n", argc, argp[argc]);
+      // printf("argp[%d] = %p\n", argc, argp[argc]);
       last += strlen(argv[argc-1]);
   }
     argp[argc] = 0;
@@ -86,7 +86,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     for(int i = 0; i < argc; i++){
       for(int j = 0; j < strlen(argv[i]); j++){
         *end++ = argv[i][j];
-        printf("end = %p, *end = %p\n", end - 1, *(end-1)&0xff);
+        // printf("end = %p, *end = %p\n", end - 1, *(end-1)&0xff);
       }
       *end++ = '\0';
     }
