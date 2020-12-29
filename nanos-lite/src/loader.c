@@ -96,7 +96,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   
   //   }
     void *ptr[12];
-    char *argp = (char *)ustack.end - 0x1000;
+    char *argp = (char *)ustack.end - 0x100;
     // printf("%p\n", argp);
     int argc = 0;
     for(int i = 0; argv[i] != NULL; i++){
