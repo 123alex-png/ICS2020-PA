@@ -105,7 +105,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
       for(int j = strlen(argv[i])-1; j >= 0; j--){
         *argp-- = argv[i][j];
       }
-      ptr[i] = argp;
+      ptr[i] = argp + 1;
       argc++;
     }
     printf("%d\n", argc);
@@ -115,6 +115,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     }
     *p = argc;
     c -> GPRx = (uintptr_t)p;
+    while(1);
   }
   else{
     c -> GPRx = 0;
