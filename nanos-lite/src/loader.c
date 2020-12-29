@@ -23,6 +23,8 @@ size_t fs_read(int fd, void *buf, size_t len);
 size_t fs_lseek(int fd, size_t offset, int whence);
 Elf_Ehdr ehdr;
 Elf_Phdr phdr;
+
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   
@@ -60,24 +62,43 @@ void context_kload(PCB *pcb, void *entry, void *arg){
 }
 int cnt = 0;
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
+  char *tmp[80];
+  for(int i = 0; i < 80; i++){
+    tmp[i] = (char *)malloc(sizeof(char) * 80);
+  }
+  int i;
+  for(/*int */i = 0; argv[i]!=NULL;i++){
+    int j;
+    for(j = 0; argv[i][j]!='\0';j++){
+      tmp[i][j] = argv[i][j];
+    }
+    tmp[i][j] = '\0';
+  }
+  tmp[i] = (char *)NULL;
+
   uintptr_t entry = loader(pcb, filename);
   Area kstack;
   kstack.start = pcb->stack;
+  printf("start = %p\n", kstack.start);
   kstack.end = kstack.start + sizeof(pcb->stack);
+  
   pcb->cp = ucontext(&(pcb->as), kstack, (void *)entry);
-  printf("argv[0]=%s\n",argv[0]);
+  
+  printf("argv[0]=%s\n",tmp[0]);
   Area ustack;
   ustack.start = new_page(8);
   ustack.end = ustack.start + sizeof(pcb->stack);
   Context *c = pcb->cp;
-  if(argv != NULL){
+  if(tmp != NULL){
     void *ptr[12];
     char *argp = (char *)ustack.end;
     int argc = 0;
-    for(int i = 0; argv[i] != NULL; i++){
+    for(int i = 0; tmp[i] != NULL; i++){
       *argp-- = '\0';
-      for(int j = strlen(argv[i])-1; j >= 0; j--){
-        *argp-- = argv[i][j];
+      if(tmp[i][0]!='0'){
+        for(int j = strlen(tmp[i])-1; j >= 0; j--){
+          *argp-- = tmp[i][j];
+        }
       }
       ptr[i] = argp + 1;
       argc++;
