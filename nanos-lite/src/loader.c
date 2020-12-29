@@ -84,7 +84,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   
   pcb->cp = ucontext(&(pcb->as), kstack, (void *)entry);
   
-  printf("argv[0]=%s\n",tmp[0]);
   Area ustack;
   ustack.start = new_page(8);
   ustack.end = ustack.start + sizeof(pcb->stack);
