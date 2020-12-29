@@ -51,6 +51,7 @@ static void sh_handle_cmd(const char *cmd) {
       //   args[index++] = item;
       // }
       args[0]="--skip";
+      args[1]=NULL;
       printf("%s\n", args[0]);
       execvp(items[i], (char* const*)args);
     }
