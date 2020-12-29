@@ -29,7 +29,7 @@ void call_main(uintptr_t *args) {
     // printf("argv[0] = %s\n", argv[0]);
     // exit(main(*args, (char **)argv, empty));
     char **argv = (char **)(args + 1);
-    printf("argv[0] = %s, argv[1] = %s\n", argv[0], argv[1]);
+    // printf("argv[0] = %s, argv[1] = %s\n", argv[0], argv[1]);
     // while(1);
     // printf("argv[0] = %s\n", argv[0]);
     // printf("argv[0] = %p\n", *(args+1));

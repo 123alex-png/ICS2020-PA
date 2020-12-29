@@ -97,7 +97,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   //   }
     void *ptr[12];
     char *argp = (char *)ustack.end +0x1000;//- sizeof(Context) - 4;
-    printf("%p\n", argp);
+    // printf("%p\n", argp);
     int argc = 0;
     for(int i = 0; argv[i] != NULL; i++){
       *argp-- = '\0';
@@ -105,16 +105,16 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
         *argp-- = argv[i][j];
       }
       ptr[i] = argp + 1;
-      printf("at=%p,ptr[%d]=%s\n",ptr[i],i,(char*)ptr[i]);
+      // printf("at=%p,ptr[%d]=%s\n",ptr[i],i,(char*)ptr[i]);
       argc++;
     }
-    printf("%d\n", argc);
+    // printf("%d\n", argc);
     uintptr_t tmp = ((uintptr_t)argp >>3) <<3;
     uintptr_t *p = (void *)(tmp) - (argc + 2)*4;
-    printf("p=%p\n", p);
+    // printf("p=%p\n", p);
     for(int i = 0; i < argc; i++){
       p[i+1] = (uintptr_t)ptr[i]; 
-      printf("at %p, p[] = %p, %s\n", p+i+1, p[i+1], (char *)p[i+1]);
+      // printf("at %p, p[] = %p, %s\n", p+i+1, p[i+1], (char *)p[i+1]);
     }
     *p = argc;
     c -> GPRx = (uintptr_t)p;
