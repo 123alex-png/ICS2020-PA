@@ -35,9 +35,24 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
+  const char *split = " ";
+  char str[80];
+  for(int i = 0; cmd[i]!='\0';i++){
+    str[i] = cmd[i];
+  }
   for(int i = 0;i < 11; i++){
-    if(!strncmp(cmd, items[i], strlen(cmd)-1)){
-      execvp(items[i], NULL);
+    char *item = strtok(str, split);
+    if(!strncmp(item, items[i], strlen(cmd)-1)){
+      char *args[10]; 
+      int index = 0;
+      // while(item != NULL){
+      //   item = strtok(NULL, split);
+      //   printf("item=%s\n", item);
+      //   args[index++] = item;
+      // }
+      args[0]="--skip";
+      printf("%s\n", args[0]);
+      execvp(items[i], (char* const*)args);
     }
   }
 }
