@@ -69,10 +69,10 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   pcb->cp = ucontext(&(pcb->as), ustack, (void *)entry);
   Context *c = pcb->cp;
   if(argv != NULL){
-    intptr_t *argp = ustack.end - sizeof(pcb) - 0x700;
+    intptr_t *argp = ustack.end - sizeof(pcb) - 0x7000;
     printf("argp = %p\n", argp);
     int argc = 1;
-    char *last= (char *)argp + 0x50;
+    char *last= (char *)argp + 0x500;
     for(; /*argv[argc]!=NULL*/argv[argc-1]!=NULL; argc++){
       argp[argc] = (intptr_t)last;
       printf("argp[%d] = %p\n", argc, argp[argc]);
