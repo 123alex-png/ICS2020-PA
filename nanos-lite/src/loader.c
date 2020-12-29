@@ -62,8 +62,10 @@ void context_kload(PCB *pcb, void *entry, void *arg){
 void context_uload(PCB *pcb, char *filename, char *const argv[], char *const envp[]){
   uintptr_t entry = loader(pcb, filename);
   Area ustack;
-  ustack.start = pcb->stack;
+  ustack.start = new_page(8);
+  // ustack.start = pcb->stack;
   ustack.end = ustack.start + sizeof(pcb->stack);
+  
   pcb->cp = ucontext(&(pcb->as), ustack, (void *)entry);
   Context *c = pcb->cp;
   if(argv != NULL){
