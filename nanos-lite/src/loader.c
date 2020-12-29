@@ -62,8 +62,8 @@ int cnt = 0;
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
   // assert(argv[1][1]=='2');
   cnt+=!strcmp(filename, "/bin/exec-test");
-  printf("argv[1] = %s", argv[1]);
-  printf("cnt=%d\n", cnt);
+  // printf("argv[1] = %s", argv[1]);
+  // printf("cnt=%d\n", cnt);
   uintptr_t entry = loader(pcb, filename);
   Area ustack;
   ustack.start = new_page(8);
