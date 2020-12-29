@@ -106,6 +106,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
         *argp-- = argv[i][j];
       }
       ptr[i] = argp + 1;
+      printf("ptr[%d]=%s\n",i,(char*)ptr[i]);
       argc++;
     }
     printf("%d\n", argc);
