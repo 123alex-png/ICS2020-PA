@@ -110,7 +110,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
       argc++;
     }
     printf("%d\n", argc);
-    uintptr_t *p = (void *)(argp) - argc - 1;
+    uintptr_t tmp = ((uintptr_t)argp >>3) <<3;
+    uintptr_t *p = (void *)(tmp) - argc - 1;
     printf("p=%p\n", p);
     for(int i = 0; i < argc; i++){
       p[i+1] = (uintptr_t)ptr[argc - i]; 
