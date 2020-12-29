@@ -88,6 +88,7 @@ void context_uload(PCB *pcb, char *filename, char *const argv[], char *const env
         *end++ = argv[i][j];
         printf("end = %p, *end = %p\n", end - 1, *(end-1)&0xff);
       }
+      *end++ = '\0';
     }
   }
   else{
