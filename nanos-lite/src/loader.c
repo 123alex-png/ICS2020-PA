@@ -119,7 +119,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     }
     *p = argc;
     c -> GPRx = (uintptr_t)p;
-    while(1);
   }
   else{
     c -> GPRx = 0;
