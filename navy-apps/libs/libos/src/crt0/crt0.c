@@ -12,7 +12,7 @@ void call_main(uintptr_t *args) {
   }
   else{
     // for(int i = 1; i <= *args; i++){
-    //   printf("args[%d] = %p\n", i, args[i]);
+      // printf("args[%d] = %p\n", i, args[i]);
     //   char *p = (char *)args[i];
     //   printf("p = %p\n", p);
     //   int j = 0;

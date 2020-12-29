@@ -58,21 +58,25 @@ void context_kload(PCB *pcb, void *entry, void *arg){
   // protect(&(pcb->as));
   // pcb->cp->as = &(pcb->as);
 }
-
+int cnt = 0;
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
+  // assert(argv[1][1]=='2');
+  cnt+=!strcmp(filename, "/bin/exec-test");
+  printf("argv[1] = %s", argv[1]);
+  printf("cnt=%d\n", cnt);
+  if(argv[1][1]!='2')panic("cnt=%d\n", cnt);
   uintptr_t entry = loader(pcb, filename);
   Area ustack;
   ustack.start = new_page(8);
   // ustack.start = pcb->stack;
   ustack.end = ustack.start + sizeof(pcb->stack);
-  
   pcb->cp = ucontext(&(pcb->as), ustack, (void *)entry);
   Context *c = pcb->cp;
   if(argv != NULL){
-    intptr_t *argp = ustack.end - sizeof(pcb) - 0x2000;
+    intptr_t *argp = ustack.end - sizeof(Context) - 0x80;
     // printf("argp = %p\n", argp);
     int argc = 1;
-    char *last= (char *)argp + 0x100;
+    char *last= (char *)argp + 0x30;
     for(; /*argv[argc]!=NULL*/argv[argc-1]!=NULL; argc++){
       argp[argc] = (intptr_t)last;
       // printf("argp[%d] = %p\n", argc, argp[argc]);
@@ -85,13 +89,13 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     c -> GPRx = (uintptr_t)argp;
     char *end = (char *)argp + 0x100;//至多可放12个参数，所有参数长度和至多80字节
     for(int i = 0; i < argc; i++){
-      for(int j = 0; j < strlen(argv[i]); j++){
+      for(int j = 0; argv[i][j]!='\0'; j++){
         *end++ = argv[i][j];
-        printf("end = %p, *end = %p\n", end - 1, *(end-1)&0xff);
+        // printf("j = %d, end = %p, *end = %c\n", j, end - 1, *(end-1)&0xff);
       }
       *end++ = '\0';
+  
     }
-    printf("argv[1] = %s", argv[1]);
   }
   else{
     c -> GPRx = 0;
