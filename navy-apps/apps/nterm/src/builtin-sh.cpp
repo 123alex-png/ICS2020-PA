@@ -45,7 +45,7 @@ static void sh_handle_cmd(const char *cmd) {
     if(!strncmp(item, items[i], strlen(cmd)-1)){
       char **args =(char **)malloc(sizeof(char **) * 10);
       args[0] = str + strlen(str) + 1;
-      args[0][strlen(args[0])-2]='\0';
+      // args[0][strlen(args[0])-2]='\0';
       for(int i = 0; args[0][i]!='\0';i++){
         printf("%d: %d\n", i, args[0][i]&0xff);
       }
