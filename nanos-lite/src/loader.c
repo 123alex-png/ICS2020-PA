@@ -95,7 +95,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   //     *end++ = '\0';
   
   //   }
-  printf("%d\n",sizeof(Context));
+  printf("%d\n",sizeof(Context*));
     while(1);
     void *ptr[12];
     char *argp = (char *)ustack.end - sizeof(Context) - 4;
