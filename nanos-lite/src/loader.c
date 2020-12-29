@@ -60,21 +60,15 @@ void context_kload(PCB *pcb, void *entry, void *arg){
 }
 int cnt = 0;
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
-  // assert(argv[1][1]=='2');
-  cnt+=!strcmp(filename, "/bin/exec-test");
-  // printf("argv[1] = %s", argv[1]);
-  // printf("cnt=%d\n", cnt);
   uintptr_t entry = loader(pcb, filename);
-  Area ustack;
-  ustack.start = new_page(8);
-  // ustack.start = pcb->stack;
-  ustack.end = ustack.start + sizeof(pcb->stack);
-  
   Area kstack;
   kstack.start = pcb->stack;
   kstack.end = kstack.start + sizeof(pcb->stack);
   pcb->cp = ucontext(&(pcb->as), kstack, (void *)entry);
   
+  Area ustack;
+  ustack.start = new_page(8);
+  ustack.end = ustack.start + sizeof(pcb->stack);
   Context *c = pcb->cp;
   if(argv != NULL){
   //   intptr_t *argp = ustack.end - sizeof(Context) - 0x300;
@@ -102,7 +96,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   //   }
     void *ptr[12];
     char *argp = (char *)ustack.end - 1;
-    // printf("%p\n", argp);
     int argc = 0;
     for(int i = 0; argv[i] != NULL; i++){
       *argp-- = '\0';
