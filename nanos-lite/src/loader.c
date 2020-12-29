@@ -67,10 +67,10 @@ void context_uload(PCB *pcb, char *filename, char *const argv[], char *const env
   pcb->cp = ucontext(&(pcb->as), ustack, (void *)entry);
   Context *c = pcb->cp;
   if(argv != NULL){
-    intptr_t *argp = ustack.end - sizeof(pcb) - 0x50;
+    intptr_t *argp = ustack.end - sizeof(pcb) - 0x500;
     printf("argp = %p\n", argp);
     int argc = 1;
-    char *last= (char *)argp + 0x10;
+    char *last= (char *)argp + 0x100;
     for(; /*argv[argc]!=NULL*/argv[argc-1]!=NULL; argc++){
       argp[argc] = (intptr_t)last;
       printf("argp[%d] = %p\n", argc, argp[argc]);
@@ -80,7 +80,7 @@ void context_uload(PCB *pcb, char *filename, char *const argv[], char *const env
     --argc;
     argp[0] = argc;
     c -> GPRx = (uintptr_t)argp;
-    char *end = (char *)argp + 0x10;//至多可放12个参数，所有参数长度和至多80字节
+    char *end = (char *)argp + 0x100;//至多可放12个参数，所有参数长度和至多80字节
     for(int i = 0; i < argc; i++){
       for(int j = 0; j < strlen(argv[i]); j++){
         *end++ = argv[i][j];
