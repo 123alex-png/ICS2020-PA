@@ -57,7 +57,7 @@ int fs_open(const char *pathname, int flags, int mode){
   // if(!strcmp(pathname, "/share/games/bird/splash.png")){
   //   assert(0);
   // }
-  // printf("file = %s\n", pathname);
+  printf("file = %s\n", pathname);
   for(int i=0;i<FT_SIZE;i++){
     //if(file_table[i].name)
     {

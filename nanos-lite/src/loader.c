@@ -95,7 +95,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   
   //   }
     void *ptr[12];
-    char *argp = (char *)ustack.end - 1;
+    char *argp = (char *)ustack.end;
     int argc = 0;
     for(int i = 0; argv[i] != NULL; i++){
       *argp-- = '\0';
@@ -108,7 +108,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     }
     // printf("%d\n", argc);
     uintptr_t tmp = ((uintptr_t)argp >>3) <<3;
-    uintptr_t *p = (void *)(tmp) - (argc + 2)*4;
+    uintptr_t *p = (void *)(tmp) - (argc + 2)*sizeof(uintptr_t);
     // printf("p=%p\n", p);
     for(int i = 0; i < argc; i++){
       p[i+1] = (uintptr_t)ptr[i]; 
@@ -116,6 +116,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     }
     *p = argc;
     c -> GPRx = (uintptr_t)p;
+    printf("c->GPRx = %p\n", c->GPRx);
   }
   else{
     c -> GPRx = 0;
