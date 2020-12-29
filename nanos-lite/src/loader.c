@@ -59,7 +59,7 @@ void context_kload(PCB *pcb, void *entry, void *arg){
   // pcb->cp->as = &(pcb->as);
 }
 
-void context_uload(PCB *pcb, char *filename, char *const argv[], char *const envp[]){
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
   uintptr_t entry = loader(pcb, filename);
   Area ustack;
   ustack.start = new_page(8);
