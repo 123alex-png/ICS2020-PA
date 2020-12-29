@@ -73,52 +73,52 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   pcb->cp = ucontext(&(pcb->as), ustack, (void *)entry);
   Context *c = pcb->cp;
   if(argv != NULL){
-  //   intptr_t *argp = ustack.end - sizeof(Context) - 0x300;
-  //   // printf("argp = %p\n", argp);
-  //   int argc = 1;
-  //   char *last= (char *)argp + 0x30;
-  //   for(; /*argv[argc]!=NULL*/argv[argc-1]!=NULL; argc++){
-  //     argp[argc] = (intptr_t)last;
-  //     // printf("argp[%d] = %p\n", argc, argp[argc]);
-  //     last += strlen(argv[argc-1]);
-  // }
-  //   argp[argc] = 0;
-  //   --argc;
-  //   // printf("argc = %d", argc);
-  //   argp[0] = argc;
-  //   c -> GPRx = (uintptr_t)argp;
-  //   char *end = (char *)argp + 0x30;//至多可放12个参数，所有参数长度和至多80字节
-  //   for(int i = 0; i < argc; i++){
-  //     for(int j = 0; argv[i][j]!='\0'; j++){
-  //       *end++ = argv[i][j];
-  //       // printf("j = %d, end = %p, *end = %c\n", j, end - 1, *(end-1)&0xff);
-  //     }
-  //     *end++ = '\0';
-  
-  //   }
-    void *ptr[12];
-    char *argp = (char *)ustack.end - sizeof(Context) - 4;
-    printf("%p\n", argp);
-    int argc = 0;
-    for(int i = 0; argv[i] != NULL; i++){
-      *argp-- = '\0';
-      for(int j = strlen(argv[i])-1; j >= 0; j--){
-        *argp-- = argv[i][j];
-      }
-      ptr[i] = argp + 1;
-      printf("at=%p,ptr[%d]=%s\n",ptr[i],i,(char*)ptr[i]);
-      argc++;
-    }
-    printf("%d\n", argc);
-    uintptr_t tmp = ((uintptr_t)argp >>3) <<3;
-    uintptr_t *p = (void *)(tmp) - (argc + 2)*4;
-    printf("p=%p\n", p);
+    intptr_t *argp = ustack.end - sizeof(Context) - 0x300;
+    // printf("argp = %p\n", argp);
+    int argc = 1;
+    char *last= (char *)argp + 0x30;
+    for(; /*argv[argc]!=NULL*/argv[argc-1]!=NULL; argc++){
+      argp[argc] = (intptr_t)last;
+      // printf("argp[%d] = %p\n", argc, argp[argc]);
+      last += strlen(argv[argc-1]);
+  }
+    argp[argc] = 0;
+    --argc;
+    // printf("argc = %d", argc);
+    argp[0] = argc;
+    c -> GPRx = (uintptr_t)argp;
+    char *end = (char *)argp + 0x30;//至多可放12个参数，所有参数长度和至多80字节
     for(int i = 0; i < argc; i++){
-      p[i+1] = (uintptr_t)ptr[i]; 
-      printf("at %p, p[] = %p", p+i+1, p[i+1]);
+      for(int j = 0; argv[i][j]!='\0'; j++){
+        *end++ = argv[i][j];
+        // printf("j = %d, end = %p, *end = %c\n", j, end - 1, *(end-1)&0xff);
+      }
+      *end++ = '\0';
+  
     }
-    *p = argc;
-    c -> GPRx = (uintptr_t)p;
+    // void *ptr[12];
+    // char *argp = (char *)ustack.end - sizeof(Context) - 4;
+    // printf("%p\n", argp);
+    // int argc = 0;
+    // for(int i = 0; argv[i] != NULL; i++){
+    //   *argp-- = '\0';
+    //   for(int j = strlen(argv[i])-1; j >= 0; j--){
+    //     *argp-- = argv[i][j];
+    //   }
+    //   ptr[i] = argp + 1;
+    //   printf("at=%p,ptr[%d]=%s\n",ptr[i],i,(char*)ptr[i]);
+    //   argc++;
+    // }
+    // printf("%d\n", argc);
+    // uintptr_t tmp = ((uintptr_t)argp >>3) <<3;
+    // uintptr_t *p = (void *)(tmp) - (argc + 2)*4;
+    // printf("p=%p\n", p);
+    // for(int i = 0; i < argc; i++){
+    //   p[i+1] = (uintptr_t)ptr[i]; 
+    //   printf("at %p, p[] = %p", p+i+1, p[i+1]);
+    // }
+    // *p = argc;
+    // c -> GPRx = (uintptr_t)p;
   }
   else{
     c -> GPRx = 0;
