@@ -113,7 +113,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     uintptr_t *p = (void *)(argp - argc - 1);
     for(int i = 0; i < argc; i++){
       p[i+1] = (uintptr_t)ptr[argc - i]; 
-      printf("p[] = %p", p[i+1]);
+      printf("at %p, p[] = %p", p+i+1, p[i+1]);
     }
     *p = argc;
     c -> GPRx = (uintptr_t)p;
