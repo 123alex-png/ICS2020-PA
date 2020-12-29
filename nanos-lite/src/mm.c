@@ -7,6 +7,7 @@ static void *pf = NULL;
 void* new_page(size_t nr_page) {
   void *p = pf;
   pf += PGSIZE * nr_page;
+  assert(pf < heap.end);
   return p;
 }
 
