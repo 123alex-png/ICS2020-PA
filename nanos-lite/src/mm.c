@@ -15,6 +15,7 @@ static void* pg_alloc(int n) {
   size_t nr_page = n / PGSIZE;
   void *ret = new_page(nr_page);
   memset(ret, 0, sizeof(ret));
+  printf("size: %d\n", sizeof(ret));
   return ret;
 }
 
