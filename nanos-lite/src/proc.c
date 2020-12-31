@@ -17,6 +17,7 @@ void hello_fun(void *arg) {
   // assert(arg);
   int j = 1;
   while (1) {
+    // if(j==1000)
     // Log("Hello World from Nanos-lite with arg '%p' for the %dth time!", (uintptr_t)arg, j);
     j ++;
     yield();
