@@ -54,6 +54,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
       printf("buf :%d\n", strlen(buf));
   void *p = malloc(strlen(buf));
   memcpy(p, buf, strlen(buf));
+  assert(!strcmp(buf, p));
   // yield();
   AM_GPU_FBDRAW_T ctl;
   ctl.x = offset % width;
