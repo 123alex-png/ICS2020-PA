@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <SDL.h>
 
+#define SIZE_KEY sizeof(items)/sizeof(char *)
 char handle_key(SDL_Event *ev);
 const char *items[] = {
   {"nterm"},
@@ -18,6 +19,7 @@ const char *items[] = {
   {"onscripter"},
   {"busybox"}
 };
+
 static void sh_printf(const char *format, ...) {
   static char buf[256] = {};
   va_list ap;
@@ -41,7 +43,7 @@ static void sh_handle_cmd(const char *cmd) {
   for(int i = 0; cmd[i]!='\0';i++){
     str[i] = cmd[i];
   }
-  for(int i = 0;i < 12; i++){
+  for(int i = 0;i < SIZE_KEY; i++){
     char *item = strtok(str, split);
     if(!strncmp(item, items[i], strlen(cmd)-1)){
       // assert(0);
