@@ -57,8 +57,8 @@ void __am_switch(Context *c) {
 }
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
-  va = (void *)((uintptr_t)va * 4);
-  pa = (void *)((uintptr_t)pa * 4);
+  // va = (void *)((uintptr_t)va * 4);
+  // pa = (void *)((uintptr_t)pa * 4);
   printf("va = %p\n", va);
   printf("pa = %p\n", pa);
   // assert(IN_RANGE(va, USER_SPACE));
