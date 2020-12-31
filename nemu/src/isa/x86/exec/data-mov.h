@@ -152,3 +152,23 @@ static inline def_EHelper(movsw){
     cpu.esi+=4;cpu.edi+=4;
   }
 }
+
+static inline def_EHelper(naive_movc2r){
+  uint8_t opcode = instr_fetch(&s->seq_pc, 1);
+  if(opcode==0xd8){
+    rtl_mv(s, &(cpu.cr3), &(cpu.eax));
+  }
+  else{
+    rtl_mv(s, &(cpu.cr0), &(cpu.eax));
+  }
+}
+
+static inline def_EHelper(naive_movr2c){
+  uint8_t opcode = instr_fetch(&s->seq_pc, 1);
+  if(opcode==0xd8){
+    rtl_mv(s, &(cpu.eax), &(cpu.cr3));
+  }
+  else{
+    rtl_mv(s, &(cpu.eax), &(cpu.cr0));
+  }
+}
