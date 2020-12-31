@@ -61,7 +61,7 @@ size_t fb_write(void *buf, size_t offset, size_t len) {
   ctl.x = offset % width;
   ctl.y = offset / width;
   assert(p);
-  ctl.pixels = buf;
+  ctl.pixels = p;
   ctl.w = len / 4;//len >> 16;
   ctl.h = 1;//len & 0xffff;
   ctl.sync = true;
