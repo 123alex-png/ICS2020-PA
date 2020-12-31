@@ -16,6 +16,7 @@ const char *items[] = {
   {"dhrystone"},
   {"typing-game"},
   {"onscripter"},
+  {"busybox"}
 };
 static void sh_printf(const char *format, ...) {
   static char buf[256] = {};
@@ -40,9 +41,10 @@ static void sh_handle_cmd(const char *cmd) {
   for(int i = 0; cmd[i]!='\0';i++){
     str[i] = cmd[i];
   }
-  for(int i = 0;i < 11; i++){
+  for(int i = 0;i < 12; i++){
     char *item = strtok(str, split);
     if(!strncmp(item, items[i], strlen(cmd)-1)){
+      // assert(0);
       char **args =(char **)malloc(sizeof(char **) * 10);
       args[0] = str + strlen(str) + 1;
       if(args[0][strlen(args[0])-2]>0x1f){//x86-nemu没有'\t'，故需特判
