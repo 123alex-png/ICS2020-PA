@@ -52,7 +52,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 size_t fb_write(const void *buf, size_t offset, size_t len) {
       // printf("offset=%d len=%d\n", offset, len);
       // printf("buf :%d\n", strlen(buf));
-  void *p = malloc(strlen(buf));
+  void *p = malloc(strlen(buf)+1);
   memcpy(p, buf, strlen(buf));
   printf("buf=%s\n", buf);
   assert(!strcmp(buf, p));
