@@ -51,9 +51,10 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
       // printf("offset=%d len=%d\n", offset, len);
-      printf("buf :%d\n", strlen(buf));
+      // printf("buf :%d\n", strlen(buf));
   void *p = malloc(strlen(buf));
   memcpy(p, buf, strlen(buf));
+  printf("p=%s, buf=%s\n", p, buf);
   assert(!strcmp(buf, p));
   // yield();
   AM_GPU_FBDRAW_T ctl;
