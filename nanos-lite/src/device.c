@@ -49,7 +49,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   return len;
 }
 
-size_t fb_write(const void *buf, size_t offset, size_t len) {
+size_t fb_write(void *buf, size_t offset, size_t len) {
       // printf("offset=%d len=%d\n", offset, len);
       // printf("buf :%d\n", strlen(buf));
   void *p = malloc(strlen(buf)+1);
@@ -61,7 +61,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   ctl.x = offset % width;
   ctl.y = offset / width;
   assert(p);
-  ctl.pixels = p;
+  ctl.pixels = buf;
   ctl.w = len / 4;//len >> 16;
   ctl.h = 1;//len & 0xffff;
   ctl.sync = true;
