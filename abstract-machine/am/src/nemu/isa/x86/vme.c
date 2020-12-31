@@ -76,7 +76,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   printf("pgdir = %p, pgtab = %p\n", pgdir, pgtab);
   size_t pgtab_index = ((uint32_t)va >> 12) & 0x3ff;//中间10位
   if((pgtab[pgtab_index] & PTE_P) == 1){//是否存在这种情况？？？
-    panic("PTE_P of pgtab has been 1");
+    // panic("PTE_P of pgtab has been 1");
   }
   pgtab[pgtab_index] = ((uintptr_t)pa & ~0xfff) | PTE_P;
 }
