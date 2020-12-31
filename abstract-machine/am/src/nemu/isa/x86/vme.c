@@ -58,6 +58,7 @@ void __am_switch(Context *c) {
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
   printf("va = %p\n", va);
+  printf("pa = %p\n", pa);
   // assert(IN_RANGE(va, USER_SPACE));
   // printf("range user_space: %p to %p\n", USER_SPACE.start, USER_SPACE.end);
   assert((uintptr_t)va % PGSIZE == 0);
