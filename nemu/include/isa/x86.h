@@ -137,6 +137,8 @@ typedef struct {
   // }idtr;
   idtrr idtr;
   uint16_t cs;
+  rtlreg_t cr0;
+  rtlreg_t cr3;
 } x86_CPU_state;
 
 // decode
@@ -149,7 +151,7 @@ typedef struct {
 } x86_ISADecodeInfo;
 
 #define suffix_char(width) ((width) == 4 ? 'l' : ((width) == 1 ? 'b' : ((width) == 2 ? 'w' : '?')))
-#define isa_vaddr_check(vaddr, type, len) (MEM_RET_OK)
+#define isa_vaddr_check(vaddr, type, len) (((cpu.cr0>>31)&0x1)?MEM_RET_NEED_TRANSLATE:MEM_RET_OK)//
 #define x86_has_mem_exception() (false)
 
 #endif

@@ -44,4 +44,10 @@ static inline word_t vaddr_ifetch(vaddr_t addr, int len) {
 #define PAGE_MASK         (PAGE_SIZE - 1)
 #define PG_ALIGN __attribute((aligned(PAGE_SIZE)))
 
+#define PDE_INDEX(va) ((va >> 22) & 0x3ff)  //高10位,页目录
+#define PTE_INDEX(va) ((va >> 12) & 0x3ff)  //中间10位，页表
+#define PTE_ADDR(addr) (addr & ~0xfff)      //页表项高20位有效地址
+#define OFFSET(va)     (va&0xfff)           //低12位，页内偏移量
+#define PTE_P   0x001
+
 #endif
