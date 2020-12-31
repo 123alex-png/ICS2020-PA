@@ -57,12 +57,8 @@ void __am_switch(Context *c) {
 }
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
-  // va = (void *)((uintptr_t)va * 4);
-  // pa = (void *)((uintptr_t)pa * 4);
-  printf("va = %p\n", va);
-  printf("pa = %p\n", pa);
-  // assert(IN_RANGE(va, USER_SPACE));
-  // printf("range user_space: %p to %p\n", USER_SPACE.start, USER_SPACE.end);
+  // printf("va = %p\n", va);
+  // printf("pa = %p\n", pa);
   assert((uintptr_t)va % PGSIZE == 0);
   assert((uintptr_t)pa % PGSIZE == 0);
   assert(as != NULL);
@@ -77,9 +73,9 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   uintptr_t *pgtab = (uintptr_t *)(pgdir[pgdir_index] & ~0xfff);//高20位
   
   size_t pgtab_index = ((uint32_t)va >> 12) & 0x3ff;//中间10位
-  printf("pgdir_index = %d, pgtab_index = %d\n", pgdir_index, pgtab_index);
-  printf("pgdir = %p, pgtab = %p\n", pgdir, pgtab);
-  printf("pgtab[%d] = %p\n", pgtab_index, pgtab[pgtab_index]);
+  // printf("pgdir_index = %d, pgtab_index = %d\n", pgdir_index, pgtab_index);
+  // printf("pgdir = %p, pgtab = %p\n", pgdir, pgtab);
+  // printf("pgtab[%d] = %p\n", pgtab_index, pgtab[pgtab_index]);
   if((pgtab[pgtab_index] & PTE_P) == 1){//是否存在这种情况？？？
     panic("PTE_P of pgtab has been 1");
   }
