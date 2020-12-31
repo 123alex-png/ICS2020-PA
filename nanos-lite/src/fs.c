@@ -97,7 +97,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
     size_t ret = 0;
   if(file_table[fd].write){
     ret = file_table[fd].write(buf, file_table[fd].open_offset, len);
-    file_table[fd].open_offset += ret ;//- 768;
+    file_table[fd].open_offset += ret - 768;
     return ret;
   }
   if(file_table[fd].open_offset>=file_table[fd].size)return 0;
