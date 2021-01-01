@@ -320,6 +320,9 @@ vaddr_t isa_exec_once() {
   s.is_jmp = 0;
   s.isa = (ISADecodeInfo) { 0 };
   s.seq_pc = cpu.pc;
+  if(cpu.pc==0x10234c){
+    printf("eax: %x\n",cpu.eax);
+  }
   fetch_decode_exec(&s);
   update_pc(&s);
 
