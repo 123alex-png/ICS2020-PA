@@ -63,7 +63,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   assert((uintptr_t)va % PGSIZE == 0);
   assert((uintptr_t)pa % PGSIZE == 0);
   assert(as != NULL);
-  assert(va == pa);//only for nanos
+  // assert(va == pa);//only for nanos
   uintptr_t *pgdir = (uintptr_t *)as->ptr;
   size_t pgdir_index = (((uint32_t)va)>>22)&0x3ff;//高10位
   if((pgdir[pgdir_index] & PTE_P)==0){//装入位是0才填入
