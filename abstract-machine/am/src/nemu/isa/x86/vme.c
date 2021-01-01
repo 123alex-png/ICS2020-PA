@@ -68,7 +68,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   size_t pgdir_index = (((uint32_t)va)>>22)&0x3ff;//高10位
   if((pgdir[pgdir_index] & PTE_P)==0){//装入位是0才填入
     uintptr_t new_pgtab = (uintptr_t)pgalloc_usr(PGSIZE);
-    printf("new_pagetab: %p, va: %p\n",(void *)new_pgtab, va);
+    // printf("new_pagetab: %p, va: %p\n",(void *)new_pgtab, va);
     pgdir[pgdir_index] = new_pgtab | PTE_P;//entry只使用new_pgtab的高20位，或起来不会产生影响
   }
   assert((pgdir[pgdir_index] & PTE_P)==1);
