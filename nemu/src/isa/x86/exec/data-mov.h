@@ -153,20 +153,26 @@ static inline def_EHelper(movsw){
   }
 }
 
-static inline def_EHelper(naive_movc2r){
+static inline def_EHelper(naive_movr2c){
   uint8_t opcode = instr_fetch(&s->seq_pc, 1);
   if(opcode==0xd8){
     rtl_mv(s, &(cpu.cr3), &(cpu.eax));
+  }
+  else if(opcode==0xda){
+    rtl_mv(s, &(cpu.cr3), &(cpu.edx));
   }
   else{
     rtl_mv(s, &(cpu.cr0), &(cpu.eax));
   }
 }
 
-static inline def_EHelper(naive_movr2c){
+static inline def_EHelper(naive_movc2r){
   uint8_t opcode = instr_fetch(&s->seq_pc, 1);
   if(opcode==0xd8){
     rtl_mv(s, &(cpu.eax), &(cpu.cr3));
+  }
+  else if(opcode==0xda){
+    rtl_mv(s, &(cpu.edx), &(cpu.cr3));
   }
   else{
     rtl_mv(s, &(cpu.eax), &(cpu.cr0));
