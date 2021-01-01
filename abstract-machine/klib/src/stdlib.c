@@ -34,7 +34,7 @@ void *malloc(size_t size) {
   // address+=size;
   // return address;
   // size  = (size_t)ROUNDUP(size, 8);
-  printf("heap: %p\n", &_heap_start);
+  // printf("heap: %p\n", &_heap_start);
   char *old = hbrk;
   hbrk += size;
   //assert((uintptr_t)heap.start <= (uintptr_t)hbrk && (uintptr_t)hbrk < (uintptr_t)heap.end);
