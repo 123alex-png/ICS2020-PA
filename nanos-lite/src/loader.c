@@ -62,7 +62,7 @@ void context_kload(PCB *pcb, void *entry, void *arg){
 }
 int cnt = 0;
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
-  protect(&(pcb->as));
+  // protect(&(pcb->as));
   char *tmp[80];
   for(int i = 0; i < 80; i++){
     tmp[i] = (char *)malloc(sizeof(char) * 80);
