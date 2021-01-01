@@ -64,10 +64,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       fs_read(fd,&phdr,ehdr.e_phentsize);
     if(phdr.p_type==PT_LOAD){
       fs_lseek(fd,phdr.p_offset,SEEK_SET);
-      // fs_read(fd,(void *)phdr.p_vaddr,phdr.p_filesz);
+      fs_read(fd,(void *)phdr.p_vaddr,phdr.p_filesz);
       memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
       
-      page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
+      // page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
     }
   }
   return ehdr.e_entry;
