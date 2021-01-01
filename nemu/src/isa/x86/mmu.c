@@ -3,14 +3,14 @@
 #include <memory/paddr.h>
 
 paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的用途？？？
-  // printf("vaddr=%x\n",vaddr);
-  // Log("PTE_ADDR(cpu.cr3)+PDE_INDEX(vaddr)*4: %x\n",PTE_ADDR(cpu.cr3)+PDE_INDEX(vaddr)*4);
+  printf("vaddr=%x\n",vaddr);
+  Log("PTE_ADDR(cpu.cr3)+PDE_INDEX(vaddr)*4: %x\n",PTE_ADDR(cpu.cr3)+PDE_INDEX(vaddr)*4);
   // assert(0);
   uintptr_t pgdir = paddr_read(PTE_ADDR(cpu.cr3)+PDE_INDEX(vaddr)*4, 4);
-  // printf("pgdir: %x\n",(uint32_t)pgdir);
-  // assert((pgdir & PTE_P)==1);
+  printf("pgdir: %x\n",(uint32_t)pgdir);
+  assert((pgdir & PTE_P)==1);
   uintptr_t pgtab = paddr_read(PTE_ADDR(pgdir)+PTE_INDEX(vaddr)*4, 4 );
-  // assert(pgtab & PTE_P);
+  assert(pgtab & PTE_P);
   paddr_t paddr = PTE_ADDR(pgtab)+OFFSET(vaddr);
   assert(paddr==vaddr);
   // while(1);
