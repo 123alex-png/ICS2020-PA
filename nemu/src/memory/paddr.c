@@ -79,7 +79,7 @@ word_t concat(vaddr_read, bytes) (vaddr_t addr) { \
 void concat(vaddr_write, bytes) (vaddr_t addr, word_t data) { \
   int ret = isa_vaddr_check(addr, MEM_TYPE_WRITE, bytes); \
   if (ret == MEM_RET_OK) paddr_write(addr, data, bytes); \
-  else if (ret == MEM_RET_NEED_TRANSLATE) vaddr_mmu_write(addr, bytes, MEM_TYPE_READ);\
+  else if (ret == MEM_RET_NEED_TRANSLATE) vaddr_mmu_write(addr, data, bytes);\
 }
 
 
