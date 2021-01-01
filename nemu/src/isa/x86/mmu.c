@@ -9,7 +9,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
   assert(pgtab & PTE_P);
   paddr_t paddr = PTE_ADDR(pgtab)+OFFSET(vaddr);
   assert(paddr==vaddr);
-  while(1);
+  // while(1);
   return paddr;
 }
 
