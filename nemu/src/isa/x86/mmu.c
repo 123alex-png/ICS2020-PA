@@ -18,6 +18,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
   if (OFFSET(addr)+len <= PAGE_SIZE) {
     paddr_t pg_base = isa_mmu_translate(addr, type, len);
+    assert(pg_base==addr);
     return paddr_read(pg_base, len);
   } else {
     assert(OFFSET(addr)+len <= PAGE_SIZE);
