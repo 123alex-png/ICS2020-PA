@@ -33,6 +33,7 @@ void vaddr_mmu_write(vaddr_t addr, uint32_t data, int len, int type){
   if (OFFSET(addr)+len <= PAGE_SIZE) {
     paddr_t pg_base = isa_mmu_translate(addr, type, len);
     paddr_write(pg_base, data, len);
+    return;
   } else {
     assert(OFFSET(addr)+len <= PAGE_SIZE);
   }
