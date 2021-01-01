@@ -24,7 +24,7 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
     void *va = segments[i].start;
     
     for (; va < segments[i].end; va += PGSIZE) {
-      if((uint32_t)va<=0x3000000)
+      if((uint32_t)va<=0x2300000)
       printf("va: %p\n",va);
       map(&kas, va, va, 0);
     }
