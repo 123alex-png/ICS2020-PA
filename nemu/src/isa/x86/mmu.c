@@ -6,7 +6,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
   // printf("vaddr=%x\n",vaddr);
   // assert(0);
   uintptr_t pgdir = paddr_read(PTE_ADDR(cpu.cr3)+PDE_INDEX(vaddr)*4, 4);
-  printf("pgdir: %x\n",(uint32_t)pgdir);
+  // printf("pgdir: %x\n",(uint32_t)pgdir);
   assert((pgdir & PTE_P)==1);
   uintptr_t pgtab = paddr_read(PTE_ADDR(pgdir)+PTE_INDEX(vaddr)*4, 4 );
   assert(pgtab & PTE_P);
@@ -17,7 +17,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
 }
 
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
-  printf("addr: %x\n",addr);
+  // printf("addr: %x\n",addr);
   if (OFFSET(addr)+len <= PAGE_SIZE) {
     paddr_t pg_base = isa_mmu_translate(addr, type, len);
     assert(pg_base==addr);
