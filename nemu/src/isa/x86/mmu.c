@@ -1,17 +1,20 @@
 #include <isa.h>
 #include <memory/vaddr.h>
 #include <memory/paddr.h>
-
+uint32_t last_pc=0;
 paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的用途？？？
   // printf("vaddr=%x\n",vaddr);
   // Log("PTE_ADDR(cpu.cr3)+PDE_INDEX(vaddr)*4: %x",PTE_ADDR(cpu.cr3)+PDE_INDEX(vaddr)*4);
   // assert(0);
+  
   uintptr_t pgdir = paddr_read(PTE_ADDR(cpu.cr3)+PDE_INDEX(vaddr)*4, 4);
   // printf("pgdir: %x\n",(uint32_t)pgdir);
   assert((pgdir & 0xffe) == 0);
   if((pgdir&PTE_P)==0||(pgdir>>20)!=0x22){
-    printf("pc: %d, pgdir: %p\n", cpu.pc, (void *)pgdir);
+    printf("lastpc: %d, pc: %d, pgdir: %p\n", last_pc, cpu.pc, (void *)pgdir);
+
   }
+  last_pc=cpu.pc;
   assert((pgdir & PTE_P)==1);
   uintptr_t pgtab = paddr_read(PTE_ADDR(pgdir)+PTE_INDEX(vaddr)*4, 4 );
   assert(pgtab & PTE_P);//malloc申请的内存占用了pgdir，什么问题？？？
