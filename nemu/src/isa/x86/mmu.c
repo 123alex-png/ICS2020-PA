@@ -11,7 +11,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
   // printf("pgdir: %x\n",(uint32_t)pgdir);
   assert((pgdir & 0xffe) == 0);
   if((pgdir&PTE_P)==0){
-    printf("last_vaddr:%x, lastpc: %x, pc: %x, pgdir: %lx, vaddr: %x, last_pgdir:%x\n", last_vaddr, last_pc, cpu.pc, pgdir,vaddr,last_pgdir);
+    // printf("last_vaddr:%x, lastpc: %x, pc: %x, pgdir: %lx, vaddr: %x, last_pgdir:%x\n", last_vaddr, last_pc, cpu.pc, pgdir,vaddr,last_pgdir);
 
   }
   last_pc=cpu.pc;
@@ -35,7 +35,7 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
   } else {
     size_t len1 = PAGE_SIZE - OFFSET(addr);
     size_t len2 = len - len1;
-    printf("len1: %ld, len2: %ld\n",len1,len2);
+    // printf("len1: %ld, len2: %ld\n",len1,len2);
     uintptr_t paddr1 = isa_mmu_translate(addr, type, len);
     uintptr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
     return (paddr_read(paddr2, 4)<<(8*(4-len2)))|((paddr_read(paddr1, 4))>>8*(4-len1));
@@ -54,7 +54,7 @@ void vaddr_mmu_write(vaddr_t addr, uint32_t data, int len, int type){
   } else {
     size_t len1 = PAGE_SIZE - OFFSET(addr);
     size_t len2 = len - len1;
-    printf("len1: %ld, len2: %ld\n",len1,len2);
+    // printf("len1: %ld, len2: %ld\n",len1,len2);
     paddr_t paddr1 = isa_mmu_translate(addr, type, len);
     paddr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
     // (paddr_write(paddr2, len2)<<(8*(4-len2)))|((paddr_read(paddr1, 4))>>8*(4-len1));
