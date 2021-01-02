@@ -33,7 +33,7 @@ int atoi(const char* nptr) {
 void *malloc(size_t size) {
   // address+=size;
   // return address;
-  assert(0);
+  // assert(0);
   size  = (size_t)ROUNDUP(size, 8);
   // printf("heap: %p\n", &_heap_start);
   char *old = hbrk;
