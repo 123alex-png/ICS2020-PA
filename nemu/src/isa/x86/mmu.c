@@ -64,7 +64,7 @@ void vaddr_mmu_write(vaddr_t addr, uint32_t data, int len, int type){
     }
     else{
       if(len1==1){
-        paddr_write(paddr2, (data>>16)&0xfff, 2);
+        paddr_write(paddr2, (data>>16)&0xffff, 2);
         paddr_write(paddr2+8, data>>24, 1);
         paddr_write(paddr1, data&0xff, 1);
       }
