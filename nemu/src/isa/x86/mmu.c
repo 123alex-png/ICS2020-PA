@@ -27,10 +27,11 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
 }
 
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
-  printf("addr: %x\n",addr);
-  return paddr_read(addr, len);
+  // printf("addr: %x\n",addr);
+  // return paddr_read(addr, len);
   if (OFFSET(addr)+len <= PAGE_SIZE) {
     paddr_t pg_base = isa_mmu_translate(addr, type, len);
+    printf("pg_base : %x\n", pg_base);
     assert(pg_base==addr);
     return paddr_read(addr, len);
   } else {
@@ -39,6 +40,7 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
     // printf("len1: %ld, len2: %ld\n",len1,len2);
     uintptr_t paddr1 = isa_mmu_translate(addr, type, len);
     uintptr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
+    printf("paddr1: %lx, paddr2: %lx\n", paddr1,paddr2);
     word_t ret2 = (paddr_read(paddr2, 4)<<(8*(4-len2)));
     word_t ret1 = ((paddr_read(paddr1, 4))>>8*(4-len1));
     word_t ret = ret1|ret2;
