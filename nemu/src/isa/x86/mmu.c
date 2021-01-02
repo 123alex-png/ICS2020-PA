@@ -37,8 +37,8 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
     return paddr_read(pg_base, len);
   } else {
     size_t len1 = PAGE_SIZE - OFFSET(addr);
-    // size_t len2 = len - len1;
-    // printf("len1: %ld, len2: %ld\n",len1,len2);
+    size_t len2 = len - len1;
+    printf("len1: %ld, len2: %ld, len: %d\n",len1,len2,len);
     uintptr_t paddr1 = isa_mmu_translate(addr, type, len);
     uintptr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
     // printf("paddr1: %lx, paddr2: %lx\n", paddr1,paddr2);
