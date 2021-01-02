@@ -314,7 +314,7 @@ again:
   default: exec_inv(s);
   }
 }
-
+int cnt=0;
 vaddr_t isa_exec_once() {
   DecodeExecState s;
   s.is_jmp = 0;
@@ -322,7 +322,7 @@ vaddr_t isa_exec_once() {
   s.seq_pc = cpu.pc;
   if(cpu.pc==0x3037ffc){
     // assert(0);
-    printf("1\n");
+    printf("%d\n", ++cnt);
   }
   fetch_decode_exec(&s);
   update_pc(&s);
