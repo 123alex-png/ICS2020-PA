@@ -10,7 +10,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
   // printf("pgdir: %x\n",(uint32_t)pgdir);
   assert((pgdir & 0xffe) == 0);
   if((pgdir&PTE_P)==0||(pgdir>>20)==0x22){
-    // printf("pc: %d, pgdir: %p\n", cpu.pc, (void *)pgdir);
+    printf("pc: %d, pgdir: %p\n", cpu.pc, (void *)pgdir);
   }
   assert((pgdir & PTE_P)==1);
   uintptr_t pgtab = paddr_read(PTE_ADDR(pgdir)+PTE_INDEX(vaddr)*4, 4 );
