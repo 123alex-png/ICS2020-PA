@@ -29,7 +29,6 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
   
   // return paddr_read(addr, len);
-  word_t right_data = paddr_read(addr, len);
   if (OFFSET(addr)+len <= PAGE_SIZE) {
     paddr_t pg_base = isa_mmu_translate(addr, type, len);
     // printf("pg_base : %x\n", pg_base);
@@ -47,15 +46,15 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
     
     word_t ret = ret1|ret2;
     
-    if(ret != right_data){
-      printf("addr: %x\n",addr);
-      printf("len1: %ld, len2: %ld, len: %d\n",len1,len2,len);
-      printf("paddr1: %lx, paddr2: %lx\n", paddr1,paddr2);
-      printf("ret1: %x, ret2: %x, read : %x\n", ret1, ret2, ret);
-    printf("ret: %x, right: %x, right: %x\n", ret, right_data,paddr_read(paddr1,len));
-    printf("mask: %x\n",(len1==1?(len1==2?0xffff:0xffffff):0xff));
-    assert(0);
-    }
+    // if(ret != right_data){
+    //   printf("addr: %x\n",addr);
+    //   printf("len1: %ld, len2: %ld, len: %d\n",len1,len2,len);
+    //   printf("paddr1: %lx, paddr2: %lx\n", paddr1,paddr2);
+    //   printf("ret1: %x, ret2: %x, read : %x\n", ret1, ret2, ret);
+    // printf("ret: %x, right: %x, right: %x\n", ret, right_data,paddr_read(paddr1,len));
+    // printf("mask: %x\n",(len1==1?(len1==2?0xffff:0xffffff):0xff));
+    // assert(0);
+    // }
     return ret;
 
   }
@@ -69,31 +68,31 @@ void vaddr_mmu_write(vaddr_t addr, uint32_t data, int len, int type){
     paddr_t pg_base = isa_mmu_translate(addr, type, len);
     paddr_write(pg_base, data, len);
     return;
-  } else {assert(0);
-    size_t len1 = PAGE_SIZE - OFFSET(addr);
-    size_t len2 = len - len1;
-    printf("len1: %ld, len2: %ld\n",len1,len2);
-    paddr_t paddr1 = isa_mmu_translate(addr, type, len);
-    paddr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
-    assert(paddr1==addr&&paddr2==addr+len1);
-    // (paddr_write(paddr2, len2)<<(8*(4-len2)))|((paddr_read(paddr1, 4))>>8*(4-len1));
-    if(len1==2){
-      paddr_write(paddr2, data>>16, 2);
-      paddr_write(paddr1, data&0xffff, 2);
-    }
-    else{
-      if(len1==1){
-        paddr_write(paddr2, (data>>16)&0xffff, 2);
-        paddr_write(paddr2+8, data>>24, 1);
-        paddr_write(paddr1, data&0xff, 1);
-      }
-      else{//len1=3
-        paddr_write(paddr1, data&0xffff, 2);
-        paddr_write(paddr1+8, (data>>16)&0xff, 1);
-        paddr_write(paddr2, data>>24, 1);
-      }
-    }
-    return;
+  } else {
+    // size_t len1 = PAGE_SIZE - OFFSET(addr);
+    // size_t len2 = len - len1;
+    // // printf("len1: %ld, len2: %ld\n",len1,len2);
+    // paddr_t paddr1 = isa_mmu_translate(addr, type, len);
+    // paddr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
+    // assert(paddr1==addr&&paddr2==addr+len1);
+    // // (paddr_write(paddr2, len2)<<(8*(4-len2)))|((paddr_read(paddr1, 4))>>8*(4-len1));
+    // if(len1==2){
+    //   paddr_write(paddr2, data>>16, 2);
+    //   paddr_write(paddr1, data&0xffff, 2);
+    // }
+    // else{
+    //   if(len1==1){
+    //     paddr_write(paddr2, (data>>16)&0xffff, 2);
+    //     paddr_write(paddr2+8, data>>24, 1);
+    //     paddr_write(paddr1, data&0xff, 1);
+    //   }
+    //   else{//len1=3
+    //     paddr_write(paddr1, data&0xffff, 2);
+    //     paddr_write(paddr1+8, (data>>16)&0xff, 1);
+    //     paddr_write(paddr2, data>>24, 1);
+    //   }
+    // }
+    // return;
     assert(OFFSET(addr)+len <= PAGE_SIZE);
   }
   assert(0);
