@@ -321,7 +321,7 @@ vaddr_t isa_exec_once() {
   s.isa = (ISADecodeInfo) { 0 };
   s.seq_pc = cpu.pc;
   if(cpu.pc==0x3037ffc){
-    assert(0);
+    // assert(0);
     printf("1\n");
   }
   fetch_decode_exec(&s);
