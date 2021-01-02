@@ -53,13 +53,27 @@ void vaddr_mmu_write(vaddr_t addr, uint32_t data, int len, int type){
     return;
   } else {
     size_t len1 = PAGE_SIZE - OFFSET(addr);
-    size_t len2 = len - len1;
+    // size_t len2 = len - len1;
     // printf("len1: %ld, len2: %ld\n",len1,len2);
     paddr_t paddr1 = isa_mmu_translate(addr, type, len);
     paddr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
     // (paddr_write(paddr2, len2)<<(8*(4-len2)))|((paddr_read(paddr1, 4))>>8*(4-len1));
-    paddr_write(paddr2, data<<(8*(4-len2)), 4);
-    paddr_write(paddr1, data>>(8*(4-len1)), 4);
+    if(len1==2){
+      paddr_write(paddr2, data>>16, 2);
+      paddr_write(paddr1, data&0xffff, 2);
+    }
+    else{
+      if(len1==1){
+        paddr_write(paddr2, (data>>16)&0xfff, 2);
+        paddr_write(paddr2+8, data>>24, 1);
+        paddr_write(paddr1, data&0xff, 1);
+      }
+      else{//len1=3
+        paddr_write(paddr1, data&0xffff, 2);
+        paddr_write(paddr1+8, (data>>16)&0xff, 1);
+        paddr_write(paddr2, data>>24, 1);
+      }
+    }
     return;
     assert(OFFSET(addr)+len <= PAGE_SIZE);
   }
