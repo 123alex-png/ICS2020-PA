@@ -53,6 +53,7 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
       printf("paddr1: %lx, paddr2: %lx\n", paddr1,paddr2);
       printf("ret1: %x, ret2: %x, read : %x\n", ret1, ret2, ret);
     printf("ret: %x, right: %x, right: %x\n", ret, right_data,paddr_read(paddr1,len));
+    printf("mask: %x\n",(len1==1?(len1==2?0xffff:0xffffff):0xff));
     assert(0);
     }
     return ret;
