@@ -39,6 +39,7 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
     uintptr_t paddr1 = isa_mmu_translate(addr, type, len);
     uintptr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
     word_t ret = (paddr_read(paddr2, 4)<<(8*(4-len2)))|((paddr_read(paddr1, 4))>>8*(4-len1));
+    printf("read : %u\n", ret);
     return ret;
 
   }
