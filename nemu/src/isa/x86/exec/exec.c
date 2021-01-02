@@ -320,10 +320,10 @@ vaddr_t isa_exec_once() {
   s.is_jmp = 0;
   s.isa = (ISADecodeInfo) { 0 };
   s.seq_pc = cpu.pc;
-  fetch_decode_exec(&s);
   if(cpu.pc==0x3037ffc){
     printf("1\n");
   }
+  fetch_decode_exec(&s);
   update_pc(&s);
 
   return s.seq_pc;
