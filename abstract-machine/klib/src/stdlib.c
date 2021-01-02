@@ -39,9 +39,9 @@ void *malloc(size_t size) {
   char *old = hbrk;
   hbrk += size;
   //assert((uintptr_t)heap.start <= (uintptr_t)hbrk && (uintptr_t)hbrk < (uintptr_t)heap.end);
-  for (char *p = old; p != hbrk; p ++) {
-    *p = 0;
-  }
+  // for (char *p = old; p != hbrk; p ++) {
+  //   *p = 0;
+  // }
   //assert((uintptr_t)hbrk - (uintptr_t)heap.start <= setting->mlim);
   return old;
 }
