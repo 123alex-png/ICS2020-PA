@@ -8,6 +8,9 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
   // assert(0);
   uintptr_t pgdir = paddr_read(PTE_ADDR(cpu.cr3)+PDE_INDEX(vaddr)*4, 4);
   printf("pgdir: %x\n",(uint32_t)pgdir);
+  if((pgdir&PTE_P)==0){
+    printf("pc: %x", cpu.pc);
+  }
   assert((pgdir & PTE_P)==1);
   uintptr_t pgtab = paddr_read(PTE_ADDR(pgdir)+PTE_INDEX(vaddr)*4, 4 );
   assert(pgtab & PTE_P);//malloc申请的内存占用了pgdir，什么问题？？？
