@@ -322,7 +322,7 @@ vaddr_t isa_exec_once() {
   s.seq_pc = cpu.pc;
   if(cpu.pc==0x3037ffc){
     // assert(0);
-    printf("%d\n", ++cnt);
+    // printf("%d\n", ++cnt);
   }
   fetch_decode_exec(&s);
   update_pc(&s);
