@@ -322,7 +322,7 @@ vaddr_t isa_exec_once() {
   s.seq_pc = cpu.pc;
   fetch_decode_exec(&s);
   if(cpu.pc==0x3037ffc){
-    s.is_jmp|=0;
+    cpu.pc++;
   }
   update_pc(&s);
 
