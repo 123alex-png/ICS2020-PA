@@ -47,6 +47,7 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
     
     word_t ret = ret1|ret2;
     // printf("ret1: %x, ret2: %x, read : %x\n", ret1, ret2, ret);
+    printf("ret: %x, right: %x\n", ret, right_data);
     assert(ret == right_data);
     return ret;
 
