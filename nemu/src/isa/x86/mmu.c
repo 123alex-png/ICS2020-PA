@@ -43,7 +43,7 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
     uintptr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
     
     word_t ret2 = (paddr_read(paddr2, 4)<<(8*(4-len2)));
-    word_t ret1 = ((paddr_read(paddr1, 4))&(len1==1?(len==2?0xffff:0xffffff):0xff));
+    word_t ret1 = ((paddr_read(paddr1, 4))&(len1==1?(len1==2?0xffff:0xffffff):0xff));
     
     word_t ret = ret1|ret2;
     
@@ -52,7 +52,7 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
       printf("len1: %ld, len2: %ld, len: %d\n",len1,len2,len);
       printf("paddr1: %lx, paddr2: %lx\n", paddr1,paddr2);
       printf("ret1: %x, ret2: %x, read : %x\n", ret1, ret2, ret);
-    printf("ret: %x, right: %x\n", ret, right_data);
+    printf("ret: %x, right: %x, right: %x\n", ret, right_data,paddr_read(paddr1,4));
     assert(0);
     }
     return ret;
