@@ -11,7 +11,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
   // printf("pgdir: %x\n",(uint32_t)pgdir);
   assert((pgdir & 0xffe) == 0);
   if((pgdir&PTE_P)==0||(pgdir>>20)!=0x22){
-    printf("lastpc: %x, pc: %x, pgdir: %lx, vaddr: %x\n", last_pc, cpu.pc, pgdir,vaddr);
+    printf("lastpc: %x, pc: %x, pgdir: %lx, vaddr: %x, last_pgdir:%x\n", last_pc, cpu.pc, pgdir,vaddr,last_pgdir);
 
   }
   last_pc=cpu.pc;
