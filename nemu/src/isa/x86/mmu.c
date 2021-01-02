@@ -41,7 +41,7 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
     word_t ret2 = (paddr_read(paddr2, 4)<<(8*(4-len2)));
     word_t ret1 = ((paddr_read(paddr1, 4))>>8*(4-len1));
     word_t ret = ret1|ret2;
-    printf("ret1: %x, ret2: %x, read : %x\n", ret1, ret2, ret);
+    // printf("ret1: %x, ret2: %x, read : %x\n", ret1, ret2, ret);
     return ret;
 
   }
