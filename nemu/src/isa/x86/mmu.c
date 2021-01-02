@@ -27,7 +27,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
 }
 
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
-  printf("addr: %x\n",addr);
+  
   // return paddr_read(addr, len);
   word_t right_data = paddr_read(addr, len);
   if (OFFSET(addr)+len <= PAGE_SIZE) {
@@ -38,17 +38,22 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
   } else {
     size_t len1 = PAGE_SIZE - OFFSET(addr);
     size_t len2 = len - len1;
-    printf("len1: %ld, len2: %ld, len: %d\n",len1,len2,len);
+    
     uintptr_t paddr1 = isa_mmu_translate(addr, type, len);
     uintptr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
-    printf("paddr1: %lx, paddr2: %lx\n", paddr1,paddr2);
+    
     word_t ret2 = (paddr_read(paddr2, 4));//<<(8*(4-len2)));
     word_t ret1 = ((paddr_read(paddr1, 4)));//>>8*(4-len1));
     
     word_t ret = ret1|ret2;
-    printf("ret1: %x, ret2: %x, read : %x\n", ret1, ret2, ret);
+    
+    if(ret != right_data){
+      printf("addr: %x\n",addr);
+      printf("len1: %ld, len2: %ld, len: %d\n",len1,len2,len);
+      printf("paddr1: %lx, paddr2: %lx\n", paddr1,paddr2);
+      printf("ret1: %x, ret2: %x, read : %x\n", ret1, ret2, ret);
     printf("ret: %x, right: %x\n", ret, right_data);
-    assert(ret == right_data);
+    }
     return ret;
 
   }
