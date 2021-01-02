@@ -51,7 +51,7 @@ void vaddr_mmu_write(vaddr_t addr, uint32_t data, int len, int type){
     paddr_t pg_base = isa_mmu_translate(addr, type, len);
     paddr_write(pg_base, data, len);
     return;
-  } else {
+  } else {assert(0);
     size_t len1 = PAGE_SIZE - OFFSET(addr);
     size_t len2 = len - len1;
     printf("len1: %ld, len2: %ld\n",len1,len2);
