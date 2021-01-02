@@ -58,8 +58,8 @@ void vaddr_mmu_write(vaddr_t addr, uint32_t data, int len, int type){
     paddr_t paddr1 = isa_mmu_translate(addr, type, len);
     paddr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
     // (paddr_write(paddr2, len2)<<(8*(4-len2)))|((paddr_read(paddr1, 4))>>8*(4-len1));
-    paddr_write(paddr2, data<<(8*(4-len2)), len2);
-    paddr_write(paddr1, data>>(8*(4-len1)), len1);
+    paddr_write(paddr2, data<<(8*(4-len2)), 4);
+    paddr_write(paddr1, data>>(8*(4-len1)), 4);
     return;
     assert(OFFSET(addr)+len <= PAGE_SIZE);
   }
