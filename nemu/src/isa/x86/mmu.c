@@ -57,6 +57,7 @@ void vaddr_mmu_write(vaddr_t addr, uint32_t data, int len, int type){
     printf("len1: %ld, len2: %ld\n",len1,len2);
     paddr_t paddr1 = isa_mmu_translate(addr, type, len);
     paddr_t paddr2 = isa_mmu_translate(addr+len1, type, len);
+    assert(paddr1==addr);
     // (paddr_write(paddr2, len2)<<(8*(4-len2)))|((paddr_read(paddr1, 4))>>8*(4-len1));
     if(len1==2){
       paddr_write(paddr2, data>>16, 2);
@@ -64,7 +65,7 @@ void vaddr_mmu_write(vaddr_t addr, uint32_t data, int len, int type){
     }
     else{
       if(len1==1){
-        paddr_write(paddr2, (data>>16)&0xf, 2);
+        paddr_write(paddr2, (data>>16)&0xffff, 2);
         paddr_write(paddr2+8, data>>24, 1);
         paddr_write(paddr1, data&0xff, 1);
       }
