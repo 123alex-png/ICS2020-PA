@@ -53,23 +53,21 @@ static void sh_handle_cmd(const char *cmd) {
       char *newstr = args[0];
       strtok(newstr, split);
       args[1] = newstr + strlen(newstr) + 1;
+      if(args[1][0]=='\t'||args[1][0]=='\n'||args[1][0]=='\0')args[1]=NULL;
+      // printf("%d\n",args[1][0]);
       int i = args[1]==NULL?0:1;
-
-      if(args[i][i]=='\0')args[i]=NULL;
-      else{
-        if(args[i][strlen(args[i])-2]>0x1f){//x86-nemu没有'\t'，故需特判
-          args[i][strlen(args[i])-1]='\0';
-        }
-        else{
-          args[i][strlen(args[i])-2]='\0';
-        }
+      // assert(i==0);
+      if(args[i][strlen(args[i])-2]>0x1f){//x86-nemu没有'\t'，故需特判
+        args[i][strlen(args[i])-1]='\0';
       }
-      
-      // args[0]="cat";
+      else{
+        args[i][strlen(args[i])-2]='\0';
+      }
+      args[0]="printenv";
       args[2] = NULL;
-      // args[1]= "/share/games/bird/atlas.txt";
+      args[1]= NULL;
       printf("item: %s, args[0]=%s, args[1]:%s\n",item, args[0], args[1]);
-      execvp(item, (char* const*)args);
+      execvp("/bin/busybox", (char* const*)args);
     }
   }
 }
@@ -78,6 +76,7 @@ void builtin_sh_run() {
   sh_banner();
   sh_prompt();
   setenv("PATH", "/bin", 0);
+  setenv("PATH", "/usr/bin", 0);
   while (1) {
     SDL_Event ev;
     if (SDL_PollEvent(&ev)) {
