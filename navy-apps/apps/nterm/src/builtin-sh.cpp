@@ -58,7 +58,8 @@ static void sh_handle_cmd(const char *cmd) {
           args[0][strlen(args[0])-2]='\0';
         }
       }
-      args[1] = NULL;
+      printf("args[0]=%s\n",args[0]);
+      // args[1] = NULL;
       execvp(items[i], (char* const*)args);
     }
   }
