@@ -45,22 +45,31 @@ static void sh_handle_cmd(const char *cmd) {
   }
   for(int i = 0;i < SIZE_KEY; i++){
     char *item = strtok(str, split);
-    if(!strncmp(item, items[i], strlen(cmd)-1)){
+    strtok(item, "\n");
+    if(!strncmp(item, items[i], strlen(items[i])-1)){
       // assert(0);
       char **args =(char **)malloc(sizeof(char **) * 10);
       args[0] = str + strlen(str) + 1;
-      if(args[0][0]=='\0')args[0]=NULL;
+      char *newstr = args[0];
+      strtok(newstr, split);
+      args[1] = newstr + strlen(newstr) + 1;
+      int i = args[1]==NULL?0:1;
+
+      if(args[i][i]=='\0')args[i]=NULL;
       else{
-        if(args[0][strlen(args[0])-2]>0x1f){//x86-nemu没有'\t'，故需特判
-          args[0][strlen(args[0])-1]='\0';
+        if(args[i][strlen(args[i])-2]>0x1f){//x86-nemu没有'\t'，故需特判
+          args[i][strlen(args[i])-1]='\0';
         }
         else{
-          args[0][strlen(args[0])-2]='\0';
+          args[i][strlen(args[i])-2]='\0';
         }
       }
-      printf("args[0]=%s\n",args[0]);
-      // args[1] = NULL;
-      execvp(items[i], (char* const*)args);
+      
+      // args[0]="cat";
+      args[2] = NULL;
+      // args[1]= "/share/games/bird/atlas.txt";
+      printf("item: %s, args[0]=%s, args[1]:%s\n",item, args[0], args[1]);
+      execvp(item, (char* const*)args);
     }
   }
 }
