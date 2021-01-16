@@ -59,11 +59,11 @@ static void sh_handle_cmd(const char *cmd) {
       // assert(i==0);
       if(args[i][strlen(args[i])-2]>0x1f){//x86-nemu没有'\t'，故需特判
         args[i][strlen(args[i])-1]='\0';
+        assert(0);
       }
       else{
         args[i][strlen(args[i])-2]='\0';
       }
-      args[0][strlen(args[0]-1)] = '\0';
       // args[0]="printenv";
       args[2] = NULL;
       printf("item: %s, args[0]=%s, args[1]:%s\n",item, args[0], args[1]);
