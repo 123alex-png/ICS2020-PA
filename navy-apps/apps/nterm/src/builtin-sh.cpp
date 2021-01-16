@@ -49,6 +49,7 @@ static void sh_handle_cmd(const char *cmd) {
     if(!strncmp(item, items[i], strlen(items[i])-1)){
       // assert(0);
       char **args =(char **)malloc(sizeof(char **) * 10);
+      memset(args, 0, sizeof(char **) * 10);
       args[0] = str + strlen(str) + 1;
       char *newstr = args[0];
       strtok(newstr, split);
