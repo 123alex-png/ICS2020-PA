@@ -63,6 +63,7 @@ static void sh_handle_cmd(const char *cmd) {
       else{
         args[i][strlen(args[i])-2]='\0';
       }
+      args[0][strlen(args[0]-1)] = '\0';
       // args[0]="printenv";
       args[2] = NULL;
       printf("item: %s, args[0]=%s, args[1]:%s\n",item, args[0], args[1]);
