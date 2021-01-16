@@ -63,9 +63,9 @@ static void sh_handle_cmd(const char *cmd) {
         printf("args[0][i]=%d\n", args[0][i]);
         if(args[0][i]=='\n')printf("i=%d, n\n", i);
       }
-      if(args[i][strlen(args[i])-2]==7){//x86-nemu没有'\t'，故需特判
+      if(args[i][strlen(args[i])-3]=='\n'){//x86-nemu没有'\t'，故需特判
         args[i][strlen(args[i])-1]=args[i][strlen(args[i])-2]=args[i][strlen(args[i])-3]='\0';
-        assert(0);
+        // assert(0);
       }
       else{
         args[i][strlen(args[i])-2]='\0';
