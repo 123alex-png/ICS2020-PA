@@ -51,32 +51,16 @@ static void sh_handle_cmd(const char *cmd) {
       char **args =(char **)malloc(sizeof(char **) * 10);
       memset(args, 0, sizeof(char **) * 10);
       args[0] = str + strlen(str) + 1;
-      char *newstr = args[0];
-      strtok(newstr, split);
-      args[1] = newstr + strlen(newstr) + 1;
-      if(args[1][0]=='\t'||args[1][0]=='\n'||args[1][0]=='\0')args[1]=NULL;
-      // printf("%d\n",args[1][0]);
-      // int i = args[1]==NULL?0:1;
-      // // assert(i==0);
-      // printf("i=%d,   %d %d, len: %d\n",i, args[i][strlen(args[i])-2],args[i][strlen(args[i])-1], strlen(args[i]));
-      for(int j = 0; j<10; j++){
-        printf("args[0][%d]=%d\n", j, args[0][j]);
-        if(args[0][i]=='\n')printf("i=%d, n\n", j);
+      for(int j = 0; args[0][j]!='\0'; j++){
+        if(args[0][j]=='\n'||args[0][j]=='\t'){
+          args[0][j] = '\0';
+          args[1] = NULL;
+        }
+        if(args[0][j]==' '){
+          args[0][j] = '\0';
+          args[1] = args[0] + j;
+        }
       }
-      // // if(args[i][strlen(args[i])-3]=='\n'){//x86-nemu没有'\t'，故需特判
-      // //   args[i][strlen(args[i])-1]=args[i][strlen(args[i])-2]=args[i][strlen(args[i])-3]='\0';
-      // //   // assert(0);
-      // // }
-      // // else{
-      // //   args[i][strlen(args[i])-2]='\0';
-      // // }
-      // for(int j = 0; args[i][j] != '\0'; j++){
-      //   if(args[i][j] < 0x20){
-      //     args[i][j] = '\0';
-      //     break;
-      //   }
-      // }
-      // args[0]="printenv";
       args[2] = NULL;
       printf("item: %s, args[0]=%s, args[1]:%s\n",item, args[0], args[1]);
       execvp(item, (char* const*)args);
