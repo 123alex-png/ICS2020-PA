@@ -60,7 +60,7 @@ static void sh_handle_cmd(const char *cmd) {
       // assert(i==0);
       printf("i=%d,   %d %d, len: %d\n",i, args[i][strlen(args[i])-2],args[i][strlen(args[i])-1], strlen(args[i]));
       for(int j = 0; args[0][j]!='\0'; j++){
-        printf("args[0][%d]=%d\n", j, args[i][j]);
+        printf("args[0][%d]=%c\n", j, args[i][j]);
         if(args[0][i]=='\n')printf("i=%d, n\n", j);
       }
       // if(args[i][strlen(args[i])-3]=='\n'){//x86-nemu没有'\t'，故需特判
