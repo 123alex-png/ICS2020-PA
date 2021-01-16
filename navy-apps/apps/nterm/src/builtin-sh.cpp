@@ -55,7 +55,7 @@ static void sh_handle_cmd(const char *cmd) {
       args[1] = newstr + strlen(newstr) + 1;
       if(args[1][0]=='\t'||args[1][0]=='\n'||args[1][0]=='\0')args[1]=NULL;
       // printf("%d\n",args[1][0]);
-      int i = args[1]==NULL?0:1;
+      int i = args[1][0]=='\0'?0:1;
       // assert(i==0);
       printf("i=%d,   %d %d, len: %d\n",i, args[i][strlen(args[i])-2],args[i][strlen(args[i])-1], strlen(args[i]));
       if(args[i][strlen(args[i])-2]>0x1f){//x86-nemu没有'\t'，故需特判
