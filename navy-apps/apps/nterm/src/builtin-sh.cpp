@@ -73,7 +73,7 @@ static void sh_handle_cmd(const char *cmd) {
           }
         }
       }
-      printf("item: %s, args[0]=%s, args[1]:%s\n",item, args[0], args[1]);
+      // printf("item: %s, args[0]=%s, args[1]:%s\n",item, args[0], args[1]);
       execvp(item, (char* const*)args);
     }
   }
