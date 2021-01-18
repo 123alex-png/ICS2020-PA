@@ -51,17 +51,28 @@ static void sh_handle_cmd(const char *cmd) {
       char **args =(char **)malloc(sizeof(char **) * 10);
       memset(args, 0, sizeof(char **) * 10);
       args[0] = str + strlen(str) + 1;
-      for(int j = 0; args[0][j]!='\0'; j++){
-        if(args[0][j]=='\n'||args[0][j]=='\t'){
-          args[0][j] = '\0';
-          args[1] = NULL;
+      if(args[0]!=NULL){
+        for(int j = 0; args[0][j]!='\0'; j++){
+          if(args[0][j]=='\n'||args[0][j]=='\t'){
+            args[0][j] = '\0';
+            args[1] = NULL;
+          }
+          if(args[0][j]==' '){
+            args[0][j] = '\0';
+            printf("%d\n",j);
+            args[1] = args[0] + j + 1;
+            break;
+          }
         }
-        if(args[0][j]==' '){
-          args[0][j] = '\0';
-          args[1] = args[0] + j;
+        if(args[1]!=NULL){
+          for(int j = 0; args[1][j]!='\0'; j++){
+            if(args[1][j]=='\n'||args[1][j]=='\t'){
+              args[1][j] = '\0';
+              args[2] = NULL;
+            }
+          }
         }
       }
-      args[2] = NULL;
       printf("item: %s, args[0]=%s, args[1]:%s\n",item, args[0], args[1]);
       execvp(item, (char* const*)args);
     }
