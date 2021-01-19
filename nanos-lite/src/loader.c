@@ -41,7 +41,8 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   size_t left = memsz - filesz - (PGSIZE - leftsz);
   uintptr_t start = vaddr+(i+1)*PGSIZE;
   size_t j;
-  for(j=0; j < left/PGSIZE; j++){
+  printf("left=%d\n",left)
+;  for(j=0; j < left/PGSIZE; j++){
     printf("j=%d\n", j);
     uintptr_t paddr = (uintptr_t)new_page(1);
     map(&(pcb->as), (void *)(start+j*PGSIZE), (void *)paddr, 0);
