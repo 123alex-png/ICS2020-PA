@@ -23,37 +23,51 @@ size_t fs_read(int fd, void *buf, size_t len);
 size_t fs_lseek(int fd, size_t offset, int whence);
 Elf_Ehdr ehdr;
 Elf_Phdr phdr;
-
+#define round_down(addr) ((addr & PGSIZE) | (addr & (PGSIZE - 1)))
+#define stdprot (MMAP_WRITE | MMAP_READ)
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
+  uintptr_t align_vaddr = vaddr;
+  if(vaddr%PGSIZE!=0){
+    align_vaddr = round_down(vaddr);
+  }
+  {
+    void *paddr = new_page(1);
+    map(&(pcb->as), (void *)align_vaddr, paddr, stdprot);
+    fs_read(fd, (void *)(paddr + vaddr - align_vaddr), PGSIZE - vaddr + align_vaddr);
+    memset((void *)align_vaddr, 0, vaddr - align_vaddr);
+  }
+  filesz -= vaddr - align_vaddr;
+  memsz -= vaddr - align_vaddr;
+  vaddr = align_vaddr + PGSIZE;
+
   size_t i;
   for(i = 0; i < filesz/PGSIZE; i++){//如果文件大小8K+1，则i最大遍历到1，读完后还有1字节未处理，这种情况几乎一定发生
-    uintptr_t paddr = (uintptr_t)new_page(1);
-    map(&(pcb->as), (void *)(vaddr+i*PGSIZE), (void *)paddr, 0);
+    void *paddr = new_page(1);
+    map(&(pcb->as), (void *)(vaddr+i*PGSIZE), paddr, stdprot);
     fs_read(fd, (void *)paddr, PGSIZE);
   }
   //处理filesz剩余部分
-  size_t leftsz = filesz - i * PGSIZE;
-  uintptr_t paddr = (uintptr_t)new_page(1);
-  map(&(pcb->as), (void *)(vaddr+i*PGSIZE), (void *)paddr, 0);
+  int leftsz = filesz - i * PGSIZE;
+  assert(leftsz >= 0);
+  void *paddr = new_page(1);
+  map(&(pcb->as), (void *)(vaddr+i*PGSIZE), paddr, stdprot);
   fs_read(fd, (void *)paddr, leftsz);
   memset((void *)(paddr+leftsz), 0, PGSIZE-leftsz);//该页剩余部分填0
   //清零memsz-filesz
-  size_t left = memsz - filesz - (PGSIZE - leftsz);
-  uintptr_t start = vaddr+(i+1)*PGSIZE;
-  size_t j;
-  printf("left=%d\n",left);
-  while(1);
-  for(j=0; j < left/PGSIZE; j++){
-    printf("j=%d\n", j);
-    uintptr_t paddr = (uintptr_t)new_page(1);
-    map(&(pcb->as), (void *)(start+j*PGSIZE), (void *)paddr, 0);
-    memset((void *)paddr, 0, PGSIZE);
-  }
-  //清零还剩一点
-  size_t left_memsz = left - j * PGSIZE;
-  uintptr_t paddr1 = (uintptr_t)new_page(1);
-  map(&(pcb->as), (void *)(start+j*PGSIZE), (void *)paddr1, 0);
-  memset((void *)paddr1, 0, left_memsz);
+  // int left = memsz - filesz - (PGSIZE - leftsz);
+  // uintptr_t start = vaddr+(i+1)*PGSIZE;
+  // size_t j;
+  // for(j=0; j < left/PGSIZE; j++){
+  //   printf("j=%d\n", j);
+  //   uintptr_t paddr = (uintptr_t)new_page(1);
+  //   map(&(pcb->as), (void *)(start+j*PGSIZE), (void *)paddr, 0);
+  //   memset((void *)paddr, 0, PGSIZE);
+  // }
+  // //清零还剩一点
+  // int left_memsz = left - j * PGSIZE;
+  // uintptr_t paddr1 = (uintptr_t)new_page(1);
+  // map(&(pcb->as), (void *)(start+j*PGSIZE), (void *)paddr1, 0);
+  // memset((void *)paddr1, 0, left_memsz);
 }
 
 // static uintptr_t loader(PCB *pcb, const char *filename) {
