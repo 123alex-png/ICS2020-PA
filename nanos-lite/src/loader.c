@@ -43,7 +43,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   size_t j;
   for(j=0; j < left/PGSIZE; j++){
     uintptr_t paddr = (uintptr_t)new_page(1);
-    map(&(pcb->as), (void *)(start+j*PGSIZE), (void *)paddr, 0);
+    map(&(pcb->as), (void *)(start+j*PGSIZE), (void *)paddr, 0);assert(0);
     memset((void *)paddr, 0, PGSIZE);
   }
   //清零还剩一点
@@ -86,7 +86,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       fs_lseek(fd,phdr.p_offset,SEEK_SET);
       // fs_read(fd,(void *)phdr.p_vaddr,phdr.p_filesz);
       // memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
-      assert(0);
       page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
     }
   }
