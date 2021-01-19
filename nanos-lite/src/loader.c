@@ -34,14 +34,16 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
     void *paddr = new_page(1);
     map(&(pcb->as), (void *)align_vaddr, paddr, stdprot);
     fs_read(fd, (void *)(paddr + vaddr - align_vaddr), PGSIZE - vaddr + align_vaddr);
-    memset((void *)align_vaddr, 0, vaddr - align_vaddr);
+    memset(paddr, 0, vaddr - align_vaddr);
   }
   filesz -= vaddr - align_vaddr;
   memsz -= vaddr - align_vaddr;
   vaddr = align_vaddr + PGSIZE;
-
+  assert(filesz >= 0);
+  // assert(0);
   size_t i;
   for(i = 0; i < filesz/PGSIZE; i++){//如果文件大小8K+1，则i最大遍历到1，读完后还有1字节未处理，这种情况几乎一定发生
+    printf("%d\n", i);
     void *paddr = new_page(1);
     map(&(pcb->as), (void *)(vaddr+i*PGSIZE), paddr, stdprot);
     fs_read(fd, (void *)paddr, PGSIZE);
@@ -52,7 +54,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   void *paddr = new_page(1);
   map(&(pcb->as), (void *)(vaddr+i*PGSIZE), paddr, stdprot);
   fs_read(fd, (void *)paddr, leftsz);
-  memset((void *)(paddr+leftsz), 0, PGSIZE-leftsz);//该页剩余部分填0
+  // memset((void *)(paddr+leftsz), 0, PGSIZE-leftsz);//该页剩余部分填0
   //清零memsz-filesz
   // int left = memsz - filesz - (PGSIZE - leftsz);
   // uintptr_t start = vaddr+(i+1)*PGSIZE;
@@ -140,7 +142,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     tmp[i][j] = '\0';
   }
   tmp[i] = (char *)NULL;
-  
   uintptr_t entry = loader(pcb, filename);
   Area kstack;
   kstack.start = pcb->stack;
