@@ -59,7 +59,6 @@ static void sh_handle_cmd(const char *cmd) {
           }
           if(args[0][j]==' '){
             args[0][j] = '\0';
-            printf("%d\n",j);
             args[1] = args[0] + j + 1;
             break;
           }
