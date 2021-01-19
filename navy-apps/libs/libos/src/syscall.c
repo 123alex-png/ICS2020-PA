@@ -100,10 +100,15 @@ int _gettimeofday(struct timeval *tv, struct timezone *tz) {
   //printf("sec=%d",tv->tv_sec);
   return ret;
 }
-
+extern int errno;
 int _execve(const char *fname, char * const argv[], char *const envp[]) {
   // _exit(SYS_execve);
   int ret = _syscall_(SYS_execve, fname, argv, envp);
+  if(ret == -2){
+    errno = -ret;
+    return -1;
+  }
+  errno = 0;
   return ret;
 }
 
