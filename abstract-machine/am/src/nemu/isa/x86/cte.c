@@ -15,10 +15,14 @@ void __am_vecnull();
 
 void __am_kcontext_start();
 
+void __am_get_cur_as(Context *c);
+void __am_switch(Context *c);
+
 Context* __am_irq_handle(Context *c) {
   // extern char _stack_pointer;
   // printf("%p\n", &_stack_pointer);
   // assert(0);
+  __am_get_cur_as(c);
   if (user_handler) {
     Event ev = {0};
     switch (c->irq) {
@@ -30,7 +34,7 @@ Context* __am_irq_handle(Context *c) {
     c = user_handler(ev, c);
     assert(c != NULL);
   }
-
+  __am_switch(c);
   return c;
 }
 
