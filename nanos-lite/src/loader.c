@@ -53,7 +53,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   assert(leftsz >= 0);
   
   void *paddr = new_page(1);
-  map(&(pcb->as), (void *)(vaddr+i*PGSIZE), paddr, stdprot);assert(0);
+  map(&(pcb->as), (void *)(vaddr+i*PGSIZE), paddr, stdprot);
   fs_read(fd, (void *)paddr, leftsz);
   // memset((void *)(paddr+leftsz), 0, PGSIZE-leftsz);//该页剩余部分填0
   //清零memsz-filesz
