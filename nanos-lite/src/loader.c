@@ -43,9 +43,9 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   size_t j;
   for(j=0; j < left/PGSIZE; j++){
     uintptr_t paddr = (uintptr_t)new_page(1);
-    map(&(pcb->as), (void *)(start+j*PGSIZE), (void *)paddr, 0);assert(0);
+    map(&(pcb->as), (void *)(start+j*PGSIZE), (void *)paddr, 0);
     memset((void *)paddr, 0, PGSIZE);
-  }
+  }assert(0);
   //清零还剩一点
   size_t left_memsz = left - j * PGSIZE;
   uintptr_t paddr1 = (uintptr_t)new_page(1);
