@@ -21,7 +21,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
   uintptr_t pgtab = paddr_read(PTE_ADDR(pgdir)+PTE_INDEX(vaddr)*4, 4 );
   assert(pgtab & PTE_P);//malloc申请的内存占用了pgdir，什么问题？？？
   paddr_t paddr = PTE_ADDR(pgtab)+OFFSET(vaddr);
-  assert(paddr==vaddr);
+  // assert(paddr==vaddr);
   // while(1);
   return paddr;
 }
