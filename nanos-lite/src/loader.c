@@ -86,7 +86,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       fs_lseek(fd,phdr.p_offset,SEEK_SET);
       // fs_read(fd,(void *)phdr.p_vaddr,phdr.p_filesz);
       // memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
-      
+      assert(0);
       page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
     }
   }
@@ -125,7 +125,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   }
   tmp[i] = (char *)NULL;
   
-  uintptr_t entry = loader(pcb, filename);assert(0);
+  uintptr_t entry = loader(pcb, filename);
   Area kstack;
   kstack.start = pcb->stack;
   // printf("start = %p\n", kstack.start);
