@@ -26,7 +26,7 @@ Elf_Phdr phdr;
 #define round_down(addr) ((addr & PGSIZE) | (addr & ~(PGSIZE - 1)))
 #define stdprot (MMAP_WRITE | MMAP_READ)
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
-  printf("vaddr = %p\n", vaddr);
+  // printf("vaddr = %p\n", vaddr);
   uintptr_t align_vaddr = vaddr;
   if(vaddr%PGSIZE!=0){
     align_vaddr = round_down(vaddr);
