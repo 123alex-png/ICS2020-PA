@@ -124,7 +124,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     tmp[i][j] = '\0';
   }
   tmp[i] = (char *)NULL;
-
+  assert(0);
   uintptr_t entry = loader(pcb, filename);
   Area kstack;
   kstack.start = pcb->stack;
