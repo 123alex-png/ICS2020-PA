@@ -12,6 +12,5 @@ int main(int      argc, char    *argv[]) {
   // printf("&argv[0][4]=%p,argv[0][4] = %p\n",&argv[0][4], argv[0][4]&0xff);
   // printf("%s\n",argv[0]);
   // puts(argv[0]);
-  while(1);
   return _syscall_(SYS_yield, 0, 0, 0);
 }
