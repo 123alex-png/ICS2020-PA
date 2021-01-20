@@ -68,7 +68,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   assert(as != NULL);
   // assert(va == pa);//only for nanos
   uintptr_t *pgdir = (uintptr_t *)as->ptr;
-  printf("%p\n", pgdir);
+  printf("%p\n", pgdir);assert(0);
   size_t pgdir_index = (((uint32_t)va)>>22)&0x3ff;//高10位
   if((pgdir[pgdir_index] & PTE_P)==0){//装入位是0才填入
     uintptr_t new_pgtab = (uintptr_t)pgalloc_usr(PGSIZE);
