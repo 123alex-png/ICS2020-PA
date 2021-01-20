@@ -24,6 +24,10 @@ size_t fs_lseek(int fd, size_t offset, int whence);
 Elf_Ehdr ehdr;
 Elf_Phdr phdr;
 #define stdprot (0XFFFFFFFF)
+
+int has_mapped[0x4ffff];
+
+
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
   printf("vaddr = %p\n", vaddr);
   uintptr_t align_vaddr = vaddr;
@@ -32,7 +36,10 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   }
   {
     void *paddr = new_page(1);
-    map(&(pcb->as), (void *)align_vaddr, paddr, stdprot);
+    if(!has_mapped[align_vaddr>>12]){
+      map(&(pcb->as), (void *)align_vaddr, paddr, stdprot);
+      has_mapped[align_vaddr>>12] = 1; 
+    }
     fs_read(fd, (void *)(paddr + vaddr - align_vaddr), PGSIZE - vaddr + align_vaddr);
     memset(paddr, 0, vaddr - align_vaddr);
   }
@@ -106,7 +113,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  
+  memset(has_mapped, 0, sizeof(has_mapped));
   int fd=fs_open(filename,0,0);
   fs_read(fd,&ehdr,sizeof(ehdr));
   uint16_t phnum=ehdr.e_phnum;
