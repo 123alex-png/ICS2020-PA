@@ -49,7 +49,7 @@ int mm_brk(uintptr_t brk) {
 
 void init_mm() {
   pf = (void *)ROUNDUP(heap.start, PGSIZE);
-  printf("%p\n", heap.start);while(1);
+  // printf("%p\n", heap.start);while(1);
   Log("free physical pages starting from %p", pf);
   vme_init(pg_alloc, free_page);
 }
