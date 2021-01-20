@@ -25,7 +25,7 @@ Elf_Ehdr ehdr;
 Elf_Phdr phdr;
 #define stdprot (0XFFFFFFFF)
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
-  // printf("vaddr = %p\n", vaddr);
+  printf("vaddr = %p\n", vaddr);
   uintptr_t align_vaddr = vaddr;
   if(vaddr%PGSIZE!=0){
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
