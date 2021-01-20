@@ -69,10 +69,11 @@ extern char _end;
 static void *prog_break = &_end;
 
 void *_sbrk(intptr_t increment) {
+  uintptr_t addr = prog_break + increment;
   char buf[50];
   sprintf(buf,"%x %x %x\n",prog_break,increment, prog_break + increment);
   write(1, buf, 50);
-  if(_syscall_(SYS_brk,prog_break,increment,0)==0){ 
+  if(_syscall_(SYS_brk,addr,0,0)==0){ 
     intptr_t ret = (intptr_t)prog_break;
     prog_break += increment;
     return (void *)ret;
