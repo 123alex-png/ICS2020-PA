@@ -42,7 +42,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
       map_addr[align_vaddr>>12] = paddr; 
     }
     fs_read(fd, (void *)(paddr + vaddr - align_vaddr), PGSIZE - vaddr + align_vaddr);
-    memset(paddr, 0, vaddr - align_vaddr);
+    // memset(paddr, 0, vaddr - align_vaddr);
   }
   filesz -= vaddr - align_vaddr;
   memsz -= vaddr - align_vaddr;
