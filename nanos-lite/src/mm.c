@@ -29,7 +29,7 @@ int mm_brk(uintptr_t brk) {
     uintptr_t va = current->max_brk;
     if(va % PGSIZE != 0){
       void *pa = new_page(1);
-      map(&(current->as), (void *)va, pa, stdprot);
+      map(&(current->as), (void *)(ROUNDDOWN(va, PGSIZE)), pa, stdprot);
     }
     va = ROUNDUP(va, PGSIZE);
     while(va < brk){
