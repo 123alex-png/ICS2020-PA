@@ -30,12 +30,12 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   if(vaddr%PGSIZE!=0){
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
   }
-  {
-    void *paddr = new_page(1);
-    map(&(pcb->as), (void *)vaddr, paddr, stdprot);
-    fs_read(fd, (void *)(paddr + vaddr - align_vaddr), PGSIZE - vaddr + align_vaddr);
-    memset(paddr, 0, vaddr - align_vaddr);
-  }
+  // {
+  //   void *paddr = new_page(1);
+  //   map(&(pcb->as), (void *)vaddr, paddr, stdprot);
+  //   fs_read(fd, (void *)(paddr + vaddr - align_vaddr), PGSIZE - vaddr + align_vaddr);
+  //   memset(paddr, 0, vaddr - align_vaddr);
+  // }
   filesz -= vaddr - align_vaddr;
   memsz -= vaddr - align_vaddr;
   vaddr = align_vaddr + PGSIZE;
