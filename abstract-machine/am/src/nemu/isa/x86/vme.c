@@ -82,12 +82,12 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   size_t pgtab_index = ((uint32_t)va >> 12) & 0x3ff;//中间10位
   // printf("pgdir_index = %d, pgtab_index = %d\n", pgdir_index, pgtab_index);
   // printf("pgdir = %p, pgtab = %p\n", pgdir, pgtab);
-  printf("pgtab[%d] = %p\n", pgtab_index, pgtab[pgtab_index]);
+  
   if((pgtab[pgtab_index] & PTE_P) == 1){//是否存在这种情况？？？
     printf("pgtab: %p\n", pgtab);
     panic("PTE_P of pgtab has been 1\n");
   }
-  pgtab[pgtab_index] = ((uintptr_t)pa & ~0xfff) | PTE_P;
+  pgtab[pgtab_index] = ((uintptr_t)pa & ~0xfff) | PTE_P;printf("pgtab[%d] = %p\n", pgtab_index, pgtab[pgtab_index]);
 }
 
 
