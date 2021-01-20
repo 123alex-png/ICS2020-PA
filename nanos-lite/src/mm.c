@@ -25,6 +25,7 @@ void free_page(void *p) {
 
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
+  return 0;
   printf("brk: %p\n", (void *)brk);
   if(brk > current->max_brk){
     uintptr_t va = current->max_brk;
