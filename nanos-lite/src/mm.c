@@ -29,7 +29,7 @@ extern void *map_addr[0x4ffff];
 int mm_brk(uintptr_t brk, intptr_t increment) {
   return 0;
   if(current->max_brk == 0){
-    current->max_brk = ROUNDDOWN(brk + increment, PGSIZE);
+    current->max_brk = brk;
   }
   printf("brk: %p\n", (void *)brk);
   if(brk + increment > current->max_brk){
