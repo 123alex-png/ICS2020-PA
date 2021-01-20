@@ -120,7 +120,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
     }
   }
-  printf("entry: %p\n", ehdr.e_entry);
   return ehdr.e_entry;
 }
 
