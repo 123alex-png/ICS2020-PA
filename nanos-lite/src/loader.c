@@ -29,7 +29,7 @@ static void *map_addr[0x4ffff];
 
 
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
-  printf("vaddr = %p\n", vaddr);
+  printf("vaddr = %p, filesz = %p\n", vaddr, filesz);
   uintptr_t align_vaddr = vaddr;
   if(vaddr%PGSIZE!=0){
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
@@ -134,7 +134,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       fs_lseek(fd,phdr.p_offset,SEEK_SET);
       // fs_read(fd,(void *)phdr.p_vaddr,phdr.p_filesz);
       // memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
-      printf("%p\n", phdr.p_vaddr);
+      // printf("%p\n", phdr.p_vaddr);
       page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
     }
   }
