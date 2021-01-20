@@ -64,10 +64,10 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   }
   while(i < memsz){
     void *pa = new_page(1);
-    if(!has_mapped[(vaddr+i)>>12]){
+    // if(!has_mapped[(vaddr+i)>>12]){
       map(&(pcb->as), (void *)(vaddr+i), pa, stdprot);
       has_mapped[(vaddr+i)>>12] = 1; 
-    }
+    // }
     i += PGSIZE;
   }
   //处理filesz剩余部分
