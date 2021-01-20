@@ -23,7 +23,7 @@ static void* pg_alloc(int n) {
 void free_page(void *p) {
   panic("not implement yet");
 }
-static int cnt=0;
+
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
   printf("brk: %p\n", (void *)brk);
@@ -31,14 +31,13 @@ int mm_brk(uintptr_t brk) {
     uintptr_t va = current->max_brk;
     if(va % PGSIZE != 0){
       void *pa = new_page(1);
-      ++cnt;
       map(&(current->as), (void *)(ROUNDDOWN(va, PGSIZE)), pa, stdprot);
-      printf("%d\n", cnt);
     }
     va = ROUNDUP(va, PGSIZE);
     while(va < brk){
       void *pa = new_page(1);
       map(&(current->as), (void *)va, pa, stdprot);
+      va += PGSIZE;
     }
     current->max_brk = brk;
   }
