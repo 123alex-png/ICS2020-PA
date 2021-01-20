@@ -24,7 +24,7 @@ size_t fs_lseek(int fd, size_t offset, int whence);
 Elf_Ehdr ehdr;
 Elf_Phdr phdr;
 #define stdprot (0XFFFFFFFF)
-
+#define min(x, y) (x < y ? x: y)
 // static void *map_addr[0x4ffff];
 
 
@@ -34,19 +34,18 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   if(vaddr%PGSIZE!=0){
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
   }
-  {
     // void *paddr = map_addr[align_vaddr>>12];
-    printf("align_vaddr: %p\n", align_vaddr);
-    // if(!paddr){
-      void *paddr = new_page(1);
-      map(&(pcb->as), (void *)align_vaddr, paddr, stdprot);
-      
-      // map_addr[align_vaddr>>12] = paddr; 
-    // }
-    fs_read(fd, (void *)(paddr + vaddr - align_vaddr), PGSIZE - vaddr + align_vaddr);
-    // memset(paddr, 0, vaddr - align_vaddr);
-  }
-  filesz -= PGSIZE - vaddr + align_vaddr;
+  printf("align_vaddr: %p\n", align_vaddr);
+  // if(!paddr){
+  void *pa = new_page(1);
+  map(&(pcb->as), (void *)align_vaddr, pa, stdprot);    
+  // map_addr[align_vaddr>>12] = paddr; 
+   // }
+  int left = min(filesz, PGSIZE - vaddr + align_vaddr);
+  fs_read(fd, (void *)(pa + vaddr - align_vaddr), left);
+  // memset(paddr, 0, vaddr - align_vaddr);
+
+  filesz -= left;
   memsz -= vaddr - align_vaddr;
   vaddr = align_vaddr + PGSIZE;
   assert(filesz >= 0);
@@ -63,10 +62,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
       
       // map_addr[(vaddr+i)>>12] = paddr; 
     // }   
-    if(PGSIZE < filesz - i)
-      fs_read(fd, (void *)paddr, PGSIZE);
-    else
-      fs_read(fd, (void *)paddr, filesz - i);
+    fs_read(fd, (void *)paddr, min(PGSIZE, filesz - i));
   }
   // while(i < memsz){
   //   void *paddr = map_addr[(vaddr+i)>>12];
