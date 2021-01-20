@@ -37,7 +37,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
     void *pa = map_addr[align_vaddr>>12];
   printf("align_vaddr: %p\n", align_vaddr);
   if(!pa){
-    void *pa = new_page(1);
+    pa = new_page(1);
     map(&(pcb->as), (void *)align_vaddr, pa, stdprot);    
     map_addr[align_vaddr>>12] = pa; 
   }
@@ -57,7 +57,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
     void *paddr = map_addr[(vaddr+i)>>12];
     printf("vaddr + i: %p\n", vaddr+i);
     if(!paddr){
-      void *paddr = new_page(1);
+      paddr = new_page(1);
       map(&(pcb->as), (void *)(vaddr+i), paddr, stdprot);
       
       map_addr[(vaddr+i)>>12] = paddr; 
