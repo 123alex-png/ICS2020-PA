@@ -17,10 +17,10 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {//后2个参数的�
   last_pc=cpu.pc;
   last_pgdir=pgdir;
   last_vaddr=vaddr;
-  printf("pgdir: %p\n", (void *)pgdir);
+  
   assert((pgdir & PTE_P)==1);
   uintptr_t pgtab = paddr_read(PTE_ADDR(pgdir)+PTE_INDEX(vaddr)*4, 4 );
-  if(!(pgtab & PTE_P)){
+  if(!(pgtab & PTE_P)){printf("pgdir: %p\n", (void *)pgdir);
     printf("pgtab: %p\n", (void *)pgtab);
   }
   assert(pgtab & PTE_P);//malloc申请的内存占用了pgdir，什么问题？？？
