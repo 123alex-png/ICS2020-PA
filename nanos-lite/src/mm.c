@@ -26,14 +26,14 @@ void free_page(void *p) {
 
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
- assert(0);
+ 
   // printf("brk: %p\n", (void *)brk);
   if(brk > current->max_brk){
     uintptr_t va = current->max_brk;
     if(va % PGSIZE != 0){
       void *pa = new_page(1);
       map(&(current->as), (void *)(ROUNDDOWN(va, PGSIZE)), pa, stdprot);
-    }
+    }assert(0);
     va = ROUNDUP(va, PGSIZE);
     while(va < brk){
       void *pa = new_page(1);
