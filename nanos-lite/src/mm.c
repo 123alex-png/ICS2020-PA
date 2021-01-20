@@ -29,9 +29,10 @@ extern void *map_addr[0x4ffff];
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
  
-  // printf("brk: %p\n", (void *)brk);
+  printf("brk: %p\n", (void *)brk);
   if(brk > current->max_brk){
     uintptr_t va = current->max_brk;
+    printf("va: %p\n", va);
     if(va % PGSIZE != 0){
       void *pa = map_addr[va>>12];
       if(!pa){
