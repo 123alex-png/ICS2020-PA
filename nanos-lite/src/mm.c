@@ -30,8 +30,7 @@ int mm_brk(uintptr_t brk, intptr_t increment) {
   if(current->max_brk == 0){
     current->max_brk = brk + increment;
   }
-  printf("brk: %p\n", (void *)brk);
-  if(brk + increment > current->max_brk){
+  else if(brk + increment > current->max_brk){
     uintptr_t va = current->max_brk;
     printf("va: %p\n", va);
     if(va % PGSIZE != 0){
@@ -59,7 +58,7 @@ int mm_brk(uintptr_t brk, intptr_t increment) {
 
 void init_mm() {
   pf = (void *)ROUNDUP(heap.start, PGSIZE);
-  printf("%p, %p\n", heap.start, heap.end);while(1);
+  // printf("%p, %p\n", heap.start, heap.end);while(1);
   Log("free physical pages starting from %p", pf);
   vme_init(pg_alloc, free_page);
 }
