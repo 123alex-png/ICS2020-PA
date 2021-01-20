@@ -25,7 +25,7 @@ Elf_Ehdr ehdr;
 Elf_Phdr phdr;
 #define stdprot (0XFFFFFFFF)
 #define min(x, y) (x < y ? x: y)
-// static void *map_addr[0x4ffff];
+static void *map_addr[0x4ffff];
 
 
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
@@ -34,13 +34,13 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   if(vaddr%PGSIZE!=0){
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
   }
-    // void *paddr = map_addr[align_vaddr>>12];
+    void *pa = map_addr[align_vaddr>>12];
   printf("align_vaddr: %p\n", align_vaddr);
-  // if(!paddr){
-  void *pa = new_page(1);
-  map(&(pcb->as), (void *)align_vaddr, pa, stdprot);    
-  // map_addr[align_vaddr>>12] = paddr; 
-   // }
+  if(!pa){
+    void *pa = new_page(1);
+    map(&(pcb->as), (void *)align_vaddr, pa, stdprot);    
+    map_addr[align_vaddr>>12] = pa; 
+  }
   int left = min(filesz, PGSIZE - vaddr + align_vaddr);
   fs_read(fd, (void *)(pa + vaddr - align_vaddr), left);
   // memset(paddr, 0, vaddr - align_vaddr);
@@ -54,14 +54,14 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   printf("filesz: %p\n", filesz);
   for(i = 0; i < (int)(filesz); i+=PGSIZE){//如果文件大小8K+1，则i最大遍历到1，读完后还有1字节未处理，这种情况几乎一定发生
     // printf("%d\n", i);
-    // void *paddr = map_addr[(vaddr+i)>>12];
+    void *paddr = map_addr[(vaddr+i)>>12];
     printf("vaddr + i: %p\n", vaddr+i);
-    // if(!paddr){
+    if(!paddr){
       void *paddr = new_page(1);
       map(&(pcb->as), (void *)(vaddr+i), paddr, stdprot);
       
-      // map_addr[(vaddr+i)>>12] = paddr; 
-    // }   
+      map_addr[(vaddr+i)>>12] = paddr; 
+    }   
     fs_read(fd, (void *)paddr, min(PGSIZE, filesz - i));
   }
   // while(i < memsz){
