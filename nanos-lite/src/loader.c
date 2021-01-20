@@ -48,7 +48,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   filesz -= left;
   memsz -= vaddr - align_vaddr;
   vaddr = align_vaddr + PGSIZE;
-  assert(filesz >= 0);
+  assert((int)filesz >= 0);
   // assert(0);
   int i;
   printf("filesz: %p\n", filesz);
