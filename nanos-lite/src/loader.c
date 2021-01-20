@@ -74,26 +74,6 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   // memset((void *)paddr1, 0, left_memsz);
 }
 
-static uintptr_t loader(PCB *pcb, const char *filename) {
-  //TODO();
-  
-  int fd=fs_open(filename,0,0);
-  fs_read(fd,&ehdr,sizeof(ehdr));
-  uint16_t phnum=ehdr.e_phnum;
-  for(int i=0;i<phnum;i++){
-      fs_lseek(fd,ehdr.e_phoff+i*sizeof(phdr),SEEK_SET);
-      fs_read(fd,&phdr,ehdr.e_phentsize);
-    if(phdr.p_type==PT_LOAD){
-      fs_lseek(fd,phdr.p_offset,SEEK_SET);
-      fs_read(fd,(void *)phdr.p_vaddr,phdr.p_filesz);
-      memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
-      
-      // page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
-    }
-  }
-  return ehdr.e_entry;
-}
-
 // static uintptr_t loader(PCB *pcb, const char *filename) {
 //   //TODO();
   
@@ -105,13 +85,33 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 //       fs_read(fd,&phdr,ehdr.e_phentsize);
 //     if(phdr.p_type==PT_LOAD){
 //       fs_lseek(fd,phdr.p_offset,SEEK_SET);
-//       // fs_read(fd,(void *)phdr.p_vaddr,phdr.p_filesz);
-//       // memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
-//       page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
+//       fs_read(fd,(void *)phdr.p_vaddr,phdr.p_filesz);
+//       memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
+      
+//       // page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
 //     }
 //   }
 //   return ehdr.e_entry;
 // }
+
+static uintptr_t loader(PCB *pcb, const char *filename) {
+  //TODO();
+  
+  int fd=fs_open(filename,0,0);
+  fs_read(fd,&ehdr,sizeof(ehdr));
+  uint16_t phnum=ehdr.e_phnum;
+  for(int i=0;i<phnum;i++){
+      fs_lseek(fd,ehdr.e_phoff+i*sizeof(phdr),SEEK_SET);
+      fs_read(fd,&phdr,ehdr.e_phentsize);
+    if(phdr.p_type==PT_LOAD){
+      fs_lseek(fd,phdr.p_offset,SEEK_SET);
+      // fs_read(fd,(void *)phdr.p_vaddr,phdr.p_filesz);
+      // memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
+      page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
+    }
+  }
+  return ehdr.e_entry;
+}
 
 
 void naive_uload(PCB *pcb, const char *filename) {
