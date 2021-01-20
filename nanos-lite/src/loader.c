@@ -29,7 +29,7 @@ static void *map_addr[0x4ffff];
 
 
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
-  printf("vaddr = %p, filesz = %p, end = %p\n", vaddr, filesz, vaddr + filesz);
+  printf("vaddr = %p, filesz = %p, end = %p, memsz = %p\n", vaddr, filesz, vaddr + filesz, memsz);
   uintptr_t align_vaddr = vaddr;
   if(vaddr%PGSIZE!=0){
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
