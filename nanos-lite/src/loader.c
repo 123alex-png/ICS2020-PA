@@ -29,7 +29,7 @@ void *map_addr[0x4ffff];
 
 
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
-  printf("vaddr = %p, filesz = %p, end = %p, memsz = %p\n", vaddr, filesz, vaddr + filesz, memsz);
+  // printf("vaddr = %p, filesz = %p, end = %p, memsz = %p\n", vaddr, filesz, vaddr + filesz, memsz);
   uintptr_t align_vaddr = vaddr;
   if(vaddr%PGSIZE!=0){
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
@@ -51,7 +51,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   assert((int)filesz >= 0);
   // assert(0);
   int i;
-  printf("filesz: %p\n", filesz);
+  // printf("filesz: %p\n", filesz);
   for(i = 0; i < (int)(filesz); i+=PGSIZE){//如果文件大小8K+1，则i最大遍历到1，读完后还有1字节未处理，这种情况几乎一定发生
     // printf("%d\n", i);
     void *paddr = map_addr[(vaddr+i)>>12];
