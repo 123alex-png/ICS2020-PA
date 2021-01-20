@@ -35,11 +35,11 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
   }
   {
-    void *paddr = map_addr[align_vaddr>>12];
+    void *paddr = map_addr[align_vaddr>>12];printf("align_vaddr: %p\n", align_vaddr);
     if(!paddr){
       paddr = new_page(1);
       map(&(pcb->as), (void *)align_vaddr, paddr, stdprot);
-      printf("align_vaddr: %p\n", align_vaddr);
+      
       map_addr[align_vaddr>>12] = paddr; 
     }
     fs_read(fd, (void *)(paddr + vaddr - align_vaddr), PGSIZE - vaddr + align_vaddr);
