@@ -25,7 +25,7 @@ Elf_Ehdr ehdr;
 Elf_Phdr phdr;
 #define stdprot (0XFFFFFFFF)
 
-int has_mapped[0x4ffff];
+static bool has_mapped[0x4ffff];
 
 
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
