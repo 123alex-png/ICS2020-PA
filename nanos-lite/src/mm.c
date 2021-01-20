@@ -27,7 +27,6 @@ void free_page(void *p) {
 extern void *map_addr[0x4ffff];
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk, intptr_t increment) {
-  return 0;
   if(current->max_brk == 0){
     current->max_brk = brk;
   }
