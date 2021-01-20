@@ -124,7 +124,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  // memset(map_addr, 0, sizeof(map_addr));
+  memset(map_addr, 0, sizeof(map_addr));
   int fd=fs_open(filename,0,0);
   fs_read(fd,&ehdr,sizeof(ehdr));
   uint16_t phnum=ehdr.e_phnum;
