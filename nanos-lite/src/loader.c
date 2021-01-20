@@ -25,7 +25,7 @@ Elf_Ehdr ehdr;
 Elf_Phdr phdr;
 #define stdprot (0XFFFFFFFF)
 
-static void *map_addr[0x4ffff];
+// static void *map_addr[0x4ffff];
 
 
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
@@ -35,12 +35,12 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
   }
   {
-    void *paddr = map_addr[align_vaddr>>12];printf("align_vaddr: %p\n", align_vaddr);
+    // void *paddr = map_addr[align_vaddr>>12];printf("align_vaddr: %p\n", align_vaddr);
     // if(!paddr){
-      paddr = new_page(1);
+      void *paddr = new_page(1);
       map(&(pcb->as), (void *)align_vaddr, paddr, stdprot);
       
-      map_addr[align_vaddr>>12] = paddr; 
+      // map_addr[align_vaddr>>12] = paddr; 
     // }
     fs_read(fd, (void *)(paddr + vaddr - align_vaddr), PGSIZE - vaddr + align_vaddr);
     // memset(paddr, 0, vaddr - align_vaddr);
@@ -53,12 +53,12 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   int i;
   for(i = 0; i < (int)(filesz - PGSIZE); i+=PGSIZE){//如果文件大小8K+1，则i最大遍历到1，读完后还有1字节未处理，这种情况几乎一定发生
     // printf("%d\n", i);
-    void *paddr = map_addr[(vaddr+i)>>12];printf("vaddr + i: %p\n", vaddr+i);
+    // void *paddr = map_addr[(vaddr+i)>>12];printf("vaddr + i: %p\n", vaddr+i);
     // if(!paddr){
-      paddr = new_page(1);
+      void *paddr = new_page(1);
       map(&(pcb->as), (void *)(vaddr+i), paddr, stdprot);
       
-      map_addr[(vaddr+i)>>12] = paddr; 
+      // map_addr[(vaddr+i)>>12] = paddr; 
     // }   
     if(PGSIZE < filesz - i)
       fs_read(fd, (void *)paddr, PGSIZE);
@@ -125,7 +125,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  memset(map_addr, 0, sizeof(map_addr));
+  // memset(map_addr, 0, sizeof(map_addr));
   int fd=fs_open(filename,0,0);
   fs_read(fd,&ehdr,sizeof(ehdr));
   uint16_t phnum=ehdr.e_phnum;
