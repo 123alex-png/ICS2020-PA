@@ -70,7 +70,7 @@ static void *prog_break = &_end;
 
 void *_sbrk(intptr_t increment) {
   char buf[50];
-  sprintf(buf,"%d %d\n",prog_break,increment);
+  sprintf(buf,"%x %x\n",prog_break,increment);
   write(1, buf, 50);
   intptr_t addr=(intptr_t)prog_break+increment;
   if(_syscall_(SYS_brk,addr,0,0)==0){ 
