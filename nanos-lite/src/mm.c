@@ -24,12 +24,12 @@ void free_page(void *p) {
   panic("not implement yet");
 }
 
-
+extern char _end;
 extern void *map_addr[0x4ffff];
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
   if(current->max_brk == 0){
-    current->max_brk = ROUNDDOWN(brk, PGSIZE);
+    current->max_brk = (uintptr_t)&_end;
   }
   printf("brk: %p\n", (void *)brk);
   if(brk > current->max_brk){
