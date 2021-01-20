@@ -8,7 +8,7 @@ static void *pf = NULL;
 void* new_page(size_t nr_page) {
   void *p = pf;
   pf += PGSIZE * nr_page;
-  // printf("pf = %p\n", pf);
+  printf("pf = %p\n", pf);
   assert(pf < heap.end);
   return p;
 }
@@ -31,7 +31,7 @@ int mm_brk(uintptr_t brk, uintptr_t increment) {
     current->max_brk = (uintptr_t)brk;
   }
   printf("brk: %p\n", (void *)brk);
-  if(brk > current->max_brk){
+  if(brk + increment > current->max_brk){
     uintptr_t va = current->max_brk;
     printf("va: %p\n", va);
     if(va % PGSIZE != 0){
@@ -43,7 +43,7 @@ int mm_brk(uintptr_t brk, uintptr_t increment) {
       }
     }
     va = ROUNDDOWN(va, PGSIZE) + PGSIZE;
-    while(va < brk){
+    while(va < brk + increment){
       void *pa = map_addr[va>>12];
       if(!pa){
         pa = new_page(1);
