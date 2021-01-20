@@ -2,8 +2,8 @@
 #include <stdio.h>
 
 int main() {
-	while(1);
-  write(1, "Hello World!\n", 13);
+	
+  write(1, "Hello World!\n", 13);while(1);
   int i = 2;
   volatile int j = 0;
   while (1) {
