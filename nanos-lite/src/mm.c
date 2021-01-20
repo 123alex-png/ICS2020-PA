@@ -21,7 +21,7 @@ static void* pg_alloc(int n) {
 }
 
 void free_page(void *p) {
-  panic("not implement yet");
+  panic("not implement yet"); 
 }
 
 extern void *map_addr[0x4ffff];
