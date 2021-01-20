@@ -29,9 +29,9 @@ int mm_brk(uintptr_t brk) {
  
   // printf("brk: %p\n", (void *)brk);
   if(brk > current->max_brk){
-    uintptr_t va = current->max_brk;
+    uintptr_t va = current->max_brk;assert(0);
     if(va % PGSIZE != 0){
-      void *pa = new_page(1);assert(0);
+      void *pa = new_page(1);
       map(&(current->as), (void *)(ROUNDDOWN(va, PGSIZE)), pa, stdprot);
     }
     va = ROUNDUP(va, PGSIZE);
