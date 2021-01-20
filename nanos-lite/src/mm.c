@@ -1,8 +1,9 @@
 #include <memory.h>
-
+#include <proc.h>
 // #define PGSIZE 4096
 
 static void *pf = NULL;
+#define stdprot 0xffffffff
 
 void* new_page(size_t nr_page) {
   void *p = pf;
@@ -24,6 +25,19 @@ void free_page(void *p) {
 
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
+  if(brk > current->max_brk){
+    uintptr_t va = current->max_brk;
+    if(va % PGSIZE != 0){
+      void *pa = new_page(1);
+      map(&(current->as), (void *)va, pa, stdprot);
+    }
+    va = ROUNDUP(va, PGSIZE);
+    while(va < brk){
+      void *pa = new_page(1);
+      map(&(current->as), (void *)va, pa, stdprot);
+    }
+    current->max_brk = brk;
+  }
   return 0;
 }
 

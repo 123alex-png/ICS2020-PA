@@ -12,6 +12,7 @@ size_t fs_lseek(int fd, size_t offset, int whence);
 void naive_uload(PCB *pcb, const char *filename);
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
 void switch_boot_pcb();
+int mm_brk(uintptr_t brk);
 
 int sys_yield(){
   yield();
@@ -83,7 +84,7 @@ void do_syscall(Context *c) {
     case SYS_write:c->GPRx=fs_write((int)a[1],(void *)a[2],(size_t)a[3]);break;
     case SYS_close:c->GPRx=fs_close(a[1]);break;
     case SYS_lseek:c->GPRx=fs_lseek((int)a[1],(size_t)a[2],(int)a[3]);break;
-    case SYS_brk:c->GPRx=sys_brk((void *)a[1]);break;
+    case SYS_brk:c->GPRx=mm_brk(a[1]);break;
     case SYS_execve:c->GPRx=sys_execve((char *)a[1], (char **)a[2], (char **)a[3]);break;
     case SYS_gettimeofday:c->GPRx=sys_gettimeofday((struct timeval *)a[1],(struct timezone *)a[2]);break;
     
