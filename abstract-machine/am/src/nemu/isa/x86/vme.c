@@ -85,7 +85,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   
   if((pgtab[pgtab_index] & PTE_P) == 1){//是否存在这种情况？？？
     // printf("pgtab[%d] = %p\n， va: %p\n", pgtab_index, pgtab[pgtab_index], va);
-    // panic("PTE_P of pgtab has been 1\n");
+    panic("PTE_P of pgtab has been 1\n");
   }
   pgtab[pgtab_index] = ((uintptr_t)pa & ~0xfff) | PTE_P;
   // printf("pgtab[%d] = %p\n， va: %p\n", pgtab_index, pgtab[pgtab_index], va);
