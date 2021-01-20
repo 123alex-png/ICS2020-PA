@@ -29,6 +29,7 @@ extern void *map_addr[0x4ffff];
 int mm_brk(uintptr_t brk) {
   if(current->max_brk == 0){
     current->max_brk = brk;
+    return 0;
   }
   else if(brk > current->max_brk){
     uintptr_t va = current->max_brk;
