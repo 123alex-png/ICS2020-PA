@@ -69,7 +69,8 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
   // assert(va == pa);//only for nanos
   uintptr_t *pgdir = (uintptr_t *)as->ptr;
   for(int i = 0; i <= 0x3ff; i++){
-    printf("pgdir[%d]: %p\n", i, pgdir[i]);
+    // printf("pgdir[%d]: %p\n", i, pgdir[i]);
+    assert(pgdir[i]==0);
   }
   assert(0);
   size_t pgdir_index = (((uint32_t)va)>>22)&0x3ff;//高10位
