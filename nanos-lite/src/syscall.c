@@ -12,7 +12,7 @@ size_t fs_lseek(int fd, size_t offset, int whence);
 void naive_uload(PCB *pcb, const char *filename);
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
 void switch_boot_pcb();
-int mm_brk(uintptr_t brk, uintptr_t increment);
+int mm_brk(uintptr_t brk, intptr_t increment);
 
 int sys_yield(){
   yield();
