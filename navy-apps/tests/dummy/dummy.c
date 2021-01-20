@@ -13,5 +13,6 @@ int main(int      argc, char    *argv[]) {
   // printf("%s\n",argv[0]);
   // puts(argv[0]);
   // while(1);
+	assert(0);
   return _syscall_(SYS_yield, 0, 0, 0);
 }
