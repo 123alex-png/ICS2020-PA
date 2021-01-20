@@ -35,7 +35,7 @@ int mm_brk(uintptr_t brk) {
     printf("va: %p\n", va);
     if(va % PGSIZE != 0){
       void *pa = map_addr[va>>12];
-      if(!pa){
+      if(!pa){assert(0);
         pa = new_page(1);
         map(&(current->as), (void *)va, pa, stdprot);    
         map_addr[va>>12] = pa; 
