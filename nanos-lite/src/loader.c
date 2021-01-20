@@ -36,10 +36,10 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   }
   {
     void *paddr = new_page(1);
-    if(!has_mapped[align_vaddr>>12]){
+    // if(!has_mapped[align_vaddr>>12]){
       map(&(pcb->as), (void *)align_vaddr, paddr, stdprot);
       has_mapped[align_vaddr>>12] = 1; 
-    }
+    // }
     fs_read(fd, (void *)(paddr + vaddr - align_vaddr), PGSIZE - vaddr + align_vaddr);
     memset(paddr, 0, vaddr - align_vaddr);
   }
