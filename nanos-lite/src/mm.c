@@ -35,13 +35,13 @@ int mm_brk(uintptr_t brk) {
     printf("va: %p\n", va);
     if(va % PGSIZE != 0){
       void *pa = map_addr[va>>12];
-      if(!pa){assert(0);
+      if(!pa){
         pa = new_page(1);
-        map(&(current->as), (void *)va, pa, stdprot);    
+        map(&(current->as), (void *)ROUNDDOWN(va, PGSIZE), pa, stdprot);    
         map_addr[va>>12] = pa; 
       }
     }
-    va = ROUNDUP(va, PGSIZE);
+    va = ROUNDDOWN(va, PGSIZE) + PGSIZE;
     while(va < brk){
       void *pa = map_addr[va>>12];
       if(!pa){assert(0);
