@@ -34,10 +34,6 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   if(vaddr%PGSIZE!=0){
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
   }
-  if(align_vaddr==0x40001000){
-    printf("%p\n", vaddr);
-    assert(0);
-  }
   {
     void *paddr = map_addr[align_vaddr>>12];
     if(!paddr){
