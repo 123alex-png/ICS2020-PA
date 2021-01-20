@@ -9,7 +9,7 @@ void* new_page(size_t nr_page) {
   void *p = pf;
   pf += PGSIZE * nr_page;
   printf("pf = %p\n", pf);
-  // assert(pf < heap.end);
+  assert(pf < heap.end);
   return p;
 }
 
