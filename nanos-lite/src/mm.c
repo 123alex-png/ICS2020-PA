@@ -25,7 +25,7 @@ void free_page(void *p) {
 }
 
 
-
+extern void *map_addr[0x4ffff];
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
  
@@ -33,8 +33,12 @@ int mm_brk(uintptr_t brk) {
   if(brk > current->max_brk){
     uintptr_t va = current->max_brk;
     if(va % PGSIZE != 0){
-      void *pa = new_page(1);
-      map(&(current->as), (void *)(ROUNDDOWN(va, PGSIZE)), pa, stdprot);
+      void *pa = map_addr[va>>12];
+      if(!pa){
+        pa = new_page(1);
+        map(&(current->as), (void *)va, pa, stdprot);    
+        map_addr[va>>12] = pa; 
+      }
     }
     va = ROUNDUP(va, PGSIZE);
     while(va < brk){
