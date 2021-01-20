@@ -37,7 +37,7 @@ int mm_brk(uintptr_t brk) {
     va = ROUNDUP(va, PGSIZE);
     while(va < brk){
       void *pa = new_page(1);
-      map(&(current->as), (void *)va, pa, stdprot);assert(0);
+      map(&(current->as), (void *)va, pa, stdprot);
       va += PGSIZE;
     }
     current->max_brk = brk;
