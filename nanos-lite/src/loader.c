@@ -59,7 +59,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   //清零memsz-filesz
   int left = memsz - filesz - (PGSIZE - leftsz);
   uintptr_t start = vaddr+(i+1)*PGSIZE;
-  size_t j;
+  int j;
   for(j=0; j < left/PGSIZE; j++){
     printf("j=%d\n", j);
     uintptr_t paddr = (uintptr_t)new_page(1);
