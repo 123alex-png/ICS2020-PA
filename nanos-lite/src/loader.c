@@ -52,7 +52,11 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   for(i = 0; i < filesz; i+=PGSIZE){//如果文件大小8K+1，则i最大遍历到1，读完后还有1字节未处理，这种情况几乎一定发生
     // printf("%d\n", i);
     void *paddr = new_page(1);
-    map(&(pcb->as), (void *)(vaddr+i), paddr, stdprot);
+    if(!has_mapped[(vaddr+i)>>12]){
+      map(&(pcb->as), (void *)(vaddr+i), paddr, stdprot);
+      has_mapped[(vaddr+i)>>12] = 1; 
+    }
+    
     if(PGSIZE < filesz - i)
       fs_read(fd, (void *)paddr, PGSIZE);
     else
@@ -60,7 +64,10 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   }
   while(i < memsz){
     void *pa = new_page(1);
-    map(&(pcb->as), (void *)(vaddr+i), pa, stdprot);
+    if(!has_mapped[(vaddr+i)>>12]){
+      map(&(pcb->as), (void *)(vaddr+i), pa, stdprot);
+      has_mapped[(vaddr+i)>>12] = 1; 
+    }
     i += PGSIZE;
   }
   //处理filesz剩余部分
