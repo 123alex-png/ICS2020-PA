@@ -29,7 +29,7 @@ extern void *map_addr[0x4ffff];
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
   if(current->max_brk == 0){
-    // current->max_brk = brk;
+    current->max_brk = brk - PGSIZE;
   }
   printf("brk: %p\n", (void *)brk);
   if(brk > current->max_brk){
@@ -46,7 +46,7 @@ int mm_brk(uintptr_t brk) {
     va = ROUNDDOWN(va, PGSIZE) + PGSIZE;
     while(va < brk){
       void *pa = map_addr[va>>12];
-      if(!pa){assert(0);
+      if(!pa){
         pa = new_page(1);
         map(&(current->as), (void *)va, pa, stdprot);    
         map_addr[va>>12] = pa; 
