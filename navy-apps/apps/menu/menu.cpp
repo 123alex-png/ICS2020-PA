@@ -146,11 +146,11 @@ static void display_menu(int n) {
   printf("Available applications:\n");
   char buf[80];
   int i;
-  // for (i = 0; i <= n; i ++) {
-  //   auto *item = &items[page * 10 + i];
-  //   sprintf(buf, "  [%d] %s", i, item->name);
-  //   draw_text_row(buf, i);
-  // }
+  for (i = 0; i <= n; i ++) {
+    auto *item = &items[page * 10 + i];
+    sprintf(buf, "  [%d] %s", i, item->name);
+    draw_text_row(buf, i);
+  }
 
   i = 11;
 
