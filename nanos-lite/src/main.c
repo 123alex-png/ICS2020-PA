@@ -30,7 +30,7 @@ int main() {
   init_proc();
 
   Log("Finish initialization");
-
+  assert(0);
 #ifdef HAS_CTE
   yield();
 #endif
