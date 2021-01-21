@@ -9,7 +9,6 @@ const char *items[] = {
   {"nterm"},
   {"nslider"},
   {"fceux"},
-  {"fceux"},
   {"bird"},
   {"pal"},
   {"nplayer"},
