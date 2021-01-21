@@ -63,6 +63,9 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
       map_addr[(vaddr+i)>>12] = paddr; 
     }   
     fs_read(fd, (void *)paddr, min(PGSIZE, filesz - i));
+    if(PGSIZE > filesz - i){
+      memset(paddr + filesz - i, 0, PGSIZE - (filesz - i));
+    }
   }
   while(i < (int)memsz){
     void *paddr = map_addr[(vaddr+i)>>12];
