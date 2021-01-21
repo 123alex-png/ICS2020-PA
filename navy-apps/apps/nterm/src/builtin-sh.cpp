@@ -17,7 +17,9 @@ const char *items[] = {
   {"dhrystone"},
   {"typing-game"},
   {"onscripter"},
-  {"busybox"}
+  {"busybox"},
+  {"NTERM"},
+  {"PAL"}
 };
 
 static void sh_printf(const char *format, ...) {
