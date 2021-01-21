@@ -2,6 +2,8 @@
 #include "../local-include/decode.h"
 #include "all-instr.h"
 
+void query_intr(DecodeExecState *s);
+
 static inline void set_width(DecodeExecState *s, int width) {
   if (width == -1) return;
   if (width == 0) {
@@ -326,6 +328,6 @@ vaddr_t isa_exec_once() {
   }
   fetch_decode_exec(&s);
   update_pc(&s);
-
+  query_intr(&s);
   return s.seq_pc;
 }

@@ -139,6 +139,7 @@ typedef struct {
   uint16_t cs;
   rtlreg_t cr0;
   rtlreg_t cr3;
+  bool intr;
 } x86_CPU_state;
 
 // decode
