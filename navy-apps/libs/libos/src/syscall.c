@@ -72,6 +72,7 @@ void *_sbrk(intptr_t increment) {
   if(!has_init){
     _syscall_(SYS_brk, prog_break, 0, 0);
     has_init = 1;
+    return 0;
   }
   uintptr_t addr = prog_break + increment;
   char buf[50];
