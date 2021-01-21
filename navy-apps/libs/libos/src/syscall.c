@@ -67,26 +67,18 @@ int _write(int fd, void *buf, size_t count) {
 
 extern char _end;
 static void *prog_break = &_end;
-static int has_init = 0;
 void *_sbrk(intptr_t increment) {
-  // if(!has_init){
-    char buf[50];
-    sprintf(buf,"%x %x %x\n",prog_break,increment, prog_break);
-    write(1, buf, 50);
-    _syscall_(SYS_brk, prog_break, 0, 0);
-    has_init = 1;assert(0);
-    return 0;
-  // }
-  // uintptr_t addr = prog_break + increment;
-  // char buf[50];
-  // sprintf(buf,"%x %x %x\n",prog_break,increment, prog_break + increment);
-  // write(1, buf, 50);
-  // if(_syscall_(SYS_brk,addr,0,0)==0){ 
-  //   intptr_t ret = (intptr_t)prog_break;
-  //   prog_break += increment;
-  //   return (void *)ret;
-  // }
-  // return (void *)-1;
+  _syscall_(SYS_brk,prog_break,0,0);
+  uintptr_t addr = prog_break + increment;
+  char buf[50];
+  sprintf(buf,"%x %x %x\n",prog_break,increment, prog_break + increment);
+  write(1, buf, 50);
+  if(_syscall_(SYS_brk,addr,0,0)==0){ 
+    intptr_t ret = (intptr_t)prog_break;
+    prog_break += increment;
+    return (void *)ret;
+  }
+  return (void *)-1;
 }
 
 
