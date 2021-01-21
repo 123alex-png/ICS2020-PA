@@ -77,10 +77,10 @@ int main(int argc, char *argv[], char *envp[]) {
   set_i_max();
 
   while (1) {
-    display_menu(i_max);assert(0);
+    display_menu(i_max);
     SDL_Event e;
     do {
-      SDL_WaitEvent(&e);
+      SDL_WaitEvent(&e);assert(0);
     } while (e.type != SDL_KEYDOWN);
 
     int i = -1;
