@@ -70,7 +70,9 @@ static void *prog_break = &_end;
 static int has_init = 0;
 void *_sbrk(intptr_t increment) {
   if(!has_init){
-    
+    char buf[50];
+    sprintf(buf,"%x %x %x\n",prog_break,increment, prog_break);
+    write(1, buf, 50);
     _syscall_(SYS_brk, prog_break, 0, 0);
     has_init = 1;assert(0);
     return 0;
