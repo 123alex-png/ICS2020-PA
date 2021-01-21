@@ -256,7 +256,6 @@ void Terminal::write(const char *str, size_t count) {
           cursor.x = 0;
           break;
         default:
-        printf("%c\n", ch);
           putch(cursor.x, cursor.y, ch);
           move_one();
       }
