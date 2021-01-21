@@ -71,7 +71,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
       map(&(pcb->as), (void *)(vaddr+i), paddr, stdprot);
       map_addr[(vaddr+i)>>12] = paddr; 
     }   
-    memset(paddr, 0, PGSIZE);
+    memset(paddr, 0, min(PGSIZE, memsz - i));
     i += PGSIZE;
   }
   //处理filesz剩余部分
