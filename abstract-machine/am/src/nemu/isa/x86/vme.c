@@ -62,7 +62,7 @@ void __am_switch(Context *c) {
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
   // printf("va = %p\n", va);
-  // assert(va != (void *)0x4005d000);
+  assert(va != (void *)0x400fd000);
   // printf("pa = %p\n", pa);
   assert((uintptr_t)va % PGSIZE == 0);
   assert((uintptr_t)pa % PGSIZE == 0);
