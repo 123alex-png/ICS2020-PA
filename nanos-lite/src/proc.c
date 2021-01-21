@@ -30,8 +30,8 @@ void hello_fun(void *arg) {
 void init_proc() {
   context_kload(&pcb[0], (void *)hello_fun, (void *)12345);
   // context_kload(&pcb[1], (void *)hello_fun, (void *)52314);
-  char *arg[]={/*"/bin/exec-test", "12", "/bin/menu",*/NULL};
-  context_uload(&pcb[1], "/bin/menu", arg, NULL);
+  // char *arg[]={/*"/bin/exec-test", "12", "/bin/menu",*/NULL};
+  context_uload(&pcb[1], "/bin/menu", NULL, NULL);
   switch_boot_pcb();
 
   Log("Initializing processes...");
