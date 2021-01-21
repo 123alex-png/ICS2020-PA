@@ -69,7 +69,7 @@ extern char _end;
 static void *prog_break = &_end;
 void *_sbrk(intptr_t increment) {
   _syscall_(SYS_brk,prog_break,0,0);
-  increment = increment <= (1<<18) ? increment : (1<<18);
+  increment = increment <= (1<<24) ? increment : (1<<24);
   uintptr_t addr = prog_break + increment;
   char buf[50];
   sprintf(buf,"%x %x %x\n",prog_break,increment, prog_break + increment);
