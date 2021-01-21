@@ -305,7 +305,8 @@ char Terminal::getch(int x, int y) {
 }
 
 void Terminal::putch(int x, int y, char ch) {
-  buf[x + y * w] = ch - 'A' + 'a';
+  buf[x + y * w] = ch;
+  printf("%c\n", ch);
   color[x + y * w] = (col_f << 4) | col_b;
   dirty[x + y * w] = true;
 }
