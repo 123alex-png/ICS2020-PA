@@ -28,6 +28,7 @@ extern void *map_addr[0x4ffff];
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
   if(current->max_brk == 0){
+    assert(0);
     current->max_brk = brk;
     return 0;
   }
