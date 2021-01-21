@@ -77,7 +77,7 @@ int main(int argc, char *argv[], char *envp[]) {
   set_i_max();
 
   while (1) {
-    display_menu(i_max);
+    display_menu(i_max);assert(0);
     SDL_Event e;
     do {
       SDL_WaitEvent(&e);
@@ -98,7 +98,7 @@ int main(int argc, char *argv[], char *envp[]) {
       case SDLK_LEFT: prev(); break;
       case SDLK_RIGHT: next(); break;
     }
-    assert(0);
+    
     if (i != -1 && i <= i_max) {
       i += page * 10;
       auto *item = &items[i];
