@@ -64,16 +64,16 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
     }   
     fs_read(fd, (void *)paddr, min(PGSIZE, filesz - i));
   }
-  // while(i < memsz){
-  //   void *paddr = map_addr[(vaddr+i)>>12];
-  //   if(!paddr){
-  //     paddr = new_page(1);
-  //     map(&(pcb->as), (void *)(vaddr+i), paddr, stdprot);
-  //     map_addr[(vaddr+i)>>12] = paddr; 
-  //   }   
-  //   memset(paddr, 0, PGSIZE);
-  //   i += PGSIZE;
-  // }
+  while(i < memsz){
+    void *paddr = map_addr[(vaddr+i)>>12];
+    if(!paddr){
+      paddr = new_page(1);
+      map(&(pcb->as), (void *)(vaddr+i), paddr, stdprot);
+      map_addr[(vaddr+i)>>12] = paddr; 
+    }   
+    memset(paddr, 0, PGSIZE);
+    i += PGSIZE;
+  }
   //处理filesz剩余部分
   
   // int leftsz = filesz - i * PGSIZE;
