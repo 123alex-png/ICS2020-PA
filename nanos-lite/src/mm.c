@@ -33,12 +33,12 @@ int mm_brk(uintptr_t brk) {
   }
   else if(brk > current->max_brk){
     uintptr_t va = current->max_brk;
-    printf("va: %p\n", va);
+    // printf("va: %p\n", va);
     if(va % PGSIZE != 0){
       void *pa = map_addr[va>>12];
       if(!pa){
         pa = new_page(1);
-        printf("va: %p\n", ROUNDDOWN(va, PGSIZE));
+        // printf("va: %p\n", ROUNDDOWN(va, PGSIZE));
         map(&(current->as), (void *)ROUNDDOWN(va, PGSIZE), pa, stdprot);    
         map_addr[va>>12] = pa; 
       }
@@ -47,7 +47,7 @@ int mm_brk(uintptr_t brk) {
       void *pa = map_addr[va>>12];
       if(!pa){
         pa = new_page(1);
-        printf("va: %p\n", va);
+        // printf("va: %p\n", va);
         map(&(current->as), (void *)va, pa, stdprot);    
         map_addr[va>>12] = pa; 
       }
@@ -57,7 +57,7 @@ int mm_brk(uintptr_t brk) {
       void *pa = map_addr[va>>12];
       if(!pa){
         pa = new_page(1);
-        printf("va: %p\n", va);
+        // printf("va: %p\n", va);
         map(&(current->as), (void *)va, pa, stdprot);    
         map_addr[va>>12] = pa; 
       }
