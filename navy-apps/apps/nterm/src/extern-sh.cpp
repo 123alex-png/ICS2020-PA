@@ -65,7 +65,6 @@ void extern_app_run(const char *app_path) {
       if (ch == '\n') break;
     }
     *p = '\0';
-    printf("%s\n", p);
     if (buf[0] == 'k') {
       const char *res = term->keypress(handle_key(buf + 1));
       if (res) {
