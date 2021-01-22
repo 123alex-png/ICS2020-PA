@@ -6,8 +6,8 @@
 #define SEG_KCODE      1
 #define SEG_KDATA      2
 #define NR_SEG 6
-static SegDesc gdt[NR_SEG] = {};
-static TSS32 tss = {};
+// static SegDesc gdt[NR_SEG] = {};
+// static TSS32 tss = {};
 
 static Context* (*user_handler)(Event, Context*) = NULL;
 
@@ -61,17 +61,17 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
   // register event handler
   user_handler = handler;
 
-  // initialize GDT
-  gdt[1] = SEG32(STA_X | STA_R,   0,      0xffffffff, DPL_KERN);
-  gdt[2] = SEG32(STA_W,           0,      0xffffffff, DPL_KERN);
-  gdt[3] = SEG32(STA_X | STA_R,   0,      0xffffffff, DPL_USER);
-  gdt[4] = SEG32(STA_W,           0,      0xffffffff, DPL_USER);
-  gdt[5] = SEG16(STS_T32A,     &tss, sizeof(tss) - 1, DPL_KERN);
-  set_gdt(gdt, sizeof(gdt[0]) * NR_SEG);
+  // // initialize GDT
+  // gdt[1] = SEG32(STA_X | STA_R,   0,      0xffffffff, DPL_KERN);
+  // gdt[2] = SEG32(STA_W,           0,      0xffffffff, DPL_KERN);
+  // gdt[3] = SEG32(STA_X | STA_R,   0,      0xffffffff, DPL_USER);
+  // gdt[4] = SEG32(STA_W,           0,      0xffffffff, DPL_USER);
+  // gdt[5] = SEG16(STS_T32A,     &tss, sizeof(tss) - 1, DPL_KERN);
+  // set_gdt(gdt, sizeof(gdt[0]) * NR_SEG);
 
-  // initialize TSS
-  tss.ss0 = KSEL(2);
-  set_tr(KSEL(5));
+  // // initialize TSS
+  // tss.ss0 = KSEL(2);
+  // set_tr(KSEL(5));
   return true;
 }
 
