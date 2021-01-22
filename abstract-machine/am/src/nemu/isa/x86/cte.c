@@ -23,7 +23,6 @@ void __am_switch(Context *c);
 
 Context* __am_irq_handle(Context *c) {
   // asm volatile("mov %%esp, %0":"=r"(c->esp3));//c->sp = $sp;
-  assert(0);
   __am_get_cur_as(c);
   if (user_handler) {
     Event ev = {0};
@@ -33,8 +32,9 @@ Context* __am_irq_handle(Context *c) {
       case 0x20:ev.event=EVENT_IRQ_TIMER;break;
       default: ev.event = EVENT_ERROR; break;
     }
-
+    printf("%p\n", c->esp);
     c = user_handler(ev, c);
+    printf("%p\n", c->esp);
     assert(c != NULL);
   }
   __am_switch(c);
