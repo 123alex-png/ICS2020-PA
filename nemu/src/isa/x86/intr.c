@@ -13,7 +13,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   rtlreg_t base_31_24 = vaddr_read(gdt_addr+56, 1);
   rtlreg_t tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
   ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
-  
+  printf("%x\n", ksp);
   if(ksp != 0){
     rtl_mv(s, (rtlreg_t *)&(cpu.esp), s0);
     rtl_mv(s, (rtlreg_t *)&(cpu.ss), s1);
@@ -36,9 +36,9 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
 }
 
 void query_intr(DecodeExecState *s) {
-  // if (cpu.eflags.IF && cpu.intr ) {
-  //   cpu.intr = false;
-  //   raise_intr(s, IRQ_TIMER, cpu.pc);
-  //   update_pc(s);
-  // }
+  if (cpu.eflags.IF && cpu.intr ) {
+    cpu.intr = false;
+    raise_intr(s, IRQ_TIMER, cpu.pc);
+    update_pc(s);
+  }
 }
