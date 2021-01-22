@@ -18,8 +18,8 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
     rtl_mv(s, (rtlreg_t *)&(cpu.esp), s0);
     rtl_mv(s, (rtlreg_t *)&(cpu.ss), s1);
     rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
-    rtl_push(s, s0);
     rtl_push(s, s1);
+    rtl_push(s, s0);
   }
 
   rtlreg_t addr=cpu.idtr.base+8*NO;
