@@ -140,6 +140,7 @@ typedef struct {
   gdtrr gdtr;
   rtlreg_t tr;
   uint16_t cs;
+  uint16_t ss;
   rtlreg_t cr0;
   rtlreg_t cr3;
   bool intr;

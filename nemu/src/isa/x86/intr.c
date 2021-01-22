@@ -14,7 +14,9 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   rtlreg_t tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
   ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
   if(ksp != 0){
-    // rtl_mv(s, &ksp, &(cpu.esp));
+    rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
+    rtl_push(s, (rtlreg_t *)&(cpu.ss));
+    rtl_push(s, (rtlreg_t *)&(cpu.esp));
   }
 
   rtlreg_t addr=cpu.idtr.base+8*NO;
@@ -27,7 +29,9 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   rtl_push(s,&(ret_addr));
   rtl_j(s,entry);
 }
-
+uintptr_t get_ksp(){
+  return ksp;
+}
 void query_intr(DecodeExecState *s) {
   if (cpu.eflags.IF && cpu.intr) {
     cpu.intr = false;
