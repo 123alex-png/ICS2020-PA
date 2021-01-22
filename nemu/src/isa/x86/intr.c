@@ -28,7 +28,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   rtl_push(s,(rtlreg_t *)&(cpu.cs));
   rtl_push(s,&(ret_addr));
   rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.eax));
-  printf("ksp: %x\n", ksp);
+  printf("nemu: ksp: 0x%x\n", ksp);
   rtl_j(s,entry);
 }
 
