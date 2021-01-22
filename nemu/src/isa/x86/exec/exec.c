@@ -77,11 +77,20 @@ static inline def_EHelper(gp5) {
   }
 }
 
+static inline def_EHelper(gp6) {
+  switch (s->isa.ext_opcode) {
+    EMPTY(0) EMPTY(1) EMPTY(2)
+    EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
+    case 3:exec_ltr(s);break;
+  }
+}
+
 /* 0x0f 0x01*/
 static inline def_EHelper(gp7) {
   switch (s->isa.ext_opcode) {
-    EMPTY(0) EMPTY(1) EMPTY(2) 
+    EMPTY(0) EMPTY(1)
     EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
+    case 2:exec_lgdt(s);break;
     case 3:exec_lidt(s);break;
   }
 }
@@ -91,6 +100,7 @@ static inline def_EHelper(2byte_esc) {
   s->opcode = opcode;
   switch (opcode) {
   /* TODO: Add more instructions!!! */
+    IDEX (0x00, gp7_E, gp6)
     IDEX (0x01, gp7_E, gp7)
     EX (0x20, naive_movc2r)
     EX (0x22, naive_movr2c)

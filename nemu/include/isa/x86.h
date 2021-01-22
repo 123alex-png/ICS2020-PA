@@ -34,6 +34,8 @@ typedef struct idtrr{
     rtlreg_t limit;
   }idtrr;
 
+typedef idtrr gdtrr;
+
 typedef struct {
   union{
     union{
@@ -135,6 +137,8 @@ typedef struct {
   //   rtlreg_t limit;
   // }idtr;
   idtrr idtr;
+  gdtrr gdtr;
+  rtlreg_t tr;
   uint16_t cs;
   rtlreg_t cr0;
   rtlreg_t cr3;
