@@ -97,7 +97,7 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
   Context *ret = (Context *)(kstack.end) - 1;
   ret -> cr3 = as->ptr;
   ret -> eip = (uintptr_t)entry;
-  ret -> cs = 0x8;
+  ret -> cs = USEL(3);
   ret -> eflags |= 1<<9;
   ret -> esp = (uintptr_t)heap.end;
   return ret;
