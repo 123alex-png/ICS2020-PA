@@ -2,11 +2,21 @@
 #include "local-include/rtl.h"
 
 #define IRQ_TIMER 32
-
+uintptr_t ksp;
 void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * That is, use ``NO'' to index the IDT.
    */
+  rtlreg_t gdt_addr=cpu.gdtr.base+8*cpu.tr;
+  rtlreg_t base_15_0 = vaddr_read(gdt_addr+16, 2);
+  rtlreg_t base_23_16 = vaddr_read(gdt_addr+32, 1);
+  rtlreg_t base_31_24 = vaddr_read(gdt_addr+56, 1);
+  rtlreg_t tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
+  ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
+  if(ksp != 0){
+    // rtl_mv(s, &ksp, &(cpu.esp));
+  }
+
   rtlreg_t addr=cpu.idtr.base+8*NO;
   rtlreg_t low=vaddr_read(addr,4);
   rtlreg_t high=vaddr_read(addr+4,4);

@@ -8,7 +8,7 @@
 #define NR_SEG 6
 static SegDesc gdt[NR_SEG] = {};
 static TSS32 tss = {};
-
+extern uintptr_t ksp;
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 void __am_irq0();
@@ -22,8 +22,8 @@ void __am_get_cur_as(Context *c);
 void __am_switch(Context *c);
 
 Context* __am_irq_handle(Context *c) {
-  asm volatile("mov %%esp, %0":"=r"(c->esp3));//c->sp = $sp;
-  //////get ksp///////
+  // asm volatile("mov %%esp, %0":"=r"(c->esp3));//c->sp = $sp;
+  // //////get ksp///////
   
   __am_get_cur_as(c);
   if (user_handler) {
