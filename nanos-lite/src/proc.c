@@ -22,7 +22,7 @@ void hello_fun(void *arg) {
       Log("Hello World from Nanos-lite with arg '%p' for the %dth time!", (uintptr_t)arg, ++cnt);
       j=1;
     }
-    j =1;
+    j = 1;
     yield();
   }
 }
