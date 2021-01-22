@@ -34,7 +34,6 @@ typedef struct idtrr{
     rtlreg_t limit;
   }idtrr;
 
-
 typedef struct {
   union{
     union{
