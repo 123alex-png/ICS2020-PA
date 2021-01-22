@@ -78,7 +78,7 @@ Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context *ret = (Context *)(kstack.end) - 1;
   ret -> GPR1 = (uintptr_t)arg;
   ret -> GPR2 = (uintptr_t)entry;
-  ret -> cs = KSEL(1);
+  ret -> cs = 0x250250;//KSEL(1);
   ret -> eflags |= 1<<9;
   ret -> eip = (uintptr_t)__am_kcontext_start;
   return ret;
