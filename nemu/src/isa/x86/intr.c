@@ -14,13 +14,14 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   rtlreg_t tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
   ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
   // printf("nemu: ksp: 0x%x\n", ksp);
-  // rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.edi));
+  rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.edi));
   
-  // if(ksp != 0){
-  //   rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
-  //   rtl_push(s, (rtlreg_t *)&(cpu.ss));
-  //   rtl_push(s, (rtlreg_t *)&(cpu.esp));
-  // }
+  if(ksp != 0){
+    rtl_mv(s, (rtlreg_t *)&(cpu.esp), s0);
+    rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
+    rtl_push(s, (rtlreg_t *)&(cpu.ss));
+    rtl_push(s, s0);
+  }
 
   rtlreg_t addr=cpu.idtr.base+8*NO;
   rtlreg_t low=vaddr_read(addr,4);
