@@ -15,6 +15,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
   if(ksp != 0){
     rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
+    rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.eax));printf("nemu: ksp: 0x%x\n", ksp);
     rtl_push(s, (rtlreg_t *)&(cpu.ss));
     rtl_push(s, (rtlreg_t *)&(cpu.esp));
   }
@@ -27,8 +28,8 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   cpu.eflags.IF = 0;
   rtl_push(s,(rtlreg_t *)&(cpu.cs));
   rtl_push(s,&(ret_addr));
-  rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.eax));
-  printf("nemu: ksp: 0x%x\n", ksp);
+  
+  
   rtl_j(s,entry);
 }
 
