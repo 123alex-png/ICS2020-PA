@@ -36,7 +36,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
 }
 
 void query_intr(DecodeExecState *s) {
-  if (cpu.eflags.IF && cpu.intr && false) {
+  if (cpu.eflags.IF && cpu.intr) {
     cpu.intr = false;
     raise_intr(s, IRQ_TIMER, cpu.pc);
     update_pc(s);
