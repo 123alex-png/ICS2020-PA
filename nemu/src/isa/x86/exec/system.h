@@ -54,6 +54,7 @@ static inline def_EHelper(iret) {
   rtl_pop(s,(rtlreg_t *)&(cpu.cs));
   rtl_pop(s,&(cpu.eflag_val));
   if((cpu.cs & 0x3) == 0x3){//用户态
+    assert(0);
     rtl_pop(s,&(cpu.esp));
     rtl_pop(s,(rtlreg_t *)&(cpu.ss));
   }
