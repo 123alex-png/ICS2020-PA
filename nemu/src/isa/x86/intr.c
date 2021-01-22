@@ -2,7 +2,7 @@
 #include "local-include/rtl.h"
 
 #define IRQ_TIMER 32
-uintptr_t ksp;
+uintptr_t ksp = 0;
 void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * That is, use ``NO'' to index the IDT.
