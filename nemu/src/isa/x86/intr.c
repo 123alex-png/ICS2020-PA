@@ -20,6 +20,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
     rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
     rtl_push(s, s1);
     rtl_push(s, s0);
+    printf("push: esp = %x, ss = %x\n", *s0, *s1);
   }
 
   rtlreg_t addr=cpu.idtr.base+8*NO;
