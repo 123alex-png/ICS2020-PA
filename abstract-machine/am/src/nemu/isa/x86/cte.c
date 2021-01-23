@@ -73,6 +73,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
   // initialize TSS
   tss.ss0 = KSEL(2);
   set_tr(KSEL(5));
+  printf("tss.esp0: %p\n", tss.esp0);
   // printf("KSL(5): %d\n", KSEL(5));
   return true;
 }
