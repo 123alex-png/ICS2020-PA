@@ -15,14 +15,14 @@ void switch_boot_pcb() {
 
 void hello_fun(void *arg) {
   // assert(arg);
-  // int j = 1;
+  int j = 1;
   int cnt=0;
   while (1) {
-    // if(j>=1){
+    if(j>=1){
       Log("Hello World from Nanos-lite with arg '%p' for the %dth time!", (uintptr_t)arg, ++cnt);
-      // j=1;
-    // }
-    // j = 1;
+      j=1;
+    }
+    j = 1;
     yield();
   }
 }
