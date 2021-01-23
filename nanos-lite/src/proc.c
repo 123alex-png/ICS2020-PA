@@ -24,6 +24,7 @@ void hello_fun(void *arg) {
     }
     j = 1;
     yield();
+    assert(0);
   }
 }
 
