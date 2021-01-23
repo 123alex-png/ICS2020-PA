@@ -51,7 +51,7 @@ static inline def_EHelper(int) {
 static inline def_EHelper(iret) {
   //TODO();
   rtl_pop(s,s0);
-  rtl_j(s,*s0);
+  
   rtl_pop(s,(rtlreg_t *)&(cpu.cs));
   rtl_pop(s,&(cpu.eflag_val));
   printf("cs: %x\n", cpu.cs);
@@ -63,6 +63,7 @@ static inline def_EHelper(iret) {
     vaddr_write(tss_addr+4, *s0, 4);
     printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
   }
+  rtl_j(s,*s0);
   // printf("iret: eflags: %x, eip: %x\n", cpu.eflag_val, cpu.pc);
   print_asm("iret");
 
