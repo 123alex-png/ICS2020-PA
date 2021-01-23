@@ -41,13 +41,9 @@ Context* __am_irq_handle(Context *c) {
   __am_switch(c);
   if(((c->cs) & 0x3) == 0x3){
     uint32_t *x = (uint32_t *)(c + 1);
-    asm volatile("mov %0, %%eax":"=r"(x));
-    asm volatile("mov %%esp, %0":"=m"(x));//c->sp = $sp;
-
-
-
     uint32_t t;
     asm volatile("mov %%esp, %0":"=r"(t));//c->sp = $sp;
+    *x = t;
     printf("t: %p, x: %p\n", t, *x);
     while(1);
   }
