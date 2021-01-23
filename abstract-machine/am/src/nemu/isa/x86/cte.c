@@ -61,7 +61,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 
   // register event handler
   user_handler = handler;
-  printf("&tss: %p\n", &tss);
+
   // initialize GDT
   gdt[1] = SEG32(STA_X | STA_R,   0,      0xffffffff, DPL_KERN);
   gdt[2] = SEG32(STA_W,           0,      0xffffffff, DPL_KERN);

@@ -20,7 +20,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
     // printf("%x, %x, %x\n", base_15_0, base_23_16, base_31_24);
     tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
     printf("tss_addr: %x\n,", tss_addr);
-    ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
+    // ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
     printf("ksp: %x, cs: %x\n", ksp, cpu.cs);
 
     rtl_mv(s, (rtlreg_t *)&(cpu.esp), s0);
