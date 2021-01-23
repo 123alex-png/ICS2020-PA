@@ -42,7 +42,7 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
   __am_switch(c);
-  // asm volatile("mov %%esp, %0":"=m"(x));//c->sp = $sp;
+  asm volatile("mov %%esp, %0":"=m"(x));//c->sp = $sp;
   return c;
 }
 
