@@ -19,7 +19,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
     // printf("gdtr: %x, %x\n", cpu.gdtr.base, vaddr_read(cpu.gdtr.base, 4));
     // printf("%x, %x, %x\n", base_15_0, base_23_16, base_31_24);
     tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
-    printf("tss_addr: %x\n,", tss_addr);
+    printf("tss_addr: %x\n,", tss_addr);while(1);
     ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
     printf("ksp: %x, cs: %x\n", ksp, cpu.cs);
 
@@ -30,7 +30,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
     rtl_push(s, s1);
     rtl_push(s, s0);
     printf("push: esp = %x, ss = %x\n", *s0, *s1);
-    while(1);
+    
   }
   vaddr_write(tss_addr+4, 0, 4);
   rtlreg_t addr=cpu.idtr.base+8*NO;
