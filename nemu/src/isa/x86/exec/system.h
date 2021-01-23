@@ -60,7 +60,7 @@ static inline def_EHelper(iret) {
     rtl_pop(s,s1);
     rtl_mv(s, s0, &(cpu.esp));
     rtl_mv(s, s1, (rtlreg_t *)&(cpu.ss));
-    // vaddr_write(tss_addr+4, *s0, 4);
+    vaddr_write(tss_addr+4, *s0, 4);
     printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
   }
   // printf("iret: eflags: %x, eip: %x\n", cpu.eflag_val, cpu.pc);
