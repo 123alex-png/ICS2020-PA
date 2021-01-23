@@ -35,7 +35,8 @@ Context* __am_irq_handle(Context *c) {
     // printf("c->esp: %p, cs: %p\n", c->esp, c->cs);
     c = user_handler(ev, c);
     // printf("c->esp: %p, cs: %p\n", c->esp, c->cs);
-    assert(0);
+    static int cnt = 0;
+    assert(++cnt==2);
     assert(c != NULL);
   }
   __am_switch(c);
