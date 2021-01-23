@@ -10,24 +10,24 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
    */
   printf("tr: %d\n", cpu.tr);
   
-  if(ksp != 0){
-    assert(0);
-    rtlreg_t gdt_addr=cpu.gdtr.base+8*cpu.tr;
-    rtlreg_t base_15_0 = vaddr_read(gdt_addr+2, 2) & 0xff;
-    rtlreg_t base_23_16 = vaddr_read(gdt_addr+4, 1) & 0xf;
-    rtlreg_t base_31_24 = vaddr_read(gdt_addr+7, 1) & 0xf;
-    tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
-    ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
-    printf("ksp: %x, cs: %x\n", ksp, cpu.cs);
+  // if(ksp != 0){
+  //   assert(0);
+  //   rtlreg_t gdt_addr=cpu.gdtr.base+8*cpu.tr;
+  //   rtlreg_t base_15_0 = vaddr_read(gdt_addr+2, 2) & 0xff;
+  //   rtlreg_t base_23_16 = vaddr_read(gdt_addr+4, 1) & 0xf;
+  //   rtlreg_t base_31_24 = vaddr_read(gdt_addr+7, 1) & 0xf;
+  //   tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
+  //   ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
+  //   printf("ksp: %x, cs: %x\n", ksp, cpu.cs);
 
-    rtl_mv(s, (rtlreg_t *)&(cpu.esp), s0);
-    rtl_mv(s, (rtlreg_t *)&(cpu.ss), s1);
+  //   rtl_mv(s, (rtlreg_t *)&(cpu.esp), s0);
+  //   rtl_mv(s, (rtlreg_t *)&(cpu.ss), s1);
     
-    rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
-    rtl_push(s, s1);
-    rtl_push(s, s0);
-    printf("push: esp = %x, ss = %x\n", *s0, *s1);
-  }
+  //   rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
+  //   rtl_push(s, s1);
+  //   rtl_push(s, s0);
+  //   printf("push: esp = %x, ss = %x\n", *s0, *s1);
+  // }
   vaddr_write(tss_addr+4, 0, 4);
   rtlreg_t addr=cpu.idtr.base+8*NO;
   rtlreg_t low=vaddr_read(addr,4);
