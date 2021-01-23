@@ -8,7 +8,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * That is, use ``NO'' to index the IDT.
    */
-  printf("tr: %d\n", cpu.tr);
+  printf("idx: %d\n", (cpu.tr>>3)&0xf);
   rtlreg_t gdt_addr=cpu.gdtr.base+8*((cpu.tr>>3)&0xf);
   rtlreg_t base_15_0 = vaddr_read(gdt_addr+2, 2) & 0xff;
   rtlreg_t base_23_16 = vaddr_read(gdt_addr+4, 1) & 0xf;
