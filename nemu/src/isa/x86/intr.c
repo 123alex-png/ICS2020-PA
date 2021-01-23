@@ -8,7 +8,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * That is, use ``NO'' to index the IDT.
    */
-  printf("tr: %d, cs: %x\n", cpu.tr, cpu.cs);
+  // printf("tr: %d, cs: %x\n", cpu.tr, cpu.cs);
   
   if((cpu.cs & 0x3)==0x3){
     // assert(0);
