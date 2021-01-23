@@ -64,7 +64,7 @@ static inline def_EHelper(iret) {
   }
   // vaddr_write(tss_addr+4, *s1, 4);
   rtl_j(s,*s0);
-  printf("iret: eflags: %x, eip: %x\n", cpu.eflag_val, cpu.pc);
+  printf("iret: eflags: %x, eip: %x， esp: %x\n", cpu.eflag_val, cpu.pc, cpu.esp);
   print_asm("iret");
 
 #ifndef __DIFF_REF_NEMU__
