@@ -57,7 +57,7 @@ static inline def_EHelper(iret) {
   if((cpu.cs & 0x3) == 0x3){//用户态
     rtl_pop(s,s0);
     rtl_pop(s,(rtlreg_t *)&(cpu.ss));
-    rtl_mv(s, s0, &(cpu.esp));
+    // rtl_mv(s, s0, &(cpu.esp));
     vaddr_write(tss_addr+4, *s0, 4);
     printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
   }

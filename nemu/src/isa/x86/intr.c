@@ -18,7 +18,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   if((cpu.cs & 0x3) == 0x3){
     rtl_mv(s, (rtlreg_t *)&(cpu.esp), s0);
     rtl_mv(s, (rtlreg_t *)&(cpu.ss), s1);
-    rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
+    // rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
     rtl_push(s, s1);
     rtl_push(s, s0);
     printf("push: esp = %x, ss = %x\n", *s0, *s1);
