@@ -12,7 +12,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   
   if((cpu.cs & 0x3) == 0x3){
     // assert(0);
-    rtlreg_t gdt_addr=cpu.gdtr.base+8*(cpu.tr>>3);
+    rtlreg_t gdt_addr=cpu.gdtr.base+8*cpu.tr;
     rtlreg_t base_15_0 = vaddr_read(gdt_addr+2, 2) & 0xffff;
     rtlreg_t base_23_16 = vaddr_read(gdt_addr+4, 1) & 0xff;
     rtlreg_t base_31_24 = vaddr_read(gdt_addr+7, 1) & 0xff;
