@@ -16,12 +16,12 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
   printf("ksp: %x\n", ksp);
   if((cpu.cs & 0x3) == 0x3){
-    // rtl_mv(s, (rtlreg_t *)&(cpu.esp), s0);
+    rtl_mv(s, (rtlreg_t *)&(cpu.esp), s0);
     rtl_mv(s, (rtlreg_t *)&(cpu.ss), s1);
     
     // rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
     rtl_push(s, s1);
-    // rtl_push(s, s0);
+    rtl_push(s, s0);
     printf("push: esp = %x, ss = %x\n", *s0, *s1);
   }
   // vaddr_write(tss_addr+4, 0, 4);
