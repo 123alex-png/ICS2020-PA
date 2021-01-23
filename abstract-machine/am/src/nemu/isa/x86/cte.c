@@ -44,7 +44,7 @@ Context* __am_irq_handle(Context *c) {
     asm volatile("mov %%esp, %0":"=m"(x));//c->sp = $sp;
     uint32_t t;
     asm volatile("mov %%esp, %0":"=r"(t));//c->sp = $sp;
-    printf("t: %p\n", t);
+    printf("t: %p, x: %p\n", t, *x);
     while(1);
   }
   return c;
