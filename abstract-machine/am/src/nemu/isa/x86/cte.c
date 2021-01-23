@@ -36,7 +36,7 @@ Context* __am_irq_handle(Context *c) {
     c = user_handler(ev, c);
     // printf("c->esp: %p, cs: %p\n", c->esp, c->cs);
     static int cnt = 0;
-    assert(++cnt==10);
+    assert(++cnt!=10);
     assert(c != NULL);
   }
   __am_switch(c);
