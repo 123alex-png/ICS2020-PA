@@ -69,11 +69,11 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
   gdt[4] = SEG32(STA_W,           0,      0xffffffff, DPL_USER);
   gdt[5] = SEG16(STS_T32A,     &tss, sizeof(tss) - 1, DPL_KERN);
   set_gdt(gdt, sizeof(gdt[0]) * NR_SEG);
-
+  
   // initialize TSS
   tss.ss0 = KSEL(2);
   set_tr(KSEL(5));
-  printf("KSL(5): %d\n", KSEL(5));
+  // printf("KSL(5): %d\n", KSEL(5));
   return true;
 }
 
