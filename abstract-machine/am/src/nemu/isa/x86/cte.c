@@ -44,6 +44,8 @@ Context* __am_irq_handle(Context *c) {
   __am_switch(c);
   if(((c->cs) & 0x3) == 0x3){
     asm volatile("mov %%esp, %0":"=m"(x));//c->sp = $sp;
+    printf("x: %p\n", *x);
+    while(1);
   }
   return c;
 }
