@@ -22,8 +22,8 @@ void __am_get_cur_as(Context *c);
 void __am_switch(Context *c);
 
 Context* __am_irq_handle(Context *c) {
-  uint32_t *x = (uint32_t *)(c + 1);//ksp
-  *x = 0;
+  // uint32_t *x = (uint32_t *)(c + 1);//ksp
+  tss.esp0 = 0;
   __am_get_cur_as(c);
   if (user_handler) {
     Event ev = {0};
@@ -45,8 +45,8 @@ Context* __am_irq_handle(Context *c) {
     
     uint32_t t;
     asm volatile("mov %%esp, %0":"=r"(t));//c->sp = $sp;
-    *x = t;
-    printf("t: %p, *x: %p, x: %p\n", t, *x, x);
+    tss.esp0 = t;
+    printf("t: %p, ksp: %p, &ksp: %p\n", t, tss.esp0, &(tss.esp0));
     // while(1);
   }
   return c;
