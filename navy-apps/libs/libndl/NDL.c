@@ -35,7 +35,7 @@ int NDL_PollEvent(char *buf, int len) {
     // }
     int ret=fread(buf, 1, len, fevent);
     
-    fseek(fevent, 0, SEEK_CUR);while(1);
+    fseek(fevent, 0, SEEK_CUR);
     // fscanf(fp,"%s", buf+3);
     // fscanf(fp, "%s", buf);
     if(ret){
