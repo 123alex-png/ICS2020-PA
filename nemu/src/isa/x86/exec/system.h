@@ -2,6 +2,7 @@
 
 void raise_intr(DecodeExecState *, uint32_t, vaddr_t);
 extern rtlreg_t tss_addr;
+extern rtlreg_t ksp;
 static inline def_EHelper(lidt) {
   // if(s->isa.is_operand_size_16){
   //   cpu.idtr;
