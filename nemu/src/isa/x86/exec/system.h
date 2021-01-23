@@ -18,7 +18,7 @@ static inline def_EHelper(lgdt) {
 }
 
 static inline def_EHelper(ltr) {
-  rtl_lm(s,&(cpu.tr),&(cpu.eax),0,2);
+  rtl_mv(s,&(cpu.tr),&(cpu.eax));
   print_asm_template1(ltr);
 }
 
