@@ -32,9 +32,9 @@ Context* __am_irq_handle(Context *c) {
       case 0x20:ev.event=EVENT_IRQ_TIMER;break;
       default: ev.event = EVENT_ERROR; break;
     }
-    printf("c->esp: %p, cs: %p\n", c->esp, c->cs);
+    // printf("c->esp: %p, cs: %p\n", c->esp, c->cs);
     c = user_handler(ev, c);
-    printf("c->esp: %p, cs: %p\n", c->esp, c->cs);
+    // printf("c->esp: %p, cs: %p\n", c->esp, c->cs);
     // assert(0);
     assert(c != NULL);
   }
