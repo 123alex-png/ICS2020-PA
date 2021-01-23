@@ -14,13 +14,13 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   rtlreg_t tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
   ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
   // printf("ksp: %x\n", ksp);
-  if(ksp != 0){
-    // rtl_mv(s, (rtlreg_t *)&(cpu.esp), s0);
-    // rtl_mv(s, (rtlreg_t *)&(cpu.ss), s1);
-    // rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
-    // rtl_push(s, s1);
-    // rtl_push(s, s0);
-    // printf("push: esp = %x, ss = %x\n", *s0, *s1);
+  if((cpu.cs & 0x3)==0x3){
+    rtl_mv(s, (rtlreg_t *)&(cpu.esp), s0);
+    rtl_mv(s, (rtlreg_t *)&(cpu.ss), s1);
+    rtl_mv(s, (rtlreg_t *)&ksp, &(cpu.esp));
+    rtl_push(s, s1);
+    rtl_push(s, s0);
+    printf("push: esp = %x, ss = %x\n", *s0, *s1);
   }
 
   rtlreg_t addr=cpu.idtr.base+8*NO;
@@ -35,23 +35,11 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   
   rtl_j(s,entry);
 }
-// yield: eflags: 0, eip: 40038a3e
-// iret: eflags: 200, eip: 101761
-// yield: eflags: 0, eip: 40038a3e
-// iret: eflags: 200, eip: 101761
-// yield: eflags: 0, eip: 40038a3e
-// iret: eflags: 200, eip: 101761
-// yield: eflags: 0, eip: 40038a3e
-// iret: eflags: 200, eip: 101761
-// yield: eflags: 40, eip: 40038a52
-// iret: eflags: 240, eip: 101761
-// yield: eflags: 0, eip: 400389c2
-// iret: eflags: 200, eip: 101761
-// yield: eflags: 40, eip: 40038a52
-// iret: eflags: 240, eip: 101761
+
+
 
 void query_intr(DecodeExecState *s) {
-  if (cpu.eflags.IF && cpu.intr ) {
+  if (cpu.eflags.IF && cpu.intr) {
     cpu.intr = false;
     raise_intr(s, IRQ_TIMER, cpu.pc);
     update_pc(s);
