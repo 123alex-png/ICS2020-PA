@@ -31,7 +31,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
       printf("push: esp = %x, ss = %x\n", *s0, *s1);
     }
   }
-  // vaddr_write(tss_addr+4, 0, 4);
+  vaddr_write(tss_addr+4, 0, 4);
   rtlreg_t addr=cpu.idtr.base+8*NO;
   rtlreg_t low=vaddr_read(addr,4);
   rtlreg_t high=vaddr_read(addr+4,4);

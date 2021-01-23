@@ -47,7 +47,7 @@ static inline def_rtl(pop, rtlreg_t* dest) {
   }
   else{
     rtl_lm(s,dest,&cpu.esp,0,4);
-    if(dest != &(cpu.esp))  cpu.esp+=4;
+    // if(dest != &(cpu.esp))  cpu.esp+=4;
   }
 }
 
