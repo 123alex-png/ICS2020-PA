@@ -56,12 +56,12 @@ static inline def_EHelper(iret) {
   rtl_pop(s,&(cpu.eflag_val));
   printf("cs: %x\n", cpu.cs);
   if((cpu.cs & 0x3) == 0x3){//用户态
-    rtl_pop(s,s0);
-    rtl_pop(s,s1);
-    rtl_mv(s, s0, &(cpu.esp));
-    rtl_mv(s, s1, (rtlreg_t *)&(cpu.ss));
-    vaddr_write(tss_addr+4, *s0, 4);
-    printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
+    // rtl_pop(s,s0);
+    // rtl_pop(s,s1);
+    // rtl_mv(s, s0, &(cpu.esp));
+    // rtl_mv(s, s1, (rtlreg_t *)&(cpu.ss));
+    // vaddr_write(tss_addr+4, *s0, 4);
+    // printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
   }
   // printf("iret: eflags: %x, eip: %x\n", cpu.eflag_val, cpu.pc);
   print_asm("iret");
