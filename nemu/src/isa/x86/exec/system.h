@@ -53,13 +53,14 @@ static inline def_EHelper(iret) {
   rtl_j(s,*s0);
   rtl_pop(s,(rtlreg_t *)&(cpu.cs));
   rtl_pop(s,&(cpu.eflag_val));
-  printf("cs: %x\n", cpu.cs);
+  // printf("cs: %x\n", cpu.cs);
   if((cpu.cs & 0x3) == 0x3){//用户态
-    rtl_pop(s,s0);
-    rtl_pop(s,(rtlreg_t *)&(cpu.ss));
-    rtl_mv(s, s0, &(cpu.esp));
-    printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
+    // rtl_pop(s,s0);
+    // rtl_pop(s,(rtlreg_t *)&(cpu.ss));
+    // rtl_mv(s, s0, &(cpu.esp));
+    // printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
   }
+  printf("iret: esp: %x, eax: %x\n", cpu.esp, cpu.eax);
   print_asm("iret");
 
 #ifndef __DIFF_REF_NEMU__
