@@ -61,6 +61,7 @@ static inline def_EHelper(iret) {
     rtl_pop(s,(rtlreg_t *)&cpu.ss);
     rtl_mv(s, &(cpu.esp), s1);
     assert(*s1 == tmp);
+    assert(0);
     
     printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
   }
