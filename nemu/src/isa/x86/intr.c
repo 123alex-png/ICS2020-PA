@@ -25,6 +25,8 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
     printf("push: esp = %x, ss = %x\n", *s0, *s1);
   }
   vaddr_write(tss_addr+4, 0, 4);
+  ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
+  printf("modify: ksp: %x, cs: %x\n", ksp, cpu.cs);
   rtlreg_t addr=cpu.idtr.base+8*NO;
   rtlreg_t low=vaddr_read(addr,4);
   rtlreg_t high=vaddr_read(addr+4,4);
