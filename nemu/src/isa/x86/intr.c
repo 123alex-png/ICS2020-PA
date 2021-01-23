@@ -11,6 +11,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   printf("tr: %d\n", cpu.tr);
   
   if((cpu.cs & 0x3) == 0x3){
+    assert(ksp!=0);
     // assert(0);
     // rtlreg_t gdt_addr=cpu.gdtr.base+8*(cpu.tr>>3);
     // rtlreg_t base_15_0 = vaddr_read(gdt_addr+2, 2) & 0xffff;
