@@ -31,7 +31,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   cpu.eflags.IF = 0;
   rtl_push(s,(rtlreg_t *)&(cpu.cs));
   rtl_push(s,&(ret_addr));
-  printf("yield: esp: %x, eax: %x\n", cpu.esp, cpu.eax);
+  printf("yield: eflags: %x, eip: %x\n", cpu.eflag_val, cpu.pc);
   
   rtl_j(s,entry);
 }
