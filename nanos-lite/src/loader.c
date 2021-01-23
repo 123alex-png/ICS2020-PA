@@ -158,7 +158,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   kstack.end = kstack.start + sizeof(pcb->stack);
   
   pcb->cp = ucontext(&(pcb->as), kstack, (void *)entry);
-  pcb->cp->GPR2 = (uintptr_t)pcb->as.area.end;
+  // pcb->cp->GPR2 = (uintptr_t)pcb->as.area.end;
 
   Area ustack;
   ustack.start = new_page(8);
