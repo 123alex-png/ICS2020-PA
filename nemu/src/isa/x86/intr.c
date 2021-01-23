@@ -18,7 +18,9 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
     rtlreg_t base_31_24 = vaddr_read(gdt_addr+7, 1) & 0xff;
     printf("gdtr: %x, %x\n", cpu.gdtr.base, vaddr_read(cpu.gdtr.base, 4));
     for(int i = 0; i < 50; i++){
-      printf("addr: %x, i = %d, %x\n", cpu.gdtr.base+4*i, i, vaddr_read(cpu.gdtr.base + 4 * i, 4));
+      vaddr_t addr = vaddr_read(cpu.gdtr.base + 4 * i, 4);
+      printf("addr: %x, i = %d, %x\n", cpu.gdtr.base+4*i, i, addr);
+      printf("ksp[%d]: %x\n", i, vaddr_read(addr+4, 4));
     }
     printf("%x, %x, %x\n", base_15_0, base_23_16, base_31_24);
     tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
