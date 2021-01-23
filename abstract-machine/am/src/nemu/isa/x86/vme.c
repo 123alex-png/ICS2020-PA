@@ -102,6 +102,6 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
   ret -> eflags |= 1<<9;
   ret -> esp = (uintptr_t)heap.end;
   ret -> esp3 = (uintptr_t)(as->area.end);
-  printf("heapend: %p\n", heap.end);
+  printf("heapend: %p， esp3: %p\n", heap.end, ret->esp3);
   return ret;
 }
