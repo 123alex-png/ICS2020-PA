@@ -40,7 +40,6 @@ Context* __am_irq_handle(Context *c) {
     // assert(++cnt=10);
     assert(c != NULL);
   }
-  __am_switch(c);
   if(((c->cs) & 0x3) == 0x3){
     
     uint32_t t;
@@ -49,6 +48,8 @@ Context* __am_irq_handle(Context *c) {
     // printf("t: %p, ksp: %p, &ksp: %p\n", t, tss.esp0, &(tss.esp0));
     // while(1);
   }
+  __am_switch(c);
+  
   return c;
 }
 
