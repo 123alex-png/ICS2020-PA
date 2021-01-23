@@ -66,6 +66,7 @@ static inline def_EHelper(iret) {
   
   rtl_j(s,*s0);
   printf("iret: eflags: %x, eip: %x， esp: %x\n", cpu.eflag_val, *s0, cpu.esp);
+  while(1);
   print_asm("iret");
 
 #ifndef __DIFF_REF_NEMU__
