@@ -61,11 +61,11 @@ static inline def_EHelper(iret) {
     // vaddr_write(tss_addr+4, *s1, 4);
     rtl_pop(s,(rtlreg_t *)&cpu.ss);
     rtl_mv(s, &(cpu.esp), s1); 
-    printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
+    // printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
   }
   
   rtl_j(s,*s0);
-  printf("iret: eflags: %x, eip: %x， esp: %x\n", cpu.eflag_val, *s0, cpu.esp);
+  // printf("iret: eflags: %x, eip: %x， esp: %x\n", cpu.eflag_val, *s0, cpu.esp);
   print_asm("iret");
 
 #ifndef __DIFF_REF_NEMU__
