@@ -54,7 +54,7 @@ void init_fs() {
 }
 
 int fs_open(const char *pathname, int flags, int mode){
-  printf("pathname:%s\n", pathname);
+  // printf("pathname:%s\n", pathname);
   char fname[80];
   int j;
   for(j = 0; pathname[j] != '\0'; j++){
@@ -75,7 +75,7 @@ int fs_open(const char *pathname, int flags, int mode){
       }
     }
   }
-  assert(0);
+  // assert(0);
   return -1;
 }
 
