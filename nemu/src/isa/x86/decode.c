@@ -69,7 +69,7 @@ static inline void load_addr(DecodeExecState *s, ModR_M *m, Operand *rm) {
   char disp_buf[16];
   char base_buf[8];
   char index_buf[8];
-if(s->seq_pc >= 0x40000000){
+if(cpu.pc >= 0x40000000){
   if (disp_size != 0) {
     /* has disp */
     sprintf(disp_buf, "%s%#x", (disp < 0 ? "-" : ""), (disp < 0 ? -disp : disp));
