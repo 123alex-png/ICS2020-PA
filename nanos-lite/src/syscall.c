@@ -57,7 +57,7 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
   tv->tv_sec=us/1000000;
   return 0;
 }
-
+static int cnt=0;
 int sys_execve(const char *fname, char *argv[], char *envp[]){
   // naive_uload(NULL, fname);
   // printf("execve: %s\n", argv[0]);
@@ -66,6 +66,7 @@ int sys_execve(const char *fname, char *argv[], char *envp[]){
   }
   context_uload(current, fname, argv, envp);
   switch_boot_pcb();
+  assert(++cnt==1);
   yield();
   return 0;
 }
