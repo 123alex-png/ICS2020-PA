@@ -25,10 +25,10 @@ Elf_Ehdr ehdr;
 Elf_Phdr phdr;
 #define stdprot (0XFFFFFFFF)
 #define min(x, y) (x < y ? x: y)
-void *map_addr[4][0x4ffff];
+void *map_addr[4][0x4ffff];//记录当前id的进程块的映射地址，防止重复映射
 
 
-void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz, int id){
+void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz, int id/*id是进程块id*/){
   // printf("vaddr = %p, filesz = %p, end = %p, memsz = %p, real_end = %p\n", vaddr, filesz, vaddr + filesz, memsz, vaddr + memsz);
   uintptr_t align_vaddr = vaddr;
   if(vaddr%PGSIZE!=0){
