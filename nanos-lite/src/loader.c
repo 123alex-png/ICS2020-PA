@@ -98,7 +98,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   char *tmp[80];
   for(int i = 0; i < 80; i++){
     tmp[i] = (char *)malloc(sizeof(char) * 80);
-  }while(1);
+  }
   int i;
   for(i = 0; argv[i]!=NULL;i++){
     int j;
@@ -106,7 +106,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
       tmp[i][j] = argv[i][j];
     }
     tmp[i][j] = '\0';
-  }
+  }while(1);
   tmp[i] = (char *)NULL;
   
   volatile uintptr_t entry = loader(pcb, filename);
