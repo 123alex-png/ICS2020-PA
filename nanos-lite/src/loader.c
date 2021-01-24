@@ -163,7 +163,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   
   pcb->cp = ucontext(&(pcb->as), kstack, (void *)entry);
   // pcb->cp->GPR2 = (uintptr_t)pcb->as.area.end;
-assert(strcmp(filename, "/bin/pal"));
+
   Area ustack;
   ustack.start = new_page(8);
   ustack.end = ustack.start + sizeof(pcb->stack);
@@ -188,7 +188,7 @@ assert(strcmp(filename, "/bin/pal"));
       p[i+1] = (uintptr_t)ptr[i]; 
     }
     *p = argc;
-    c -> GPRx = (uintptr_t)p;
+    c -> GPRx = (uintptr_t)p;assert(strcmp(filename, "/bin/pal"));
     // printf("c->GPRx = %p\n", c->GPRx);
   }
   else{
