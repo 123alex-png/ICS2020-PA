@@ -71,7 +71,6 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  // memset(map_addr, 0, sizeof(map_addr));
   int fd=fs_open(filename,0,0);
   fs_read(fd,&ehdr,sizeof(ehdr));
   uint16_t phnum=ehdr.e_phnum;
@@ -91,8 +90,6 @@ void context_kload(PCB *pcb, void *entry, void *arg){
   kstack.start = pcb->stack;
   kstack.end = kstack.start + sizeof(pcb->stack);
   pcb->cp = kcontext(kstack, entry, arg);
-  // protect(&(pcb->as));
-  // pcb->cp->as = &(pcb->as);
 }
 int cnt = 0;
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
@@ -104,7 +101,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     tmp[i] = (char *)malloc(sizeof(char) * 80);
   }
   int i;
-  for(/*int */i = 0; argv[i]!=NULL;i++){
+  for(i = 0; argv[i]!=NULL;i++){
     int j;
     for(j = 0; argv[i][j]!='\0';j++){
       tmp[i][j] = argv[i][j];
@@ -117,11 +114,9 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   printf("app/test entry: %p\n", entry);
   Area kstack;
   kstack.start = pcb->stack;
-  // printf("start = %p\n", kstack.start);
   kstack.end = kstack.start + sizeof(pcb->stack);
   
   pcb->cp = ucontext(&(pcb->as), kstack, (void *)entry);
-  // pcb->cp->GPR2 = (uintptr_t)pcb->as.area.end;
 
   Area ustack;
   ustack.start = new_page(8);
@@ -148,7 +143,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     }
     *p = argc;
     c -> GPRx = (uintptr_t)p;
-    // printf("c->GPRx = %p\n", c->GPRx);
   }
   else{
     c -> GPRx = 0;
