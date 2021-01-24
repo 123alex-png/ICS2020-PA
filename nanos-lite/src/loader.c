@@ -81,6 +81,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       fname[j] = filename[j];
     }
   }
+  printf("filename: %s, fname: %s\n", filename, fname);
   int fd=fs_open(fname,0,0);
   fs_read(fd,&ehdr,sizeof(ehdr));
   uint16_t phnum=ehdr.e_phnum;
