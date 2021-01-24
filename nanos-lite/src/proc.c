@@ -34,8 +34,8 @@ void init_proc() {
   char *arg[]={/*"/bin/exec-test", "12", "/bin/menu",*/NULL};
   context_uload(&pcb[1], "/bin/pal", arg, NULL);
   // context_uload(&pcb[1], "/bin/pal", arg, NULL);
-  assert(0);
-  context_uload(&pcb[2], "/bin/hello", arg, NULL);
+  
+  context_uload(&pcb[2], "/bin/hello", arg, NULL);assert(0);
   switch_boot_pcb();
 
   Log("Initializing processes...");
