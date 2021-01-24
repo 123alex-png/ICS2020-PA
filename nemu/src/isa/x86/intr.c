@@ -28,7 +28,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
       rtl_mv(s, &(cpu.esp), (rtlreg_t *)&ksp);
       rtl_push(s, (rtlreg_t *)&(cpu.ss));
       rtl_push(s, s0);
-      printf("push: esp = %x, ss = %x\n", *s0, *s1);
+      // printf("push: esp = %x, ss = %x\n", *s0, *s1);
     }
   }
   // vaddr_write(tss_addr+4, 0, 4);
