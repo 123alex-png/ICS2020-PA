@@ -132,7 +132,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
       ptr[i] = argp + 1;
       argc++;
     }
-    while(1);
     uintptr_t tmp = ((uintptr_t)argp >>3) <<3;
     uintptr_t *p = (void *)(tmp) - (argc + 2)*sizeof(uintptr_t);
     for(int i = 0; i < argc; i++){
