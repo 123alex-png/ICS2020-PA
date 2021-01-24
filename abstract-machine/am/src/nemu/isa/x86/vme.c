@@ -54,7 +54,7 @@ void __am_get_cur_as(Context *c) {
 }
 
 void __am_switch(Context *c) {
-  // printf("cr3: %p, c->cr3: %p\n", get_cr3(), c->cr3);
+  printf("cr3: %p, c->cr3: %p\n", get_cr3(), c->cr3);
   if (vme_enable && c->cr3 != NULL) {
     set_cr3(c->cr3);
 
