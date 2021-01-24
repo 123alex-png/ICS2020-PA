@@ -142,5 +142,5 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   }
   else{
     c -> GPRx = 0;
-  }assert(++cnt==1);
+  }
 }
