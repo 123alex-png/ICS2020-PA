@@ -61,6 +61,9 @@ static inline def_EHelper(iret) {
     // vaddr_write(tss_addr+4, *s1, 4);
     rtl_pop(s,(rtlreg_t *)&cpu.ss);
     rtl_mv(s, &(cpu.esp), s1); 
+    if(cpu.esp == 0x4000a904){
+      cpu.esp = 0x2395ea8;
+    }
     printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
   }
   
