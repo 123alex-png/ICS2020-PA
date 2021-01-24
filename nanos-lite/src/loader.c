@@ -136,7 +136,9 @@ void context_kload(PCB *pcb, void *entry, void *arg){
   // pcb->cp->as = &(pcb->as);
 }
 int cnt = 0;
-void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[], int id){assert(strcmp(filename, "pal"));
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[], int id){
+  printf("filename:%s\n", filename);
+  assert(strcmp(filename, "pal"));
   protect(&(pcb->as));
   char *tmp[80];
   for(int i = 0; i < 80; i++){
