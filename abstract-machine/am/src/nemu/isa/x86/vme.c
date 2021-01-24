@@ -90,7 +90,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
     return;
   }
   pgtab[pgtab_index] = ((uintptr_t)pa & ~0xfff) | PTE_P;
-  printf("pgtab[%d] = %p\n， va: %p\n", pgtab_index, pgtab[pgtab_index], va);
+  printf("pgtab[%d] = %p， va: %p\n", pgtab_index, pgtab[pgtab_index], va);
 }
 
 
