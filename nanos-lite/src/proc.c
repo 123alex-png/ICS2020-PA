@@ -39,10 +39,10 @@ void init_proc() {
   
   char *arg[]={/*"/bin/exec-test", "12", "/bin/menu",*/NULL};
   // context_uload(&pcb[1], "/bin/bird", arg, NULL, 1);
-  context_uload(&pcb[0], "/bin/hello", arg, NULL, 0);
-  context_uload(&pcb[1], "/bin/pal", arg, NULL, 1);
-  context_uload(&pcb[2], "/bin/bird", arg, NULL, 3);
-  context_uload(&pcb[3], "/bin/nslider", arg, NULL, 2);
+  context_uload(&pcb[0], "/bin/event-test", arg, NULL, 0);
+  // context_uload(&pcb[1], "/bin/pal", arg, NULL, 1);
+  // context_uload(&pcb[2], "/bin/bird", arg, NULL, 3);
+  // context_uload(&pcb[3], "/bin/nslider", arg, NULL, 2);
   // context_uload(&pcb[2], "/bin/hello", arg, NULL);
 
   switch_boot_pcb();
