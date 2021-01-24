@@ -51,7 +51,7 @@ static inline def_EHelper(int) {
 static inline def_EHelper(iret) {
   //TODO();
   rtl_pop(s,s0);
-  // printf("jump to %x\n", *s0);
+  printf("jump to %x\n", *s0);
   rtl_pop(s,(rtlreg_t *)&(cpu.cs));
   rtl_pop(s,&(cpu.eflag_val));
   // printf("cs: %x\n", cpu.cs);
