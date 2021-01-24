@@ -34,7 +34,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
   }
     void *pa = 0;
-  printf("align_vaddr: %p\n", align_vaddr);
+  // printf("align_vaddr: %p\n", align_vaddr);
   pa = new_page(1);
   map(&(pcb->as), (void *)align_vaddr, pa, stdprot);    
   int left = min(filesz, PGSIZE - vaddr + align_vaddr);
@@ -52,7 +52,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   for(i = 0; i < (int)(filesz); i+=PGSIZE){//如果文件大小8K+1，则i最大遍历到1，读完后还有1字节未处理，这种情况几乎一定发生
     printf("%d\n", i);
     void *paddr = 0;
-    printf("vaddr + i: %p\n", vaddr+i);
+    // printf("vaddr + i: %p\n", vaddr+i);
     paddr = new_page(1);
     map(&(pcb->as), (void *)(vaddr+i), paddr, stdprot); 
     fs_read(fd, (void *)paddr, min(PGSIZE, filesz - i));
