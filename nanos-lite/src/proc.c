@@ -35,9 +35,9 @@ void init_proc() {
   context_uload(&pcb[1], "/bin/pal", arg, NULL);
   // context_uload(&pcb[1], "/bin/pal", arg, NULL);
   
-  context_uload(&pcb[2], "/bin/hello", arg, NULL);assert(0);
+  context_uload(&pcb[2], "/bin/hello", arg, NULL);
   switch_boot_pcb();
-
+  assert(0);
   Log("Initializing processes...");
 }
 
