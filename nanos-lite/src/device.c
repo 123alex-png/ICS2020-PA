@@ -18,7 +18,7 @@ static const char *keyname[256] __attribute__((used)) = {
 static const char *names[] = {
   AM_KEYS(NAMEINIT)
 };
-
+void switch_fg_pcb(int id);
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   // yield();
   for(size_t i=0;i<len&& *(char *)(buf+i)!='\0';i++){
@@ -36,6 +36,12 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   }
   char* upordown=ev.keydown ? "kd" : "ku";
   sprintf(buf, "%s %s", upordown, names[ev.keycode]);
+  if(names[ev.keycode][0] == 'F'){
+    int id = keyname[ev.keycode][1] - '0';
+    if(id>=1 && id<=3){
+      switch_fg_pcb(id);
+    }
+  }
   return len;
 }
 
