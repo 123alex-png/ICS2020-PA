@@ -151,6 +151,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     tmp[i][j] = '\0';
   }
   tmp[i] = (char *)NULL;
+  assert(strcmp(filename, "pal"));
   volatile uintptr_t entry = loader(pcb, filename, id);
   printf("app/test entry: %p\n", entry);
   Area kstack;
