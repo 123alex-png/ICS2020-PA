@@ -7,7 +7,7 @@ static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
 int current_id;
-PCB *fg_pcb = NULL;
+PCB *fg_pcb = &pcb[1];
 void context_kload(PCB *pcb, void *entry, void *arg);
 void context_uload(PCB *pcb, char *filename, char *const argv[], char *const envp[], int id);
 
@@ -39,11 +39,12 @@ void init_proc() {
   
   char *arg[]={/*"/bin/exec-test", "12", "/bin/menu",*/NULL};
   // context_uload(&pcb[1], "/bin/bird", arg, NULL, 1);
-  // context_uload(&pcb[0], "/bin/hello", arg, NULL, 0);
+  context_uload(&pcb[0], "/bin/hello", arg, NULL, 0);
   context_uload(&pcb[1], "/bin/pal", arg, NULL, 1);
-  context_uload(&pcb[0], "/bin/bird", arg, NULL, 3);
-  // context_uload(&pcb[3], "/bin/nslider", arg, NULL, 2);
+  context_uload(&pcb[2], "/bin/bird", arg, NULL, 3);
+  context_uload(&pcb[3], "/bin/nslider", arg, NULL, 2);
   // context_uload(&pcb[2], "/bin/hello", arg, NULL);
+
   switch_boot_pcb();
   Log("Initializing processes...");
 }
@@ -51,7 +52,7 @@ void init_proc() {
 Context* schedule(Context *prev) {
 
   current->cp = prev;
-  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  current = (current == &pcb[0] ? fg_pcb : &pcb[0]);
   // current_id = current_id == 0 ? 1 : 0;
   return current->cp;
 }
