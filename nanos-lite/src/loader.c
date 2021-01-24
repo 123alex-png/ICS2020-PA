@@ -188,7 +188,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
       p[i+1] = (uintptr_t)ptr[i]; 
     }
     *p = argc;
-    c -> GPRx = (uintptr_t)p;assert(strcmp(filename, "/bin/pal"));
+    c -> GPRx = (uintptr_t)p;
     // printf("c->GPRx = %p\n", c->GPRx);
   }
   else{
