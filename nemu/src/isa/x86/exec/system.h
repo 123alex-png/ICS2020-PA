@@ -2,8 +2,6 @@
 
 void raise_intr(DecodeExecState *, uint32_t, vaddr_t);
 
-extern rtlreg_t tss_addr;
-
 static inline def_EHelper(lidt) {
   // if(s->isa.is_operand_size_16){
   //   cpu.idtr;
@@ -57,6 +55,15 @@ static inline def_EHelper(iret) {
   rtl_pop(s,&(cpu.eflag_val));
   printf("cs: %x\n", cpu.cs);
   if((cpu.cs & 0x3) == 0x3){//用户态
+    rtlreg_t gdt_addr=cpu.gdtr.base+8*(cpu.tr>>3);
+    rtlreg_t base_15_0 = vaddr_read(gdt_addr+2, 2) & 0xffff;
+    rtlreg_t base_23_16 = vaddr_read(gdt_addr+4, 1) & 0xff;
+    rtlreg_t base_31_24 = vaddr_read(gdt_addr+7, 1) & 0xff;
+    // printf("gdtr: %x, %x\n", cpu.gdtr.base, vaddr_read(cpu.gdtr.base, 4));
+    // printf("%x, %x, %x\n", base_15_0, base_23_16, base_31_24);
+    rtlreg_t tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
+    // printf("tss_addr: %x\n,", tss_addr);
+    vaddr_write(tss_addr+4, cpu.esp, 4);
     printf("jump to %x\n", *s0);
     rtl_pop(s,s1);
     printf("s1: %x\n", *s1);
