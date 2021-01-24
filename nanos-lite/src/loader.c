@@ -95,16 +95,16 @@ int cnt = 0;
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
   printf("filename:%s\n", filename);
   protect(&(pcb->as));
-  char *tmp[80];
-  int i;
-  for(i = 0; argv[i]!=NULL;i++){
-    int j;
-    for(j = 0; argv[i][j]!='\0';j++){
-      tmp[i][j] = argv[i][j];
-    }
-    tmp[i][j] = '\0';
-  }
-  tmp[i] = (char *)NULL;
+  // char *tmp[80];
+  // int i;
+  // for(i = 0; argv[i]!=NULL;i++){
+  //   int j;
+  //   for(j = 0; argv[i][j]!='\0';j++){
+  //     tmp[i][j] = argv[i][j];
+  //   }
+  //   tmp[i][j] = '\0';
+  // }
+  // tmp[i] = (char *)NULL;
   
   volatile uintptr_t entry = loader(pcb, filename);
   printf("app/test entry: %p\n", entry);
@@ -118,15 +118,15 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   ustack.start = new_page(8);
   ustack.end = ustack.start + sizeof(pcb->stack);
   Context *c = pcb->cp;
-  if(tmp != NULL){
+  if(argv != NULL){
     void *ptr[12];
     char *argp = (char *)ustack.end;
     int argc = 0;
-    for(int i = 0; tmp[i] != NULL; i++){
+    for(int i = 0; argv[i] != NULL; i++){
       *argp-- = '\0';
-      if(tmp[i][0]!='0'){
-        for(int j = strlen(tmp[i])-1; j >= 0; j--){
-          *argp-- = tmp[i][j];
+      if(argv[i][0]!='0'){
+        for(int j = strlen(argv[i])-1; j >= 0; j--){
+          *argp-- = argv[i][j];
         }
       }
       ptr[i] = argp + 1;
