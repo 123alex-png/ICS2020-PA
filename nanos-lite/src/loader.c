@@ -154,7 +154,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   }
   tmp[i] = (char *)NULL;
   
-  volatile uintptr_t entry = loader(pcb, filename, id);assert(strcmp(filename, "/bin/pal"));
+  volatile uintptr_t entry = loader(pcb, filename, id);
   printf("app/test entry: %p\n", entry);
   Area kstack;
   kstack.start = pcb->stack;
@@ -163,7 +163,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   
   pcb->cp = ucontext(&(pcb->as), kstack, (void *)entry);
   // pcb->cp->GPR2 = (uintptr_t)pcb->as.area.end;
-
+assert(strcmp(filename, "/bin/pal"));
   Area ustack;
   ustack.start = new_page(8);
   ustack.end = ustack.start + sizeof(pcb->stack);
