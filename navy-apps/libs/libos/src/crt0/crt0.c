@@ -6,7 +6,7 @@ int main(int argc, char *argv[], char *envp[]);
 extern char **environ;
 void call_main(uintptr_t *args) {
   int cnt=0;
-  assert(cnt==1);
+  assert(cnt==0);
   cnt++;
   char *empty[] =  {NULL };
   environ = empty;
