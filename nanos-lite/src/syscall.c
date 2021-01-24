@@ -63,8 +63,9 @@ int sys_execve(const char *fname, char *argv[], char *envp[]){
   // printf("execve: %s\n", argv[0]);
   if(fs_open(fname,0,0)==-1){
     return -2;
-  }assert(0);
+  }
   context_uload(current, fname, argv, envp);//while(1);
+  assert(0);
   switch_boot_pcb();
   yield();
   return 0;
