@@ -35,8 +35,8 @@ void hello_fun(void *arg) {
 void init_proc() {
   // context_kload(&pcb[0], (void *)hello_fun, (void *)12345);
 
-  // char *arg[]={NULL};
-  char *arg[]={"/bin/exec-test", "12", NULL};
+  char *arg[]={NULL};
+  // char *arg[]={"/bin/exec-test", "12", NULL};
   context_uload(&pcb[0], "/bin/nterm", arg, NULL);
   // context_uload(&pcb[0], "/bin/hello", arg, NULL);
   // context_uload(&pcb[1], "/bin/pal", arg, NULL);
