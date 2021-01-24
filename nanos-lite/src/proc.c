@@ -33,7 +33,7 @@ void init_proc() {
   
   char *arg[]={/*"/bin/exec-test", "12", "/bin/menu",*/NULL};
   context_uload(&pcb[0], "/bin/nterm", arg, NULL);
-  context_uload(&pcb[1], "/bin/pal", arg, NULL);
+  // context_uload(&pcb[1], "/bin/pal", arg, NULL);
   // context_uload(&pcb[2], "/bin/hello", arg, NULL);
   switch_boot_pcb();
 
@@ -46,7 +46,7 @@ void init_proc() {
 Context* schedule(Context *prev) {
 
   current->cp = prev;
-  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  current = &pcb[0];//(current == &pcb[0] ? &pcb[1] : &pcb[0]);
   // current = current == &pcb[0] ? (current == &pcb[1] ? &pcb[2] : &pcb[1]) : &pcb[0];
   return current->cp;
 }
