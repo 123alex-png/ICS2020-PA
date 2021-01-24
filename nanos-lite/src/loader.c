@@ -28,7 +28,7 @@ Elf_Phdr phdr;
 
 
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
-  printf("vaddr = %p, filesz = %p, end = %p, memsz = %p, real_end = %p\n", vaddr, filesz, vaddr + filesz, memsz, vaddr + memsz);
+  // printf("vaddr = %p, filesz = %p, end = %p, memsz = %p, real_end = %p\n", vaddr, filesz, vaddr + filesz, memsz, vaddr + memsz);
   uintptr_t align_vaddr = vaddr;
   if(vaddr%PGSIZE!=0){
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
@@ -78,7 +78,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       fs_lseek(fd,ehdr.e_phoff+i*sizeof(phdr),SEEK_SET);
       fs_read(fd,&phdr,ehdr.e_phentsize);
     if(phdr.p_type==PT_LOAD){
-      printf("%d is PT_LOAD\n", i);
+      // printf("%d is PT_LOAD\n", i);
       fs_lseek(fd,phdr.p_offset,SEEK_SET);
       page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
     }
