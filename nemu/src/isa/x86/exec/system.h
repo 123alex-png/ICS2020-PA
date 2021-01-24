@@ -53,29 +53,18 @@ static inline def_EHelper(iret) {
  
   rtl_pop(s,(rtlreg_t *)&(cpu.cs));
   rtl_pop(s,&(cpu.eflag_val));
-  // printf("cs: %x\n", cpu.cs);
   if((cpu.cs & 0x3) == 0x3){//用户态
     rtlreg_t gdt_addr=cpu.gdtr.base+8*(cpu.tr>>3);
     rtlreg_t base_15_0 = vaddr_read(gdt_addr+2, 2) & 0xffff;
     rtlreg_t base_23_16 = vaddr_read(gdt_addr+4, 1) & 0xff;
     rtlreg_t base_31_24 = vaddr_read(gdt_addr+7, 1) & 0xff;
-    // printf("gdtr: %x, %x\n", cpu.gdtr.base, vaddr_read(cpu.gdtr.base, 4));
-    // printf("%x, %x, %x\n", base_15_0, base_23_16, base_31_24);
     rtlreg_t tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
-    // printf("tss_addr: %x\n,", tss_addr);
-    
-    // printf("jump to %x\n", *s0);
     rtl_pop(s,s1);
-    // printf("s1: %x\n", *s1);
-    // vaddr_write(tss_addr+4, *s1, 4);
     rtl_pop(s,(rtlreg_t *)&cpu.ss);
     vaddr_write(tss_addr+4, cpu.esp, 4);
     rtl_mv(s, &(cpu.esp), s1); 
-    // printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
   }
-  
   rtl_j(s,*s0);
-  // printf("iret: eflags: %x, eip: %x， esp: %x\n", cpu.eflag_val, *s0, cpu.esp);
   print_asm("iret");
 
 #ifndef __DIFF_REF_NEMU__

@@ -16,12 +16,8 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
     rtlreg_t base_15_0 = vaddr_read(gdt_addr+2, 2) & 0xffff;
     rtlreg_t base_23_16 = vaddr_read(gdt_addr+4, 1) & 0xff;
     rtlreg_t base_31_24 = vaddr_read(gdt_addr+7, 1) & 0xff;
-    // printf("gdtr: %x, %x\n", cpu.gdtr.base, vaddr_read(cpu.gdtr.base, 4));
-    // printf("%x, %x, %x\n", base_15_0, base_23_16, base_31_24);
     rtlreg_t tss_addr = (base_15_0) | (base_23_16 << 16) | (base_31_24 << 24);
-    // printf("tss_addr: %x\n,", tss_addr);
     ksp = vaddr_read(tss_addr+4, 4);//tss.esp0
-    // printf("ksp: %x, cs: %x\n", ksp, cpu.cs);
     if(ksp != 0){
       rtl_mv(s, s0, (rtlreg_t *)&(cpu.esp));
       
@@ -29,7 +25,6 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
       rtl_push(s, (rtlreg_t *)&(cpu.ss));
       rtl_push(s, s0);
       vaddr_write(tss_addr+4, 0, 4);
-      // printf("push: esp = %x, ss = %x\n", *s0, *s1);
     }
   }
   
@@ -41,8 +36,6 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   cpu.eflags.IF = 0;
   rtl_push(s,(rtlreg_t *)&(cpu.cs));
   rtl_push(s,&(ret_addr));
-  // printf("yield: eflags: %x, eip: %x\n", cpu.eflag_val, cpu.pc);
-  
   rtl_j(s,entry);
 }
 
