@@ -24,7 +24,7 @@ void free_page(void *p) {
   panic("not implement yet"); 
 }
 
-extern void *map_addr[0x4ffff];
+extern void *map_addr[4][0x4ffff];
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
   if(current->max_brk == 0){
@@ -35,31 +35,31 @@ int mm_brk(uintptr_t brk) {
     uintptr_t va = current->max_brk;
     // printf("va: %p\n", va);
     if(va % PGSIZE != 0){
-      void *pa = map_addr[va>>12];
+      void *pa = map_addr[current_id][va>>12];
       if(!pa){
         pa = new_page(1);
         // printf("va: %p\n", ROUNDDOWN(va, PGSIZE));
         map(&(current->as), (void *)ROUNDDOWN(va, PGSIZE), pa, stdprot);    
-        map_addr[va>>12] = pa; 
+        map_addr[current_id][va>>12] = pa; 
       }
     }
     else{
-      void *pa = map_addr[va>>12];
+      void *pa = map_addr[current_id][va>>12];
       if(!pa){
         pa = new_page(1);
         // printf("va: %p\n", va);
         map(&(current->as), (void *)va, pa, stdprot);    
-        map_addr[va>>12] = pa; 
+        map_addr[current_id][va>>12] = pa; 
       }
     }
     va = ROUNDDOWN(va, PGSIZE) + PGSIZE;
     while(va < brk){
-      void *pa = map_addr[va>>12];
+      void *pa = map_addr[current_id][va>>12];
       if(!pa){
         pa = new_page(1);
         // printf("va: %p\n", va);
         map(&(current->as), (void *)va, pa, stdprot);    
-        map_addr[va>>12] = pa; 
+        map_addr[current_id][va>>12] = pa; 
       }
       va += PGSIZE;
     }

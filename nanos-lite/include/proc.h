@@ -17,5 +17,5 @@ typedef union {
 } PCB;
 
 extern PCB *current;
-
+extern int current_id;
 #endif

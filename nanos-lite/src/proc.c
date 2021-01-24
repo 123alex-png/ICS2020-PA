@@ -6,8 +6,9 @@ void naive_uload(PCB *pcb, const char *filename);
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
+int current_id;
 void context_kload(PCB *pcb, void *entry, void *arg);
-void context_uload(PCB *pcb, char *filename, char *const argv[], char *const envp[]);
+void context_uload(PCB *pcb, char *filename, char *const argv[], char *const envp[], int id);
 
 void switch_boot_pcb() {
   current = &pcb_boot;
@@ -33,7 +34,7 @@ void init_proc() {
   
   char *arg[]={/*"/bin/exec-test", "12", "/bin/menu",*/NULL};
   // context_uload(&pcb[1], "/bin/hello", arg, NULL);
-  context_uload(&pcb[0], "/bin/nterm", arg, NULL);
+  context_uload(&pcb[0], "/bin/nterm", arg, NULL, 0);
   
   // context_uload(&pcb[2], "/bin/hello", arg, NULL);
   switch_boot_pcb();
@@ -44,5 +45,6 @@ Context* schedule(Context *prev) {
 
   current->cp = prev;
   current = &pcb[0];//(current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  current_id = 0;
   return current->cp;
 }
