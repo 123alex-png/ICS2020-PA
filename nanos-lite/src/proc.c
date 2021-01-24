@@ -37,11 +37,11 @@ void init_proc() {
 
   // char *arg[]={"/bin/exec-test", "12",NULL};
   char *arg[]={NULL};
-  context_uload(&pcb[0], "/bin/nterm", arg, NULL);
-  // context_uload(&pcb[0], "/bin/hello", arg, NULL);
-  // context_uload(&pcb[1], "/bin/pal", arg, NULL);
-  // context_uload(&pcb[2], "/bin/bird", arg, NULL);
-  // context_uload(&pcb[3], "/bin/nslider", arg, NULL);
+  // context_uload(&pcb[0], "/bin/nterm", arg, NULL);
+  context_uload(&pcb[0], "/bin/hello", arg, NULL);
+  context_uload(&pcb[1], "/bin/pal", arg, NULL);
+  context_uload(&pcb[2], "/bin/bird", arg, NULL);
+  context_uload(&pcb[3], "/bin/nslider", arg, NULL);
 
   switch_boot_pcb();
   Log("Initializing processes...");
@@ -50,7 +50,7 @@ void init_proc() {
 Context* schedule(Context *prev) {
 
   current->cp = prev;
-  // current = (current == &pcb[0] ? fg_pcb : &pcb[0]);
-  current = &pcb[0];
+  current = (current == &pcb[0] ? fg_pcb : &pcb[0]);
+  // current = &pcb[0];
   return current->cp;
 }
