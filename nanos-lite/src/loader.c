@@ -109,7 +109,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     tmp[i][j] = '\0';
   }
   tmp[i] = (char *)NULL;
-  
+  assert(++cnt == 1);
   volatile uintptr_t entry = loader(pcb, filename);
   printf("app/test entry: %p\n", entry);
   Area kstack;

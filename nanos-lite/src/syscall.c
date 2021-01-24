@@ -65,7 +65,6 @@ int sys_execve(const char *fname, char *argv[], char *envp[]){
     return -2;
   }
   context_uload(current, fname, argv, envp);
-  while(1);
   switch_boot_pcb();
   yield();
   return 0;
