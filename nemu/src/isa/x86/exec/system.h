@@ -53,7 +53,7 @@ static inline def_EHelper(iret) {
  
   rtl_pop(s,(rtlreg_t *)&(cpu.cs));
   rtl_pop(s,&(cpu.eflag_val));
-  printf("cs: %x\n", cpu.cs);
+  // printf("cs: %x\n", cpu.cs);
   if((cpu.cs & 0x3) == 0x3){//用户态
     rtlreg_t gdt_addr=cpu.gdtr.base+8*(cpu.tr>>3);
     rtlreg_t base_15_0 = vaddr_read(gdt_addr+2, 2) & 0xffff;
@@ -75,7 +75,7 @@ static inline def_EHelper(iret) {
   }
   
   rtl_j(s,*s0);
-  printf("iret: eflags: %x, eip: %x， esp: %x\n", cpu.eflag_val, *s0, cpu.esp);
+  // printf("iret: eflags: %x, eip: %x， esp: %x\n", cpu.eflag_val, *s0, cpu.esp);
   print_asm("iret");
 
 #ifndef __DIFF_REF_NEMU__
