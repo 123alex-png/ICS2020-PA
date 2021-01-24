@@ -136,7 +136,7 @@ void context_kload(PCB *pcb, void *entry, void *arg){
   // pcb->cp->as = &(pcb->as);
 }
 int cnt = 0;
-void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[], int id){
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[], int id){assert(strcmp(filename, "pal"));
   protect(&(pcb->as));
   char *tmp[80];
   for(int i = 0; i < 80; i++){
@@ -151,7 +151,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     tmp[i][j] = '\0';
   }
   tmp[i] = (char *)NULL;
-  assert(strcmp(filename, "pal"));
+  
   volatile uintptr_t entry = loader(pcb, filename, id);
   printf("app/test entry: %p\n", entry);
   Area kstack;
