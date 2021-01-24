@@ -94,7 +94,6 @@ void context_kload(PCB *pcb, void *entry, void *arg){
 int cnt = 0;
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
   printf("filename:%s\n", filename);
-  assert(++cnt==1);
   protect(&(pcb->as));
   char *tmp[80];
   for(int i = 0; i < 80; i++){

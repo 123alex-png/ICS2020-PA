@@ -64,6 +64,7 @@ int sys_execve(const char *fname, char *argv[], char *envp[]){
   if(fs_open(fname,0,0)==-1){
     return -2;
   }
+  assert(0);
   context_uload(current, fname, argv, envp);
   switch_boot_pcb();
   yield();
