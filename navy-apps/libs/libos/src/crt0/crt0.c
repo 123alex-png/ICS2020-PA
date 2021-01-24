@@ -12,6 +12,14 @@ void call_main(uintptr_t *args) {
   }
   else{
     char **argv = (char **)(args + 1);
+    for(int i = 0; argv[i] != NULL; i++){
+      for(int j = 0; argv[i][j] != '\0'; j++){
+        if(argv[i][j]==1){
+          argv[i][j]='\0';
+          break;
+        }
+      }
+    }
     // printf("argv = %s\n", argv[0]);
     // printf("argc = %d\n", *(int *)args);
     // if(argv[0])
