@@ -40,8 +40,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     int id = keyname[ev.keycode][1] - '0';
     if(id>=1 && id<=3){
       switch_fg_pcb(id);
-      printf("current id : %d\n", id);
-      assert(0);
+      // printf("current id : %d\n", id);
+      // assert(0);
     }
   }
   return len;
