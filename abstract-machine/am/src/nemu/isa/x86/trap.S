@@ -19,6 +19,7 @@ __am_asm_trap:
   
   popal
   addl $4, %esp
+  movl %esp, 0x2214864
   iret
 
 
