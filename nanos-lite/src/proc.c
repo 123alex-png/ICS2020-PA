@@ -7,7 +7,7 @@ static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
 int current_id;
-PCB *fg_pcb = &pcb[1];
+PCB *fg_pcb = &pcb[2];
 void context_kload(PCB *pcb, void *entry, void *arg);
 void context_uload(PCB *pcb, char *filename, char *const argv[], char *const envp[], int id);
 
