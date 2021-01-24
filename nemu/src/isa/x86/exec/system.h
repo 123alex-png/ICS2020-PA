@@ -1,8 +1,7 @@
 #include <monitor/difftest.h>
 
 void raise_intr(DecodeExecState *, uint32_t, vaddr_t);
-extern rtlreg_t tss_addr;
-extern rtlreg_t ksp;
+
 static inline def_EHelper(lidt) {
   // if(s->isa.is_operand_size_16){
   //   cpu.idtr;
@@ -54,9 +53,9 @@ static inline def_EHelper(iret) {
  
   rtl_pop(s,(rtlreg_t *)&(cpu.cs));
   rtl_pop(s,&(cpu.eflag_val));
-  // printf("cs: %x\n", cpu.cs);
+  printf("cs: %x\n", cpu.cs);
   if((cpu.cs & 0x3) == 0x3){//用户态
-    // printf("jump to %x\n", *s0);
+    printf("jump to %x\n", *s0);
     rtl_pop(s,s1);
     printf("s1: %x\n", *s1);
     // vaddr_write(tss_addr+4, *s1, 4);
