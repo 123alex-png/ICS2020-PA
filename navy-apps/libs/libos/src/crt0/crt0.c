@@ -14,7 +14,7 @@ void call_main(uintptr_t *args) {
     char **argv = (char **)(args + 1);
     for(int i = 0; i < *args; i++){
       for(int j = 0; argv[i][j] != '\0'; j++){
-        if(argv[i][j]==1){
+        if(argv[i][j]==1 || (argv[i][j]=='0' && argv[i][j+1]=='!')){
           argv[i][j]='\0';
           break;
         }
