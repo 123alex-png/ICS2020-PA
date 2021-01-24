@@ -21,6 +21,7 @@ void call_main(uintptr_t *args) {
     //   }
     // }
     printf("argv = %s\n", argv[0]);
+    while(1);
     // printf("argc = %d\n", *(int *)args);
     // if(argv[0])
     // puts(argv[0]);
