@@ -66,7 +66,7 @@ int sys_execve(const char *fname, char *argv[], char *envp[]){
   }
   context_uload(current, fname, argv, envp, current_id);//while(1);
   
-  switch_boot_pcb();assert(strcmp(fname, "/bin/pal"));
+  switch_boot_pcb();
   yield();
   return 0;
 }
