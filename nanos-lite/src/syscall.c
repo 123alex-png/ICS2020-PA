@@ -61,9 +61,9 @@ volatile static int cnt=0;
 int sys_execve(const char *fname, char *argv[], char *envp[]){
   // naive_uload(NULL, fname);
   // printf("execve: %s\n", argv[0]);
-  if(fs_open(fname,0,0)==-1){
-    return -2;
-  }
+  // if(fs_open(fname,0,0)==-1){
+  //   return -2;
+  // }
   context_uload(current, fname, argv, envp);
   switch_boot_pcb();
   // assert(++cnt==1);
