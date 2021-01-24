@@ -50,7 +50,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   int i;
   // printf("filesz: %p\n", filesz);
   for(i = 0; i < (int)(filesz); i+=PGSIZE){//如果文件大小8K+1，则i最大遍历到1，读完后还有1字节未处理，这种情况几乎一定发生
-    printf("%d\n", i);
+    // printf("%d\n", i);
     void *paddr = 0;
     // printf("vaddr + i: %p\n", vaddr+i);
     paddr = new_page(1);
