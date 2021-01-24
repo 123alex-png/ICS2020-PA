@@ -31,11 +31,7 @@ Context* __am_irq_handle(Context *c) {
       case 0x20:ev.event=EVENT_IRQ_TIMER;break;
       default: ev.event = EVENT_ERROR; break;
     }
-    // printf("c->esp: %p, cs: %p\n", c->esp, c->cs);
     c = user_handler(ev, c);
-    // printf("c->esp: %p, cs: %p\n", c->esp, c->cs);
-    // static int cnt = 0;
-    // assert(++cnt=10);
     assert(c != NULL);
   }
   __am_switch(c);
@@ -73,8 +69,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
   // initialize TSS
   tss.ss0 = KSEL(2);
   set_tr(KSEL(5));
-  // printf("tss.esp0: %p\n", tss.esp0);
-  // printf("KSL(5): %d\n", KSEL(5));
+  
   return true;
 }
 
