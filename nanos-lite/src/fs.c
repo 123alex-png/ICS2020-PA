@@ -55,21 +55,21 @@ void init_fs() {
 
 int fs_open(const char *pathname, int flags, int mode){
   printf("%s\n", pathname);
-  char fname[80];
-  int j;
-  for(j = 0; pathname[j] != '\0'; j++){
-    if(pathname[j] == 1){
-      break;
-    }
-    else{
-      fname[j] = pathname[j];
-    }
-  }
-  fname[j] = '\0';
+  // char fname[80];
+  // int j;
+  // for(j = 0; pathname[j] != '\0'; j++){
+  //   if(pathname[j] == 1){
+  //     break;
+  //   }
+  //   else{
+  //     fname[j] = pathname[j];
+  //   }
+  // }
+  // fname[j] = '\0';
   for(int i=0;i<FT_SIZE;i++){
     //if(file_table[i].name)
     {
-      if(!strcmp(fname,file_table[i].name)){
+      if(!strcmp(pathname,file_table[i].name)){
         file_table[i].open_offset = 0;
         return i;
       }
