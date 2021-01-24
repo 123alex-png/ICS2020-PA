@@ -4,7 +4,6 @@
 #include <unistd.h>
 
 int main(int argc, char *argv[]) {
-  while(1);
   int n = (argc >= 2 ? atoi(argv[1]) : 1);
   printf("%s: argv[1] = %d\n", argv[0], n);
   char buf[16];
