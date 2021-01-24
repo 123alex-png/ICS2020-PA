@@ -71,19 +71,19 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  char fname[80];
-  int j;
-  for(j = 0; filename[j] != '\0'; j++){
-    if(filename[j] == 1){
-      break;
-    }
-    else{
-      fname[j] = filename[j];
-    }
-  }
-  fname[j] = '\0';
-  printf("filename: %s, fname: %s\n", filename, fname);
-  int fd=fs_open(fname,0,0);
+  // char fname[80];
+  // int j;
+  // for(j = 0; filename[j] != '\0'; j++){
+  //   if(filename[j] == 1){
+  //     break;
+  //   }
+  //   else{
+  //     fname[j] = filename[j];
+  //   }
+  // }
+  // fname[j] = '\0';
+  // printf("filename: %s, fname: %s\n", filename, fname);
+  int fd=fs_open(filename,0,0);
   fs_read(fd,&ehdr,sizeof(ehdr));
   uint16_t phnum=ehdr.e_phnum;
   for(int i=0;i<phnum;i++){
