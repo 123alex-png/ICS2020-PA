@@ -36,8 +36,8 @@ void init_proc() {
   // context_kload(&pcb[0], (void *)hello_fun, (void *)12345);
   // context_kload(&pcb[1], (void *)hello_fun, (void *)52314);
   
-  // char *arg[]={/*"/bin/exec-test", "12", "/bin/menu",*/NULL};
-  char *arg[]={"--skip", "12", "/bin/menu", NULL};
+  // char *arg[]={"--skip", NULL};
+  char *arg[]={"/bin/exec-test", "12", NULL};
   context_uload(&pcb[0], "/bin/exec-test", arg, NULL);
   // context_uload(&pcb[0], "/bin/hello", arg, NULL);
   // context_uload(&pcb[1], "/bin/pal", arg, NULL);
