@@ -2,6 +2,8 @@
 
 void raise_intr(DecodeExecState *, uint32_t, vaddr_t);
 
+extern rtlreg_t tss_addr;
+
 static inline def_EHelper(lidt) {
   // if(s->isa.is_operand_size_16){
   //   cpu.idtr;
@@ -58,7 +60,7 @@ static inline def_EHelper(iret) {
     printf("jump to %x\n", *s0);
     rtl_pop(s,s1);
     printf("s1: %x\n", *s1);
-    // vaddr_write(tss_addr+4, *s1, 4);
+    vaddr_write(tss_addr+4, *s1, 4);
     rtl_pop(s,(rtlreg_t *)&cpu.ss);
     rtl_mv(s, &(cpu.esp), s1); 
     printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);

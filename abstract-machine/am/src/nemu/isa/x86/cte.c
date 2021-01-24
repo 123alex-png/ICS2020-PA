@@ -39,14 +39,14 @@ Context* __am_irq_handle(Context *c) {
     // static int cnt = 0;
     // assert(++cnt=10);
     assert(c != NULL);
-    if(((c->cs) & 0x3) == 0x3){  
-      uint32_t *x = (uint32_t *)(c + 1);//ksp
-      uint32_t t;
-      asm volatile("mov %%esp, %0":"=r"(t));//c->sp = $sp;
-      *x = t;
-      // printf("t: %p, ksp: %p, &ksp: %p\n", t, tss.esp0, &(tss.esp0));
-      // while(1);
-    } 
+    // if(((c->cs) & 0x3) == 0x3){  
+    //   uint32_t *x = (uint32_t *)(c + 1);//ksp
+    //   uint32_t t;
+    //   asm volatile("mov %%esp, %0":"=r"(t));//c->sp = $sp;
+    //   *x = t;
+    //   // printf("t: %p, ksp: %p, &ksp: %p\n", t, tss.esp0, &(tss.esp0));
+    //   // while(1);
+    // } 
   }
   __am_switch(c);
   
