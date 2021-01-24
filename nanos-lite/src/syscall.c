@@ -10,7 +10,7 @@ size_t fs_read(int fd, void *buf, size_t len);
 size_t fs_write(int fd, const void *buf, size_t len);
 size_t fs_lseek(int fd, size_t offset, int whence);
 void naive_uload(PCB *pcb, const char *filename);
-void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[], int id);
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
 void switch_boot_pcb();
 int mm_brk(uintptr_t brk);
 
@@ -64,7 +64,7 @@ int sys_execve(const char *fname, char *argv[], char *envp[]){
   if(fs_open(fname,0,0)==-1){
     return -2;
   }
-  context_uload(current, fname, argv, envp, current_id);//while(1);
+  context_uload(current, fname, argv, envp);//while(1);
   
   switch_boot_pcb();
   yield();

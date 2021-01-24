@@ -27,7 +27,7 @@ Elf_Phdr phdr;
 #define min(x, y) (x < y ? x: y)
 
 
-void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz, int id/*id是进程块id*/){
+void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz){
   // printf("vaddr = %p, filesz = %p, end = %p, memsz = %p, real_end = %p\n", vaddr, filesz, vaddr + filesz, memsz, vaddr + memsz);
   uintptr_t align_vaddr = vaddr;
   if(vaddr%PGSIZE!=0){
@@ -96,7 +96,7 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
 //   return ehdr.e_entry;
 // }
 
-static uintptr_t loader(PCB *pcb, const char *filename, int id) {
+static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
   // memset(map_addr, 0, sizeof(map_addr));
   int fd=fs_open(filename,0,0);
@@ -110,7 +110,7 @@ static uintptr_t loader(PCB *pcb, const char *filename, int id) {
       // fs_read(fd,(void *)phdr.p_vaddr,phdr.p_filesz);
       // memset((void *)(phdr.p_vaddr+phdr.p_filesz),0,phdr.p_memsz-phdr.p_filesz);
       // printf("%p\n", phdr.p_vaddr);
-      page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz, id);//以页为单位加载
+      page_load(fd, pcb, phdr.p_vaddr, phdr.p_filesz, phdr.p_memsz);//以页为单位加载
     }
   }
   return ehdr.e_entry;
@@ -132,7 +132,7 @@ void context_kload(PCB *pcb, void *entry, void *arg){
   // pcb->cp->as = &(pcb->as);
 }
 int cnt = 0;
-void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[], int id){
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]){
   printf("filename:%s\n", filename);
   
   protect(&(pcb->as));
@@ -150,7 +150,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   }
   tmp[i] = (char *)NULL;
   
-  volatile uintptr_t entry = loader(pcb, filename, id);
+  volatile uintptr_t entry = loader(pcb, filename);
   printf("app/test entry: %p\n", entry);
   Area kstack;
   kstack.start = pcb->stack;
