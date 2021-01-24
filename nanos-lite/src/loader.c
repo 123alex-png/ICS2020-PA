@@ -21,7 +21,6 @@ int fs_open(const char *pathname, int flags, int mode);
 int fs_close(int fd);
 size_t fs_read(int fd, void *buf, size_t len);
 size_t fs_lseek(int fd, size_t offset, int whence);
-void switch_boot_pcb();
 Elf_Ehdr ehdr;
 Elf_Phdr phdr;
 #define stdprot (0XFFFFFFFF)
@@ -115,7 +114,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   kstack.end = kstack.start + sizeof(pcb->stack);
   
   pcb->cp = ucontext(&(pcb->as), kstack, (void *)entry);
-  switch_boot_pcb();
+  
   Area ustack;
   ustack.start = new_page(8);
   ustack.end = ustack.start + sizeof(pcb->stack);
