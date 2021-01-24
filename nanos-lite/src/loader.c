@@ -71,7 +71,17 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-  int fd=fs_open(filename,0,0);
+  char fname[80];
+  for(int j = 0; filename[j] != '\0'; j++){
+    if(filename[j] == 1){
+      fname[j] = '\0';
+      break;
+    }
+    else{
+      fname[j] = filename[j];
+    }
+  }
+  int fd=fs_open(fname,0,0);
   fs_read(fd,&ehdr,sizeof(ehdr));
   uint16_t phnum=ehdr.e_phnum;
   for(int i=0;i<phnum;i++){
