@@ -33,7 +33,7 @@ void init_proc() {
   // context_kload(&pcb[1], (void *)hello_fun, (void *)52314);
   
   char *arg[]={/*"/bin/exec-test", "12", "/bin/menu",*/NULL};
-  // context_uload(&pcb[1], "/bin/bird", arg, NULL, 1);
+  context_uload(&pcb[1], "/bin/bird", arg, NULL, 1);
   context_uload(&pcb[0], "/bin/pal", arg, NULL, 0);
   
   // context_uload(&pcb[2], "/bin/hello", arg, NULL);

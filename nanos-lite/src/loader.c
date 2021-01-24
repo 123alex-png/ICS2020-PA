@@ -25,7 +25,7 @@ Elf_Ehdr ehdr;
 Elf_Phdr phdr;
 #define stdprot (0XFFFFFFFF)
 #define min(x, y) (x < y ? x: y)
-void *map_addr[4][0x4ffff];//记录当前id的进程块的映射地址，防止重复映射
+// void *map_addr[4][0x4ffff];//记录当前id的进程块的映射地址，防止重复映射
 
 
 void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t memsz, int id/*id是进程块id*/){
@@ -34,12 +34,12 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   if(vaddr%PGSIZE!=0){
     align_vaddr = ROUNDDOWN(vaddr, PGSIZE);
   }
-    void *pa = map_addr[id][align_vaddr>>12];
+    void *pa = 0;//map_addr[id][align_vaddr>>12];
   printf("align_vaddr: %p\n", align_vaddr);
   if(!pa){
     pa = new_page(1);
     map(&(pcb->as), (void *)align_vaddr, pa, stdprot);    
-    map_addr[id][align_vaddr>>12] = pa; 
+    // map_addr[id][align_vaddr>>12] = pa; 
   }
   int left = min(filesz, PGSIZE - vaddr + align_vaddr);
   fs_read(fd, (void *)(pa + vaddr - align_vaddr), left);
@@ -55,13 +55,13 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
   // printf("filesz: %p\n", filesz);
   for(i = 0; i < (int)(filesz); i+=PGSIZE){//如果文件大小8K+1，则i最大遍历到1，读完后还有1字节未处理，这种情况几乎一定发生
     printf("%d\n", i);
-    void *paddr = map_addr[id][(vaddr+i)>>12];
+    void *paddr = 0;//map_addr[id][(vaddr+i)>>12];
     printf("vaddr + i: %p\n", vaddr+i);
     if(!paddr){
       paddr = new_page(1);
       map(&(pcb->as), (void *)(vaddr+i), paddr, stdprot);
       
-      map_addr[id][(vaddr+i)>>12] = paddr; 
+      // map_addr[id][(vaddr+i)>>12] = paddr; 
     }   
     fs_read(fd, (void *)paddr, min(PGSIZE, filesz - i));
     if(PGSIZE > filesz - i){
@@ -69,11 +69,11 @@ void page_load(int fd, PCB *pcb, uintptr_t vaddr, uint32_t filesz, uint32_t mems
     }
   }
   while(i < (int)memsz){
-    void *paddr = map_addr[id][(vaddr+i)>>12];
+    void *paddr = 0;//map_addr[id][(vaddr+i)>>12];
     if(!paddr){
       paddr = new_page(1);
       map(&(pcb->as), (void *)(vaddr+i), paddr, stdprot);
-      map_addr[id][(vaddr+i)>>12] = paddr; 
+      // map_addr[id][(vaddr+i)>>12] = paddr; 
     }   
     memset(paddr, 0, min(PGSIZE, memsz - i));
     i += PGSIZE;
