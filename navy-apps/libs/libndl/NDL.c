@@ -41,7 +41,7 @@ int NDL_PollEvent(char *buf, int len) {
     
     if(ret){
       return 1;
-    }while(1);
+    }
     return 0;
 }
 
