@@ -56,13 +56,13 @@ static inline def_EHelper(iret) {
   rtl_pop(s,&(cpu.eflag_val));
   // printf("cs: %x\n", cpu.cs);
   if((cpu.cs & 0x3) == 0x3){//用户态
-    printf("jump to %x\n", *s0);
+    // printf("jump to %x\n", *s0);
     rtl_pop(s,s1);
-    printf("s1: %x\n", *s1);
+    // printf("s1: %x\n", *s1);
     // vaddr_write(tss_addr+4, *s1, 4);
     rtl_pop(s,(rtlreg_t *)&cpu.ss);
     rtl_mv(s, &(cpu.esp), s1); 
-    printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
+    // printf("pop: esp = %x, ss = %x\n", cpu.esp, cpu.ss);
   }
   
   rtl_j(s,*s0);
