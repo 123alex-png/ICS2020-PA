@@ -70,7 +70,7 @@ int fs_open(const char *pathname, int flags, int mode){
     //if(file_table[i].name)
     {
       if(!strcmp(fname,file_table[i].name)){
-        file_table[i].open_offset = 0;
+        // file_table[i].open_offset = 0;
         return i;
       }
     }
