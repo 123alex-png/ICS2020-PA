@@ -17,3 +17,6 @@ The following subprojects/components are included. Some of them are not fully im
 * [Abstract-Machine](https://github.com/NJU-ProjectN/abstract-machine)
 * [Nanos-lite](https://github.com/NJU-ProjectN/nanos-lite)
 * [Navy-apps](https://github.com/NJU-ProjectN/navy-apps)
+
+Modified by Qu Li:
+	Finished by 2021.1.24, but there still exist bugs in this project: the nterm cannot work normally(execve may have some problems).
